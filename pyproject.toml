@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mapper-sieci"
-version = "0.3.0"
+version = "0.3.1"
 description = "Local read-only IPv4 discovery and evidence snapshots"
 authors = [{name = "Pawel Juroszek (FL Development)"}]
 license = {file = "LICENSE"}

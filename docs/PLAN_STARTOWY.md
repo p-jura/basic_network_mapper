@@ -133,6 +133,14 @@ Cel organizacyjny: tygodnie pracy, bez wielomiesięcznego budowania własnych pr
 
 Brak laboratorium SNMP/SSH nie blokuje podstawowego przekroju. Próby rozszerzone pozostają oznaczone jako niewykonane; nie deklarujemy pełnego MVP bez ich odbioru lub jawnej decyzji o ograniczeniu wydania. Na końcu każdego etapu przedstawiamy konkretny wynik do zatwierdzenia przed następnym.
 
+### 8.1. Uwagi po niezależnym review — wdrożenie 3.1
+
+24 października 2026 r. porównano niezależne review z kodem i planem. [Weryfikacja oraz rejestr R01–R09](reviews/REVIEW_2026-10-24.md) rozdziela potwierdzone problemy, zatwierdzone ograniczenia zakresu i niewykonane odbiory.
+
+Zatwierdzony poleceniem użytkownika krok przed integracją aktywnego odkrywania z panelem: ograniczenie odczytów tras per cel przy zachowaniu aktualności stanu, poprawne źródło IPv4 na Windows, oddzielenie globalnej blokady kolekcji od blokad projektów, doprecyzowanie ochrony ACL i małe sprawdzenia parserów. Jeden aktywny cykl pozostaje wymaganiem; nie włączamy równoległych skanów jako skutku zmiany locka.
+
+**Status: wdrożono 0.3.1 i wykonano odbiór offline (38 testów).** [Szczegółowy plan](poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md) i [raport](etap-3-1/RAPORT_ETAP_3_1.md) rozdzielają wykonany kod i niewykonane odbiory Windows/NTFS/switcha. Nie zmieniono zakresu MVP ani statusu odbioru Etapu 3. Linux pozostaje późniejszym rozszerzeniem, nowe SSH wymagają wyboru platform i próbek. Próby Windows/SNMP/SSH nadal wymagają środowiska i osobnego zakresu operatora; nie oznaczamy ich jako wykonanych. Kwestie redystrybucji są już prowadzone w [dokumencie licencji](licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md) i muszą zostać zamknięte dla konkretnego artefaktu w Etapie 5.
+
 ## 9. Minimalne sprawdzenia
 
 Automatycznie chronimy tylko krytyczne reguły: zakres/interfejs i limit celów, timeout/anulowanie, niepełny cykl i stary cache bez fałszywej obecności/zniknięcia, brak wymyślonego portu/VLAN i MAC za routerem, izolację projektów, bridgePort/ifIndex/VLAN, uplinki/konflikty i brak sekretów/operacji zapisu.

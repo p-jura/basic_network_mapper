@@ -19,6 +19,7 @@ class Limits:
     ping_timeout: float = 3
     basic_timeout: float = 240
     command_timeout: float = 5
+    route_refresh_seconds: float = 1.0
     parallel: int = 4
     ssh_parallel: int = 2
     snmp_timeout: float = 3
@@ -41,6 +42,8 @@ class Limits:
                     raise MapperError("INVALID_LIMIT")
             if isinstance(f.default, int) and type(v) is not int:
                 raise MapperError("INVALID_LIMIT")
+        if not 0.1 <= self.route_refresh_seconds <= 2:
+            raise MapperError("INVALID_ROUTE_REFRESH")
         if self.parallel > 64 or self.ping_parallel > 64 or self.ssh_parallel > self.parallel:
             raise MapperError("INVALID_CONCURRENCY")
 

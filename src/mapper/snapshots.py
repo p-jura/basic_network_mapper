@@ -5,7 +5,7 @@ from pathlib import Path
 from .errors import MapperError
 from .models import COVERAGES, EXECUTIONS, SOURCES, STATUSES, Observation, TableResult, new_id, safe_json, timestamp, uuid_text
 from .storage import Repository
-from .storage.repository import cycle_lock
+from .private_files import private_file
 
 MAX_BYTES = 100 * 1024**2
 MAX_RECORDS = 200000
@@ -14,7 +14,7 @@ MAX_RECORDS = 200000
 def export_snapshot(repo, output, cycle_id=None, *, csv_format=False):
     data = repo.snapshot_data(cycle_id)
     # Exclusive creation: do not overwrite a file or follow an existing symlink.
-    with Path(output).expanduser().open("x", encoding="utf-8", newline="") as f:
+    with private_file(output, newline="") as f:
         if csv_format:
             writer = csv.writer(f)
             writer.writerow(["observation_id", "collector_run_id", "kind", "source_key", "observed_at", "freshness", "evidence_at", "payload_json"])
@@ -25,7 +25,6 @@ def export_snapshot(repo, output, cycle_id=None, *, csv_format=False):
         else:
             f.write(safe_json(data, repo.forbidden))
         f.flush()
-    Path(output).expanduser().chmod(0o600)
 
 
 def read_snapshot(path, *, max_bytes=MAX_BYTES, max_records=MAX_RECORDS):
@@ -129,28 +128,27 @@ def import_snapshot(root, path, *, name="Imported snapshot", max_bytes=MAX_BYTES
     # No platform discovery or protocol imports are invoked in this function.
     data, observations = read_snapshot(path, max_bytes=max_bytes, max_records=max_records)
     pid = new_id()
-    with cycle_lock(root):
-        with Repository(root, pid, create_name=name) as repo:
-            plan = {"project_id": pid, "imported_from": data["project_id"], "sends_probes": False}
-            cycle_id = repo.begin_cycle(plan, origin="imported")
-            targets = {}
-            for t in data["targets"]:
-                ident = new_id(); targets[t["target_id"]] = ident
-                repo.register_target(ident, {"ip": t["ip"], "port": t["port"], "context": t["context_id"], "profile_id": "imported"}, "imported")
-            grouped = {r["collector_run_id"]: [] for r in data["runs"]}
-            for rid, obs in observations:
-                grouped[rid].append(obs)
-            for r in data["runs"]:
-                result = TableResult(r["source"], r["table_name"], grouped[r["collector_run_id"]], status=r["status"], exhausted=bool(r["exhausted"]), reason=r["reason"], started_at=r["started_at"], finished_at=r["finished_at"], target_id=targets.get(r["target_id"]), scope_id=r["scope_id"], context_id=r["context_id"], context_status=r["context_status"])
-                repo.write_result(cycle_id, result)
-            # Preserve historical cycle times. 'origin=imported' prevents it
-            # being mistaken for a newly executed successful discovery.
-            with repo.db:
-                repo.db.execute("UPDATE cycles SET started_at=? WHERE cycle_id=?", (data["cycle"]["started_at"], cycle_id))
-            repo.publish(cycle_id, execution=data["cycle"]["execution_status"], reason=data["cycle"]["reason"], force_partial=data["cycle"]["coverage_status"] != "complete")
-            with repo.db:
-                repo.db.execute("UPDATE cycles SET finished_at=? WHERE cycle_id=?", (data["cycle"]["finished_at"], cycle_id))
-            config = {"schema_version": 1, "project_id": pid, "name": name, "basic": None, "seeds": [], "profiles": {}, "allowed_ranges": [], "limits": {}}
-            (repo.directory / "project.json").write_text(safe_json(config), encoding="utf-8")
-            (repo.directory / "project.json").chmod(0o600)
+    with Repository(root, pid, create_name=name) as repo:
+        plan = {"project_id": pid, "imported_from": data["project_id"], "sends_probes": False}
+        cycle_id = repo.begin_cycle(plan, origin="imported")
+        targets = {}
+        for t in data["targets"]:
+            ident = new_id(); targets[t["target_id"]] = ident
+            repo.register_target(ident, {"ip": t["ip"], "port": t["port"], "context": t["context_id"], "profile_id": "imported"}, "imported")
+        grouped = {r["collector_run_id"]: [] for r in data["runs"]}
+        for rid, obs in observations:
+            grouped[rid].append(obs)
+        for r in data["runs"]:
+            result = TableResult(r["source"], r["table_name"], grouped[r["collector_run_id"]], status=r["status"], exhausted=bool(r["exhausted"]), reason=r["reason"], started_at=r["started_at"], finished_at=r["finished_at"], target_id=targets.get(r["target_id"]), scope_id=r["scope_id"], context_id=r["context_id"], context_status=r["context_status"])
+            repo.write_result(cycle_id, result)
+        # Preserve historical cycle times. 'origin=imported' prevents it
+        # being mistaken for a newly executed successful discovery.
+        with repo.db:
+            repo.db.execute("UPDATE cycles SET started_at=? WHERE cycle_id=?", (data["cycle"]["started_at"], cycle_id))
+        repo.publish(cycle_id, execution=data["cycle"]["execution_status"], reason=data["cycle"]["reason"], force_partial=data["cycle"]["coverage_status"] != "complete")
+        with repo.db:
+            repo.db.execute("UPDATE cycles SET finished_at=? WHERE cycle_id=?", (data["cycle"]["finished_at"], cycle_id))
+        config = {"schema_version": 1, "project_id": pid, "name": name, "basic": None, "seeds": [], "profiles": {}, "allowed_ranges": [], "limits": {}}
+        with private_file(repo.directory / "project.json") as output:
+            output.write(safe_json(config))
     return pid

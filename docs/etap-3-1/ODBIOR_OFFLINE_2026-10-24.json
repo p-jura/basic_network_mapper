@@ -1,0 +1,38 @@
+{
+  "version": "0.3.1",
+  "source_observations": 534,
+  "source_unchanged": true,
+  "replay_and_restart": true,
+  "integrity_check": "ok",
+  "foreign_key_check": [],
+  "commands_during_collection_lock": {
+    "topology_build": 0,
+    "history": 0,
+    "source_export": 0,
+    "topology_export": 0,
+    "new_project": 0,
+    "replay": 0
+  },
+  "synthetic_five_per_second": {
+    "routes": 51,
+    "pings": 253
+  },
+  "outgoing_network_attempts": [],
+  "live_scan": false,
+  "windows_runtime_test": false,
+  "ntfs_effective_permissions_test": false,
+  "logical_graph": {
+    "endpoints": 14,
+    "local_interfaces": 1,
+    "segments": 1,
+    "logical_edges": 15,
+    "physical_ports_invented": false
+  },
+  "critical_tests": {
+    "passed": 38,
+    "seconds": 1.072,
+    "new_regressions": 12,
+    "platform": "macOS ARM",
+    "windows_native_runtime": false
+  }
+}

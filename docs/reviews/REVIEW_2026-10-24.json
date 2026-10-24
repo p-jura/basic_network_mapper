@@ -1,0 +1,39 @@
+{
+  "probe_calls": {
+    "route_reads": 253,
+    "interface_reads": 253,
+    "pings": 253
+  },
+  "lock_reproduction": {
+    "snapshot_list_other_project": {
+      "exit_code": 0,
+      "error": null
+    },
+    "snapshot_export_other_project": {
+      "exit_code": 0,
+      "error": null
+    },
+    "topology_build_other_project": {
+      "exit_code": 2,
+      "error": "CYCLE_ALREADY_RUNNING"
+    },
+    "history_other_project": {
+      "exit_code": 2,
+      "error": "CYCLE_ALREADY_RUNNING"
+    },
+    "create_other_project": {
+      "exit_code": 2,
+      "error": "CYCLE_ALREADY_RUNNING"
+    }
+  },
+  "outgoing_network_attempts": [],
+  "kind": "offline mock reproduction, not an active scan",
+  "reviewed_commit": "1f6d9808a7ac2956f7072f93d9356c05bfd6bcf6",
+  "critical_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 ./.venv/bin/python -m unittest discover -s tests/critical -q",
+    "passed": 26,
+    "seconds": 0.953,
+    "platform": "macOS ARM",
+    "live_network_test": false
+  }
+}

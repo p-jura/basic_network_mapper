@@ -8,9 +8,15 @@ Mapa odróżnia przynależność logiczną od przypisania do portu. Brak dostęp
 
 ## Stan
 
-Wersja **0.3.0**. Etap 2 zatwierdzony; implementacja i odbiór techniczny Etapu 3 są gotowe i oczekują na zatwierdzenie wyniku. Działają kolektory, snapshoty, topologia offline, confidence, historia i prosty podgląd. Przeszło 26 testów krytycznych oraz odbiór zapisanych danych LAN na macOS ARM. Rzeczywiste SNMP/SSH, Windows i duża skala wymagają osobnych prób. Pełny panel pozostaje Etapem 4.
+Wersja **0.3.1**. Etap 2 zatwierdzony; implementacja i odbiór techniczny Etapu 3 są gotowe i oczekują na zatwierdzenie wyniku. Działają kolektory, snapshoty, topologia offline, confidence, historia i prosty podgląd. Przeszło 38 testów krytycznych oraz odbiór zapisanych danych LAN na macOS ARM. Rzeczywiste SNMP/SSH, Windows i duża skala wymagają osobnych prób. Pełny panel pozostaje Etapem 4.
 
 Jedna aplikacja: Python 3.13, SQLite, NetworkX, psutil, PySNMP, Netmiko/ntc-templates i Dash/dash-cytoscape. Darmowe komponenty open source, bez chmury, triali i licencyjnych limitów urządzeń. Odczyty urządzeń są wyłącznie do odczytu; projekty i poświadczenia pozostają odseparowane. Bez rozbudowanego CI/CD.
+
+## Poprawki po review — 3.1
+
+Wersja 0.3.1 współdzieli krótkotrwały stan tras, rozdziela blokady kolekcji i projektów oraz tworzy prywatne pliki od początku zapisu. Na macOS ping jest powiązany ze źródłem i interfejsem; dla Windows dodano systemowy adapter IPv4 i ochronę DACL. Kod Windows sprawdzono na atrapach — rzeczywiste sondy i efektywne uprawnienia NTFS nadal wymagają odbioru na Windows.
+
+[Szczegółowy plan i instrukcja](docs/poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md) · [raport 3.1](docs/etap-3-1/RAPORT_ETAP_3_1.md).
 
 ## Uruchomienie
 

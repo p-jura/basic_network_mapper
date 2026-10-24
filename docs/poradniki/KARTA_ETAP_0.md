@@ -265,3 +265,9 @@ Użytkownik zatwierdził plan słowami „zatwierdzam koduj”. Przyjęto zakres
 ## 14. Wynik techniczny Etapu 3 — 23 października 2026 r.
 
 Zaimplementowano 0.3.0: topologia offline, korelacja portów/VLAN/LLDP, jakościowe confidence, stabilne ID, historia, SQLite v2 z backupem oraz CLI/podgląd. 26 testów i odbiór na zapisanym LAN przeszły bez nowych sond. SNMP/SSH na rzeczywistym sprzęcie, Windows i pełny panel pozostają nieodebrane. Raport: `docs/etap-3/RAPORT_ETAP_3.md`. Wynik Etapu 3 czeka na zatwierdzenie użytkownika; nie rozpoczynamy Etapu 4.
+
+## 15. Autoryzacja poprawek 3.1 — 24 października 2026 r.
+
+Użytkownik polecił „przygotuj szczegolowy plan poprawek, i zacznij wdrazac”. Przyjęto do implementacji plan `docs/poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md` i ADR-005: krótkotrwały współdzielony stan tras, źródłowe sondy Windows, oddzielne blokady projektów i prywatne tworzenie plików. Zgoda obejmuje kodowanie i odbiór offline; nie stanowi zgody na nowe skany ani potwierdzenia Windows/sprzętu.
+
+Wynik techniczny 3.1: wersja 0.3.1 zainstalowana offline, 38 testów krytycznych OK. Odczyty tras współdzielone, jedna kolekcja nadal globalnie, operacje offline innych projektów niezależne; nowe pliki prywatne od utworzenia. Adaptery Windows IPv4/DACL zweryfikowane na atrapach, nie na Windows/NTFS. Szczegóły w `docs/etap-3-1/RAPORT_ETAP_3_1.md`. Nie zatwierdza to pełnego odbioru Windows ani Etapu 4.

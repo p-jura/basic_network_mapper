@@ -13,7 +13,7 @@ from .config import Limits, data_root, load_config, secret_values
 from .errors import MapperError
 from .models import Observation, TableResult, new_id, safe_json, uuid_text
 from .storage import Repository
-from .storage.repository import cycle_lock
+from .private_files import private_file
 from .snapshots import export_snapshot, import_snapshot
 
 
@@ -80,17 +80,16 @@ def project_create(root, name):
     if not isinstance(name, str) or not 1 <= len(name) <= 128 or "\x00" in name:
         raise MapperError("INVALID_PROJECT_NAME")
     pid = new_id()
-    with cycle_lock(root), Repository(root, pid, create_name=name) as repo:
+    with Repository(root, pid, create_name=name) as repo:
         config = {"schema_version": 1, "project_id": pid, "name": name, "basic": None, "seeds": [], "profiles": {}, "allowed_ranges": [], "limits": asdict(Limits()), "recursive": False}
-        with (repo.directory / "project.json").open("x", encoding="utf-8") as f:
+        with private_file(repo.directory / "project.json") as f:
             f.write(json.dumps(config, ensure_ascii=False, indent=2) + "\n")
-        (repo.directory / "project.json").chmod(0o600)
         return {"project_id": pid, "config": str(repo.directory / "project.json"), "database": str(repo.path)}
 
 
 def demo(root):
     project = project_create(root, "Demo offline — dane syntetyczne")
-    with cycle_lock(root), Repository(root, project["project_id"]) as repo:
+    with Repository(root, project["project_id"]) as repo:
         cycle_id = repo.begin_cycle({"project_id": project["project_id"], "sends_probes": False}, origin="synthetic")
         interface = {"interface": "demo0", "index": 1, "ip": "192.0.2.10", "netmask": "255.255.255.0", "is_up": True}
         repo.write_result(cycle_id, TableResult("os_interfaces", "interfaces", [Observation("local_interface", "demo0", interface, freshness="fresh")], scope_id="demo0:192.0.2.0/24"))
@@ -133,14 +132,13 @@ def execute(args):
             return asyncio.run(run_cycle(repo, config))
     if args.area in {"topology", "history"}:
         from .topology.service import build, history, summary
-        with cycle_lock(root), Repository(root, args.project) as repo:
+        with Repository(root, args.project) as repo:
             if args.area == "history":
                 return {"events": history(repo, limit=args.limit, rules_version=args.rules_version), "sends_probes": False}
             graph = build(repo, args.cycle, max_skew=args.max_skew)
             if args.action == "export":
-                with Path(args.output).open("x", encoding="utf-8") as output:
+                with private_file(args.output) as output:
                     output.write(repo._json(graph) + "\n")
-                Path(args.output).chmod(0o600)
             result = summary(graph)
         if args.action == "view":
             from .topology.preview import view

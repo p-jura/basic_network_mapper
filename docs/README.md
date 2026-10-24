@@ -2,6 +2,8 @@
 
 Aktualny produkt to lokalny mapper Python. Poniższe dokumenty prowadzą od wymagań do uruchomienia i potwierdzonych wyników. Etap 3 zaimplementowano w wersji 0.3.0; jego wynik oczekuje na zatwierdzenie przed Etapem 4.
 
+Wdrożono także poprawki 3.1 w wersji **0.3.1**: 38 testów i odbiór offline; odbiór Windows/switcha pozostaje niewykonany.
+
 ## Wymagania i decyzje
 
 - [Wymagania projektu](WYMAGANIA_PROJEKTU.md).
@@ -9,6 +11,7 @@ Aktualny produkt to lokalny mapper Python. Poniższe dokumenty prowadzą od wyma
 - [Karta ustaleń i historia zatwierdzeń](poradniki/KARTA_ETAP_0.md).
 - [ADR-002 — model danych i kolektory](decisions/ADR-002-model-i-kolektory.md).
 - [ADR-003 — topologia i historia](decisions/ADR-003-topologia-i-historia.md).
+- [ADR-005 — sondy źródłowe, stan sieci i blokady projektów](decisions/ADR-005-bezpieczne-sondy-i-blokady.md).
 - [ADR-004 — wybór MIT i warunki dystrybucji](decisions/ADR-004-licencja-i-dystrybucja.md).
 - [Komponenty, licencje i noty](THIRD_PARTY_NOTICES.md); oryginalne teksty pozostają w [third_party_licenses](../third_party_licenses/).
 - [MIT własnych elementów projektu — Pawel Juroszek (FL Development)](../LICENSE) i [stan prawny oraz warunki wydania](licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md). Licencje bibliotek i zasobów zewnętrznych obowiązują odrębnie.
@@ -21,6 +24,7 @@ Aktualny produkt to lokalny mapper Python. Poniższe dokumenty prowadzą od wyma
 | 1 | Próba komponentów i odkrywanie podstawowe | [Komponenty](poradniki/ETAP_1_PROBA_KOMPONENTOW.md), [odkrywanie bez SNMP/SSH](poradniki/ETAP_1_ODKRYWANIE_PODSTAWOWE.md) |
 | 2 | Model danych i kolektory | [Plan](poradniki/ETAP_2_MODEL_DANYCH_I_KOLEKTORY.md), [uruchomienie i odbiór](poradniki/ETAP_2_URUCHOMIENIE_I_ODBIOR.md) |
 | 3 | Topologia, confidence i historia | [Plan](poradniki/ETAP_3_TOPOLOGIA_I_HISTORIA.md), [uruchomienie i odbiór](poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) |
+| 3.1 | Poprawki po review | [Plan i uruchomienie](poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md), [raport](etap-3-1/RAPORT_ETAP_3_1.md) |
 
 ## Raporty i dowody odbioru
 
@@ -29,6 +33,10 @@ Aktualny produkt to lokalny mapper Python. Poniższe dokumenty prowadzą od wyma
 - [Etap 3 — raport](etap-3/RAPORT_ETAP_3.md) i [podgląd przykładu](etap-3/PODGLAD_ETAP_3.jpg).
 
 Raporty rozróżniają testy syntetyczne, odczyty rzeczywiste i obszary niezweryfikowane. W repozytorium są wyłącznie przykłady; prywatne adresacje, poświadczenia, bazy i eksporty odbioru pozostają poza nim. Nie dodawaj rzeczywistych danych sieci przy porządkowaniu dokumentów.
+
+## Niezależne review i działania naprawcze
+
+[Weryfikacja review z 24 października 2026 r.](reviews/REVIEW_2026-10-24.md) zawiera ocenę wszystkich uwag, dowody, pokrycie planem i propozycję krótkiego kroku 3.1 przed integracją aktywnej kolekcji z panelem. Analiza poprzedziła autoryzację i wdrożenie 3.1. Aktualny wynik opisuje [raport poprawek](etap-3-1/RAPORT_ETAP_3_1.md); analiza 0.3.0 pozostaje historycznym punktem odniesienia.
 
 ## Prototypy komponentów
 
@@ -63,6 +71,9 @@ docs/
   etap-1/
   etap-2/
   etap-3/
+  etap-3-1/
+  reviews/
+  licencje/
   archiwum/
     flutter-dart/
     laboratorium/

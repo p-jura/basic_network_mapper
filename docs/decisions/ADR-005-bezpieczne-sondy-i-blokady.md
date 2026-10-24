@@ -1,0 +1,10 @@
+# ADR-005 — krótkotrwały stan sieci, sondy źródłowe i blokady projektów
+
+Data: 2026-10-24. Status: przyjęte do implementacji w ramach polecenia użytkownika „przygotuj szczegolowy plan poprawek, i zacznij wdrazac”. Szczegóły: [plan 3.1](../poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md).
+
+1. Stan tras/interfejsów jest współdzielony per adapter przez maksymalnie 1 s domyślnie (konfiguracja 0,1–2 s); pojedyncze odświeżenie i cache błędu. Brak użycia starego sukcesu po błędzie. macOS wiąże ping do źródła i interfejsu przez -S/-b. Windows używa systemowego IPv4 API, źródła i bieżącej kontroli GetBestRoute2. Nie wprowadzamy nowych protokołów ani bibliotek.
+2. Zachowujemy jedną kolekcję globalnie. Repository posiada osobny nieblokujący project lock od konstrukcji do zamknięcia, również podczas migracji. run_cycle dopiero próbuje nieblokującego global cycle lock; nie ma oczekiwania z jednym lockiem na drugi. Praca offline innego projektu nie bierze cycle locka. Podgląd dostaje graf po zamknięciu Repository. To zastępuje nadmierną globalną serializację z v0.3.0 bez włączenia wielu skanów.
+3. Nowe dane są prywatne już przy tworzeniu: POSIX 0600/0700 lub Windows chroniona DACL użytkownik/SYSTEM/administratorzy. Eksport nie zmienia praw katalogu nadrzędnego. Stare własne pliki projektu zabezpieczamy przed otwarciem. Nie zapisujemy przy błędzie ochrony. SQLite/snapshot nie zmienia wersji.
+4. Native Windows adapter jest testowany na atrapach; dostępność i wynik na rzeczywistym Windows/NTFS wymagają osobnego odbioru. Nie przypisujemy takim testom mocy pomiaru fizycznego interfejsu, efektywnego dostępu drugiego konta ani zgodności DLL.
+
+Źródła: lokalny man 8 ping (-b boundif), [GetBestRoute2](https://learn.microsoft.com/en-us/windows/win32/api/netioapi/nf-netioapi-getbestroute2), [IcmpSendEcho2Ex](https://learn.microsoft.com/en-us/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho2ex), [CreateFileW](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew). Rzeczywiste odbiory pozostają poza tym poleceniem.

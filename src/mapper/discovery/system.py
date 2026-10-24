@@ -6,6 +6,7 @@ import os
 import re
 import socket
 import sys
+import time
 
 from ..errors import MapperError
 from ..models import mac_text
@@ -121,7 +122,7 @@ def parse_macos_neighbors(text, interface):
 
 def json_records(text):
     try:
-        data = json.loads(text.lstrip("\ufeff")) if text.strip() else None
+        data = json.loads(text.lstrip("\ufeff"))
     except ValueError:
         raise MapperError("SYSTEM_JSON_INVALID") from None
     if data is None:
@@ -137,6 +138,9 @@ def parse_windows_routes(text):
     result = []
     for row in json_records(text):
         try:
+            if (not isinstance(row.get('InterfaceAlias'), str) or not row['InterfaceAlias'] or
+                    any(type(row.get(k)) is not int or row[k] < 0 for k in ['RouteMetric', 'InterfaceMetric'])):
+                raise ValueError()
             hop = str(ipaddress.IPv4Address(row["NextHop"]))
             result.append({"prefix": str(ipaddress.IPv4Network(row["DestinationPrefix"])), "next_hop": None if hop == "0.0.0.0" else hop, "interface": str(row["InterfaceAlias"]), "metric": int(row["RouteMetric"]) + int(row["InterfaceMetric"])})
         except (ValueError, KeyError, TypeError):
@@ -150,6 +154,8 @@ def parse_windows_neighbors(text, interface):
         try:
             if row["InterfaceAlias"] != interface:
                 continue
+            if not isinstance(row.get('State'), (str, int)):
+                raise ValueError()
             raw = row.get("LinkLayerAddress")
             mac = None if not raw or raw.replace("-", "").replace(":", "") == "000000000000" else mac_text(raw)
             result.append({"ip": str(ipaddress.IPv4Address(row["IPAddress"])), "mac": mac, "interface": interface, "state": str(row["State"])})
@@ -171,11 +177,17 @@ def route_matches(ip, interface, routes):
 
 
 class SystemAdapter:
-    def __init__(self, limits, runner=run_command, interface_reader=interfaces, platform=None):
+    def __init__(self, limits, runner=run_command, interface_reader=interfaces, platform=None, *, clock=time.monotonic, windows_probe=None):
         self.limits = limits
         self.runner = runner
         self.interface_reader = interface_reader
         self.platform = platform or sys.platform
+        self.clock = clock
+        self.windows_probe = windows_probe
+        self._state_lock = asyncio.Lock()
+        self._state = None
+        self._state_error = None
+        self._state_at = float('-inf')
         if self.platform not in {"darwin", "win32"}:
             raise MapperError("UNSUPPORTED_PLATFORM")
 
@@ -195,7 +207,7 @@ class SystemAdapter:
     async def routes(self):
         if self.platform == "darwin":
             return parse_macos_routes(await self._read(["/usr/sbin/netstat", "-rn", "-f", "inet"]))
-        script = "Get-NetRoute -AddressFamily IPv4 | Select-Object DestinationPrefix,NextHop,InterfaceAlias,RouteMetric,@{n='InterfaceMetric';e={(Get-NetIPInterface -AddressFamily IPv4 -InterfaceIndex $_.InterfaceIndex).InterfaceMetric}} | ConvertTo-Json -Depth 3 -Compress"
+        script = "$metrics=@{}; Get-NetIPInterface -AddressFamily IPv4 | ForEach-Object {$metrics[$_.InterfaceIndex]=$_.InterfaceMetric}; Get-NetRoute -AddressFamily IPv4 | Select-Object DestinationPrefix,NextHop,InterfaceAlias,RouteMetric,@{n='InterfaceMetric';e={$metrics[$_.InterfaceIndex]}} | ConvertTo-Json -Depth 3 -Compress"
         return parse_windows_routes(await self.powershell(script))
 
     async def neighbors(self, interface):
@@ -203,26 +215,53 @@ class SystemAdapter:
             return parse_macos_neighbors(await self._read(["/usr/sbin/arp", "-an"]), interface)
         return parse_windows_neighbors(await self.powershell("Get-NetNeighbor -AddressFamily IPv4 | Select-Object InterfaceAlias,IPAddress,LinkLayerAddress,State | ConvertTo-Json -Depth 3 -Compress"), interface)
 
+    async def network_state(self):
+        """One short-lived state shared by all workers; failures invalidate it."""
+        async with self._state_lock:
+            if self.clock() - self._state_at >= self.limits.route_refresh_seconds:
+                self._state = None
+                self._state_error = None
+                try:
+                    before = self.interfaces()
+                    routes = await self.routes()
+                    after = self.interfaces()
+                    key = lambda rows: sorted(((i['interface'], i['ip'], i['netmask'], i['is_up'], i.get('index')) for i in rows), key=str)
+                    if key(before) != key(after):
+                        raise MapperError('NETWORK_STATE_CHANGED')
+                    self._state = (after, routes)
+                except MapperError as exc:
+                    self._state_error = exc.code
+                self._state_at = self.clock()
+            if self._state_error:
+                raise MapperError(self._state_error)
+            return self._state
+
     async def probe(self, ip, interface, source_ip):
         ip = str(ipaddress.IPv4Address(ip))
         source_ip = str(ipaddress.IPv4Address(source_ip))
-        selected = [i for i in self.interfaces() if i["interface"] == interface and i["ip"] == source_ip and i["is_up"]]
-        if not selected or not route_matches(ip, interface, await self.routes()):
-            return "skipped", "ROUTE_OR_INTERFACE_CHANGED"
-        if self.platform == "darwin":
-            args = ["/sbin/ping", "-n", "-c", "1", "-W", "1000", "-S", source_ip, ip]
-        else:
-            args = [os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32", "PING.EXE"), "-n", "1", "-w", "1000", "-4", ip]
+        try:
+            current, routes = await self.network_state()
+        except MapperError as exc:
+            return 'skipped', exc.code
+        selected = [i for i in current if i['interface'] == interface and i['ip'] == source_ip and i['is_up']]
+        if len(selected) != 1 or not route_matches(ip, interface, routes):
+            return 'skipped', 'ROUTE_OR_INTERFACE_CHANGED'
+        if self.platform == 'win32':
+            sender = self.windows_probe
+            if sender is None:
+                from .windows_ipv4 import probe as sender
+            try:
+                return await sender(ip, interface, source_ip, selected[0].get('index'), self.limits.ping_timeout)
+            except MapperError as exc:
+                return 'error', exc.code
+        args = ['/sbin/ping', '-n', '-c', '1', '-W', '1000', '-S', source_ip, '-b', interface, ip]
         output = await self.runner(args, self.limits.ping_timeout)
         escaped = re.escape(ip)
         replied = any(re.search(r"\b" + escaped + r"(?:\s|:)", line) and re.search(r"\bttl[= :]\s*\d+", line, re.I) for line in output.text.splitlines())
         if replied:
-            return "reply", None
+            return 'reply', None
         if output.code == 0:
-            return "error", "PING_REPLY_NOT_CONFIRMED"
-        # macOS ping(8): only exit 2 means sent but no reply; sysexits
-        # errors (e.g. permissions, invalid invocation) are transport errors.
-        no_reply_code = 2 if self.platform == "darwin" else 1
-        if output.code != no_reply_code:
-            return "error", "PING_PROCESS_FAILED"
-        return "no_reply", None
+            return 'error', 'PING_REPLY_NOT_CONFIRMED'
+        if output.code != 2:
+            return 'error', 'PING_PROCESS_FAILED'
+        return 'no_reply', None

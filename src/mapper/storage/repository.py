@@ -8,6 +8,7 @@ import sqlite3
 
 from ..config import project_dir
 from ..errors import MapperError
+from ..private_files import private_directory, prepare_file, protect, reject_link
 from ..models import EXECUTIONS, Observation, now, new_id, payload_for, safe_json, uuid_text
 
 
@@ -25,10 +26,21 @@ class Repository:
         if create_name is not None:
             if self.directory.exists():
                 raise MapperError("PROJECT_EXISTS")
-            self.directory.mkdir(parents=True, mode=0o700)
+            private_directory(self.directory)
         elif not self.path.is_file():
             raise MapperError("PROJECT_NOT_FOUND")
+        self._project_lock = None
         try:
+            protect(self.directory, directory=True)
+            manager = project_lock(self.directory)
+            manager.__enter__()
+            self._project_lock = manager
+            if create_name is not None:
+                prepare_file(self.path)
+            else:
+                for item in self.directory.iterdir():
+                    if item.name in {'project.json', 'mapper.sqlite3', 'mapper.sqlite3-journal', 'mapper.sqlite3-wal', 'mapper.sqlite3-shm'} or (item.name.startswith('mapper-v1-') and item.name.endswith('.sqlite3.bak')):
+                        protect(item)
             self.db = sqlite3.connect(self.path, timeout=5)
             self.db.row_factory = sqlite3.Row
             self.db.execute("PRAGMA foreign_keys=ON")
@@ -38,7 +50,7 @@ class Repository:
                 self.db.executescript(sql)
                 with self.db:
                     self.db.execute("INSERT INTO project_meta VALUES (?,?,?)", (project_id, create_name, now()))
-                self.path.chmod(0o600)
+                protect(self.path)
             elif version not in {1, 2}:
                 raise MapperError("UNSUPPORTED_DB_VERSION")
             row = self.db.execute("SELECT project_id FROM project_meta").fetchall()
@@ -50,27 +62,32 @@ class Repository:
                 # SQLite backup is consistent even if journal/WAL exists.
                 self._budget(extra_bytes=self.path.stat().st_size)
                 backup_path = self.directory / ("mapper-v1-" + new_id() + ".sqlite3.bak")
+                prepare_file(backup_path)
                 with closing(sqlite3.connect(backup_path)) as backup:
                     self.db.backup(backup)
-                backup_path.chmod(0o600)
+                protect(backup_path)
                 self.migration_backup = str(backup_path)
                 try:
                     self.db.executescript((Path(__file__).parent / "migrations/002_topology.sql").read_text())
                 except (sqlite3.Error, OSError):
                     self.db.rollback()
-                    self.db.close()
                     raise MapperError("DATABASE_MIGRATION_FAILED_BACKUP_PRESERVED") from None
         except sqlite3.Error:
-            if hasattr(self, 'db'):
-                self.db.close()
+            self.close()
             raise MapperError("DATABASE_ERROR") from None
-        except (MapperError, OSError):
-            if hasattr(self, 'db'):
-                self.db.close()
+        except BaseException:
+            self.close()
             raise
 
     def close(self):
-        self.db.close()
+        try:
+            if hasattr(self, 'db'):
+                self.db.close()
+        finally:
+            manager = self._project_lock
+            self._project_lock = None
+            if manager is not None:
+                manager.__exit__(None, None, None)
 
     def __enter__(self):
         return self
@@ -205,28 +222,45 @@ class Repository:
 
 
 @contextmanager
-def cycle_lock(root):
-    """OS releases advisory lock on process death; no stale PID guessing."""
-    root = Path(root)
-    root.mkdir(parents=True, exist_ok=True)
-    with (root / ".cycle.lock").open("a+b") as f:
+def _file_lock(directory, filename, error):
+    """Nonblocking OS advisory lock. Never wait while holding another lock."""
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / filename
+    reject_link(path)
+    if not path.exists():
         try:
-            if os.name == "nt":
+            prepare_file(path)
+        except FileExistsError:
+            pass
+    reject_link(path)
+    flags = os.O_RDWR | getattr(os, 'O_NOFOLLOW', 0)
+    with os.fdopen(os.open(path, flags), 'r+b') as f:
+        try:
+            if os.name == 'nt':
                 import msvcrt
                 f.seek(0)
                 if not f.read(1):
-                    f.write(b"0"); f.flush()
+                    f.write(b'0'); f.flush()
                 f.seek(0)
                 msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
             else:
                 import fcntl
                 fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
         except OSError:
-            raise MapperError("CYCLE_ALREADY_RUNNING") from None
+            raise MapperError(error) from None
         try:
             yield
         finally:
-            if os.name == "nt":
+            if os.name == 'nt':
                 f.seek(0); msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
             else:
                 fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+
+
+def cycle_lock(root):
+    return _file_lock(root, '.cycle.lock', 'CYCLE_ALREADY_RUNNING')
+
+
+def project_lock(directory):
+    return _file_lock(directory, '.project.lock', 'PROJECT_BUSY')
