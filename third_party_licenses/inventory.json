@@ -1,0 +1,729 @@
+[
+  {
+    "name": "annotated-types",
+    "version": "0.8.0",
+    "license": "MIT",
+    "urls": [
+      "Homepage, https://github.com/annotated-types/annotated-types",
+      "Source, https://github.com/annotated-types/annotated-types",
+      "Changelog, https://github.com/annotated-types/annotated-types/releases"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/annotated-types/1-LICENSE"
+    ]
+  },
+  {
+    "name": "bcrypt",
+    "version": "5.0.0",
+    "license": "Apache-2.0",
+    "urls": [
+      "homepage, https://github.com/pyca/bcrypt/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/bcrypt/1-LICENSE"
+    ]
+  },
+  {
+    "name": "blinker",
+    "version": "1.9.0",
+    "license": "SEE LICENSE FILES",
+    "urls": [
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://blinker.readthedocs.io",
+      "Source, https://github.com/pallets-eco/blinker/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/blinker/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "certifi",
+    "version": "2026.7.22",
+    "license": "MPL-2.0",
+    "urls": [
+      "Source, https://github.com/certifi/python-certifi"
+    ],
+    "home": "https://github.com/certifi/python-certifi",
+    "files": [
+      "third_party_licenses/certifi/1-LICENSE"
+    ]
+  },
+  {
+    "name": "cffi",
+    "version": "2.1.1",
+    "license": "MIT-0",
+    "urls": [
+      "Documentation, https://cffi.readthedocs.io/",
+      "Changelog, https://cffi.readthedocs.io/en/latest/whatsnew.html",
+      "Download, https://github.com/python-cffi/cffi/releases",
+      "Contact, https://groups.google.com/forum/#!forum/python-cffi",
+      "Source Code, https://github.com/python-cffi/cffi",
+      "Issue Tracker, https://github.com/python-cffi/cffi/issues"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/cffi/1-LICENSE"
+    ]
+  },
+  {
+    "name": "charset-normalizer",
+    "version": "3.5.2",
+    "license": "MIT",
+    "urls": [
+      "Changelog, https://github.com/jawah/charset_normalizer/blob/master/CHANGELOG.md",
+      "Documentation, https://charset-normalizer.readthedocs.io/",
+      "Code, https://github.com/jawah/charset_normalizer",
+      "Issue tracker, https://github.com/jawah/charset_normalizer/issues"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/charset-normalizer/1-LICENSE"
+    ]
+  },
+  {
+    "name": "click",
+    "version": "8.5.0",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Changes, https://click.palletsprojects.com/page/changes/",
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://click.palletsprojects.com/",
+      "Donate, https://palletsprojects.com/donate",
+      "Source, https://github.com/pallets/click/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/click/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "comm",
+    "version": "0.2.3",
+    "license": "BSD 3-Clause License\n\nCopyright (c) 2022, Jupyter\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its\n   contributors may be used to endorse or promote products derived from\n   this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+    "urls": [
+      "Homepage, https://github.com/ipython/comm"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/comm/1-LICENSE"
+    ]
+  },
+  {
+    "name": "cryptography",
+    "version": "50.0.2",
+    "license": "Apache-2.0 OR BSD-3-Clause",
+    "urls": [
+      "changelog, https://cryptography.io/en/latest/changelog/",
+      "documentation, https://cryptography.io/",
+      "homepage, https://github.com/pyca/cryptography",
+      "issues, https://github.com/pyca/cryptography/issues",
+      "source, https://github.com/pyca/cryptography/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/cryptography/1-LICENSE",
+      "third_party_licenses/cryptography/2-LICENSE.APACHE",
+      "third_party_licenses/cryptography/3-LICENSE.BSD"
+    ]
+  },
+  {
+    "name": "dash",
+    "version": "4.4.1",
+    "license": "MIT",
+    "urls": [
+      "Documentation, https://dash.plotly.com",
+      "Source, https://github.com/plotly/dash",
+      "Issue Tracker, https://github.com/plotly/dash/issues"
+    ],
+    "home": "https://plotly.com/dash",
+    "files": [
+      "third_party_licenses/dash/1-LICENSE",
+      "third_party_licenses/dash/2-async-export.js.LICENSE.txt",
+      "third_party_licenses/dash/3-async-table.js.LICENSE.txt",
+      "third_party_licenses/dash/4-async-datepicker.js.LICENSE.txt",
+      "third_party_licenses/dash/5-async-dropdown.js.LICENSE.txt",
+      "third_party_licenses/dash/6-async-markdown.js.LICENSE.txt",
+      "third_party_licenses/dash/7-async-slider.js.LICENSE.txt",
+      "third_party_licenses/dash/8-async-upload.js.LICENSE.txt",
+      "third_party_licenses/dash/9-dash_core_components-shared.js.LICENSE.txt",
+      "third_party_licenses/dash/10-dash_core_components.js.LICENSE.txt"
+    ]
+  },
+  {
+    "name": "dash-cytoscape",
+    "version": "1.0.2",
+    "license": "MIT",
+    "urls": [],
+    "home": "https://dash.plotly.com/cytoscape",
+    "files": [
+      "third_party_licenses/dash-cytoscape/1-LICENSE"
+    ]
+  },
+  {
+    "name": "flask",
+    "version": "3.1.3",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Changes, https://flask.palletsprojects.com/page/changes/",
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://flask.palletsprojects.com/",
+      "Donate, https://palletsprojects.com/donate",
+      "Source, https://github.com/pallets/flask/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/flask/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Changelog, https://github.com/kjd/idna/blob/master/HISTORY.md",
+      "Issue tracker, https://github.com/kjd/idna/issues",
+      "Source, https://github.com/kjd/idna"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/idna/1-LICENSE.md"
+    ]
+  },
+  {
+    "name": "importlib-metadata",
+    "version": "9.0.1",
+    "license": "Apache-2.0",
+    "urls": [
+      "Source, https://github.com/python/importlib_metadata"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/importlib-metadata/1-LICENSE"
+    ]
+  },
+  {
+    "name": "invoke",
+    "version": "3.0.3",
+    "license": "BSD-2-Clause",
+    "urls": [
+      "Docs, https://docs.pyinvoke.org",
+      "Source, https://github.com/pyinvoke/invoke",
+      "Changelog, https://www.pyinvoke.org/changelog.html",
+      "CI, https://app.circleci.com/pipelines/github/pyinvoke/invoke",
+      "Issues, https://github.com/pyinvoke/invoke/issues"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/invoke/1-LICENSE"
+    ]
+  },
+  {
+    "name": "itsdangerous",
+    "version": "2.2.0",
+    "license": "SEE LICENSE FILES",
+    "urls": [
+      "Changes, https://itsdangerous.palletsprojects.com/changes/",
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://itsdangerous.palletsprojects.com/",
+      "Donate, https://palletsprojects.com/donate",
+      "Source, https://github.com/pallets/itsdangerous/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/itsdangerous/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "janus",
+    "version": "2.0.0",
+    "license": "Apache 2",
+    "urls": [
+      "Chat: Gitter, https://gitter.im/aio-libs/Lobby",
+      "CI: GitHub Actions, https://github.com/aio-libs/janus/actions/workflows/ci.yml",
+      "Coverage: codecov, https://codecov.io/github/aio-libs/janus",
+      "GitHub: issues, https://github.com/aio-libs/janus/issues",
+      "GitHub: repo, https://github.com/aio-libs/janus"
+    ],
+    "home": "https://github.com/aio-libs/janus",
+    "files": [
+      "third_party_licenses/janus/1-LICENSE"
+    ]
+  },
+  {
+    "name": "jinja2",
+    "version": "3.1.6",
+    "license": "SEE LICENSE FILES",
+    "urls": [
+      "Changes, https://jinja.palletsprojects.com/changes/",
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://jinja.palletsprojects.com/",
+      "Donate, https://palletsprojects.com/donate",
+      "Source, https://github.com/pallets/jinja/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/jinja2/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "markdown-it-py",
+    "version": "4.2.0",
+    "license": "MIT (tekst w paczce)",
+    "urls": [
+      "Documentation, https://markdown-it-py.readthedocs.io",
+      "Homepage, https://github.com/executablebooks/markdown-it-py"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/markdown-it-py/1-LICENSE",
+      "third_party_licenses/markdown-it-py/2-LICENSE.markdown-it"
+    ]
+  },
+  {
+    "name": "markupsafe",
+    "version": "3.0.4",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Donate, https://palletsprojects.com/donate",
+      "Documentation, https://markupsafe.palletsprojects.com/",
+      "Changes, https://markupsafe.palletsprojects.com/page/changes/",
+      "Source, https://github.com/pallets/markupsafe/",
+      "Chat, https://discord.gg/pallets"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/markupsafe/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "mdurl",
+    "version": "0.1.2",
+    "license": "MIT (tekst w paczce)",
+    "urls": [
+      "Homepage, https://github.com/executablebooks/mdurl"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/mdurl/1-LICENSE"
+    ]
+  },
+  {
+    "name": "narwhals",
+    "version": "2.27.1",
+    "license": "MIT",
+    "urls": [
+      "Homepage, https://github.com/narwhals-dev/narwhals",
+      "Documentation, https://narwhals-dev.github.io/narwhals/",
+      "Repository, https://github.com/narwhals-dev/narwhals",
+      "Bug Tracker, https://github.com/narwhals-dev/narwhals/issues"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/narwhals/1-LICENSE.md"
+    ]
+  },
+  {
+    "name": "nest-asyncio",
+    "version": "1.6.0",
+    "license": "BSD",
+    "urls": [],
+    "home": "https://github.com/erdewit/nest_asyncio",
+    "files": [
+      "third_party_licenses/nest-asyncio/1-LICENSE"
+    ]
+  },
+  {
+    "name": "netmiko",
+    "version": "4.8.0",
+    "license": "MIT",
+    "urls": [
+      "repository, https://github.com/ktbyers/netmiko"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/netmiko/1-LICENSE",
+      "third_party_licenses/netmiko/2-LICENSE"
+    ]
+  },
+  {
+    "name": "networkx",
+    "version": "3.7",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Homepage, https://networkx.org/",
+      "Bug Tracker, https://github.com/networkx/networkx/issues",
+      "Documentation, https://networkx.org/documentation/stable/",
+      "Source Code, https://github.com/networkx/networkx"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/networkx/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "ntc-templates",
+    "version": "9.3.0",
+    "license": "Apache-2.0",
+    "urls": [
+      "Documentation, https://ntc-templates.readthedocs.io",
+      "Repository, https://github.com/networktocode/ntc-templates"
+    ],
+    "home": "https://ntc-templates.readthedocs.io",
+    "files": [
+      "third_party_licenses/ntc-templates/1-LICENSE",
+      "third_party_licenses/ntc-templates/2-LICENSE"
+    ]
+  },
+  {
+    "name": "packaging",
+    "version": "26.3",
+    "license": "Apache-2.0 OR BSD-2-Clause",
+    "urls": [
+      "Documentation, https://packaging.pypa.io/",
+      "Source, https://github.com/pypa/packaging"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/packaging/1-LICENSE",
+      "third_party_licenses/packaging/2-LICENSE.APACHE",
+      "third_party_licenses/packaging/3-LICENSE.BSD"
+    ]
+  },
+  {
+    "name": "paramiko",
+    "version": "5.0.0",
+    "license": "LGPL-2.1",
+    "urls": [
+      "Docs, https://docs.paramiko.org",
+      "Source, https://github.com/paramiko/paramiko",
+      "Changelog, https://www.paramiko.org/changelog.html",
+      "CI, https://app.circleci.com/pipelines/github/paramiko/paramiko",
+      "Issues, https://github.com/paramiko/paramiko/issues"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/paramiko/1-LICENSE"
+    ]
+  },
+  {
+    "name": "plotly",
+    "version": "7.1.0",
+    "license": "MIT",
+    "urls": [
+      "Homepage, https://plotly.com/python/",
+      "Documentation, https://plotly.com/python/",
+      "GitHub, https://github.com/plotly/plotly.py",
+      "Changelog, https://github.com/plotly/plotly.py/blob/main/CHANGELOG.md"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/plotly/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "psutil",
+    "version": "7.2.2",
+    "license": "BSD-3-Clause",
+    "urls": [],
+    "home": "https://github.com/giampaolo/psutil",
+    "files": [
+      "third_party_licenses/psutil/1-LICENSE"
+    ]
+  },
+  {
+    "name": "pyasn1",
+    "version": "0.6.4",
+    "license": "BSD-2-Clause",
+    "urls": [
+      "Homepage, https://github.com/pyasn1/pyasn1",
+      "Documentation, https://pyasn1.readthedocs.io",
+      "Source, https://github.com/pyasn1/pyasn1",
+      "Issues, https://github.com/pyasn1/pyasn1/issues",
+      "Changelog, https://pyasn1.readthedocs.io/en/latest/changelog.html"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/pyasn1/1-LICENSE.rst"
+    ]
+  },
+  {
+    "name": "pycparser",
+    "version": "3.11",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Homepage, https://github.com/eliben/pycparser"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/pycparser/1-LICENSE"
+    ]
+  },
+  {
+    "name": "pydantic",
+    "version": "2.14.0",
+    "license": "MIT",
+    "urls": [
+      "Homepage, https://github.com/pydantic/pydantic",
+      "Documentation, https://pydantic.dev/docs/validation/latest/get-started/",
+      "Funding, https://github.com/sponsors/samuelcolvin",
+      "Source, https://github.com/pydantic/pydantic",
+      "Changelog, https://pydantic.dev/docs/validation/latest/get-started/changelog/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/pydantic/1-LICENSE"
+    ]
+  },
+  {
+    "name": "pydantic-core",
+    "version": "2.50.0",
+    "license": "MIT",
+    "urls": [
+      "Funding, https://github.com/sponsors/samuelcolvin",
+      "Homepage, https://github.com/pydantic",
+      "Source, https://github.com/pydantic/pydantic/tree/main/pydantic-core"
+    ],
+    "home": "https://github.com/pydantic/pydantic",
+    "files": [
+      "third_party_licenses/pydantic-core/1-LICENSE"
+    ]
+  },
+  {
+    "name": "pygments",
+    "version": "2.21.0",
+    "license": "BSD-2-Clause",
+    "urls": [
+      "Homepage, https://pygments.org",
+      "Documentation, https://pygments.org/docs",
+      "Source, https://github.com/pygments/pygments",
+      "Bug Tracker, https://github.com/pygments/pygments/issues",
+      "Changelog, https://github.com/pygments/pygments/blob/master/CHANGES"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/pygments/1-LICENSE"
+    ]
+  },
+  {
+    "name": "pynacl",
+    "version": "1.6.2",
+    "license": "Apache-2.0",
+    "urls": [
+      "Homepage, https://github.com/pyca/pynacl",
+      "Bug Tracker, https://github.com/pyca/pynacl/issues",
+      "Documentation, https://pynacl.readthedocs.io"
+    ],
+    "home": "https://github.com/pyca/pynacl/",
+    "files": [
+      "third_party_licenses/pynacl/1-LICENSE",
+      "third_party_licenses/pynacl/2-LICENSE.libsodium.txt"
+    ]
+  },
+  {
+    "name": "pyserial",
+    "version": "3.5",
+    "license": "BSD-3-Clause (SPDX w serial/__init__.py)",
+    "urls": [],
+    "home": "https://github.com/pyserial/pyserial",
+    "files": [
+      "third_party_licenses/pyserial/LICENSE_REFERENCE.txt"
+    ]
+  },
+  {
+    "name": "pysnmp",
+    "version": "7.1.30",
+    "license": "BSD-2-Clause (tekst w paczce)",
+    "urls": [
+      "Homepage, https://pysnmp.com",
+      "Repository, https://github.com/lextudio/pysnmp"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/pysnmp/1-LICENSE.rst"
+    ]
+  },
+  {
+    "name": "pyyaml",
+    "version": "6.0.3",
+    "license": "MIT",
+    "urls": [
+      "Bug Tracker, https://github.com/yaml/pyyaml/issues",
+      "CI, https://github.com/yaml/pyyaml/actions",
+      "Documentation, https://pyyaml.org/wiki/PyYAMLDocumentation",
+      "Mailing lists, http://lists.sourceforge.net/lists/listinfo/yaml-core",
+      "Source Code, https://github.com/yaml/pyyaml"
+    ],
+    "home": "https://pyyaml.org/",
+    "files": [
+      "third_party_licenses/pyyaml/1-LICENSE"
+    ]
+  },
+  {
+    "name": "requests",
+    "version": "2.34.2",
+    "license": "Apache-2.0",
+    "urls": [
+      "Documentation, https://requests.readthedocs.io",
+      "Source, https://github.com/psf/requests"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/requests/1-LICENSE",
+      "third_party_licenses/requests/2-NOTICE"
+    ]
+  },
+  {
+    "name": "retrying",
+    "version": "1.4.2",
+    "license": "Apache-2.0",
+    "urls": [
+      "Homepage, https://github.com/groodt/retrying",
+      "Repository, https://github.com/groodt/retrying"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/retrying/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "rich",
+    "version": "15.0.0",
+    "license": "MIT",
+    "urls": [
+      "Documentation, https://rich.readthedocs.io/en/latest/",
+      "Homepage, https://github.com/Textualize/rich"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/rich/1-LICENSE"
+    ]
+  },
+  {
+    "name": "scp",
+    "version": "0.16.2",
+    "license": "LGPL-2.1-or-later",
+    "urls": [],
+    "home": "https://github.com/jbardin/scp.py",
+    "files": [
+      "third_party_licenses/scp/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "setuptools",
+    "version": "84.0.0",
+    "license": "MIT",
+    "urls": [
+      "Source, https://github.com/pypa/setuptools",
+      "Documentation, https://setuptools.pypa.io/",
+      "Changelog, https://setuptools.pypa.io/en/stable/history.html"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/setuptools/1-LICENSE",
+      "third_party_licenses/setuptools/2-LICENSE",
+      "third_party_licenses/setuptools/3-LICENSE",
+      "third_party_licenses/setuptools/4-LICENSE",
+      "third_party_licenses/setuptools/5-LICENSE",
+      "third_party_licenses/setuptools/6-LICENSE",
+      "third_party_licenses/setuptools/7-LICENSE",
+      "third_party_licenses/setuptools/8-LICENSE",
+      "third_party_licenses/setuptools/9-LICENSE",
+      "third_party_licenses/setuptools/10-LICENSE.APACHE",
+      "third_party_licenses/setuptools/11-LICENSE.BSD",
+      "third_party_licenses/setuptools/12-LICENSE",
+      "third_party_licenses/setuptools/13-LICENSE",
+      "third_party_licenses/setuptools/14-LICENSE.txt",
+      "third_party_licenses/setuptools/15-LICENSE"
+    ]
+  },
+  {
+    "name": "textfsm",
+    "version": "2.1.0",
+    "license": "Apache License, Version 2.0",
+    "urls": [],
+    "home": "https://github.com/google/textfsm",
+    "files": [
+      "third_party_licenses/textfsm/1-COPYING",
+      "third_party_licenses/textfsm/2-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "typing-extensions",
+    "version": "4.16.0",
+    "license": "PSF-2.0",
+    "urls": [
+      "Bug Tracker, https://github.com/python/typing_extensions/issues",
+      "Changes, https://github.com/python/typing_extensions/blob/main/CHANGELOG.md",
+      "Documentation, https://typing-extensions.readthedocs.io/",
+      "Home, https://github.com/python/typing_extensions",
+      "Q & A, https://github.com/python/typing/discussions",
+      "Repository, https://github.com/python/typing_extensions"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/typing-extensions/1-LICENSE"
+    ]
+  },
+  {
+    "name": "typing-inspection",
+    "version": "0.4.4",
+    "license": "MIT",
+    "urls": [
+      "Homepage, https://github.com/pydantic/typing-inspection",
+      "Documentation, https://pydantic.github.io/typing-inspection/dev/",
+      "Source, https://github.com/pydantic/typing-inspection",
+      "Changelog, https://github.com/pydantic/typing-inspection/blob/main/HISTORY.md"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/typing-inspection/1-LICENSE"
+    ]
+  },
+  {
+    "name": "urllib3",
+    "version": "2.8.0",
+    "license": "MIT",
+    "urls": [
+      "Changelog, https://github.com/urllib3/urllib3/blob/main/CHANGES.rst",
+      "Documentation, https://urllib3.readthedocs.io",
+      "Code, https://github.com/urllib3/urllib3",
+      "Issue tracker, https://github.com/urllib3/urllib3/issues",
+      "Security policy, https://urllib3.readthedocs.io/en/latest/security.html"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/urllib3/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "werkzeug",
+    "version": "3.1.9",
+    "license": "BSD-3-Clause",
+    "urls": [
+      "Changes, https://werkzeug.palletsprojects.com/page/changes/",
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://werkzeug.palletsprojects.com/",
+      "Donate, https://palletsprojects.com/donate",
+      "Source, https://github.com/pallets/werkzeug/"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/werkzeug/1-LICENSE.txt"
+    ]
+  },
+  {
+    "name": "zipp",
+    "version": "4.1.1",
+    "license": "MIT",
+    "urls": [
+      "Source, https://github.com/jaraco/zipp"
+    ],
+    "home": "",
+    "files": [
+      "third_party_licenses/zipp/1-LICENSE"
+    ]
+  }
+]

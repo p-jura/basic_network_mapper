@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mapper-sieci"
+version = "0.3.0"
+description = "Local read-only IPv4 discovery and evidence snapshots"
+authors = [{name = "Pawel Juroszek (FL Development)"}]
+license = {file = "LICENSE"}
+requires-python = ">=3.13"
+dependencies = ["psutil>=7,<8", "pysnmp>=7.1,<7.2", "cryptography>=50", "netmiko>=4,<5", "ntc-templates>=9,<10", "networkx>=3.7,<4"]
+
+[project.optional-dependencies]
+preview = ["dash>=4,<5", "dash-cytoscape>=1,<2"]
+
+[project.scripts]
+mapper = "mapper.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"mapper.storage" = ["migrations/*.sql"]

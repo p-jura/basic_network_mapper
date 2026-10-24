@@ -1,0 +1,73 @@
+# Dokumentacja mappera sieci
+
+Aktualny produkt to lokalny mapper Python. Poniższe dokumenty prowadzą od wymagań do uruchomienia i potwierdzonych wyników. Etap 3 zaimplementowano w wersji 0.3.0; jego wynik oczekuje na zatwierdzenie przed Etapem 4.
+
+## Wymagania i decyzje
+
+- [Wymagania projektu](WYMAGANIA_PROJEKTU.md).
+- [Plan wdrożenia i granice etapów](PLAN_STARTOWY.md).
+- [Karta ustaleń i historia zatwierdzeń](poradniki/KARTA_ETAP_0.md).
+- [ADR-002 — model danych i kolektory](decisions/ADR-002-model-i-kolektory.md).
+- [ADR-003 — topologia i historia](decisions/ADR-003-topologia-i-historia.md).
+- [ADR-004 — wybór MIT i warunki dystrybucji](decisions/ADR-004-licencja-i-dystrybucja.md).
+- [Komponenty, licencje i noty](THIRD_PARTY_NOTICES.md); oryginalne teksty pozostają w [third_party_licenses](../third_party_licenses/).
+- [MIT własnych elementów projektu — Pawel Juroszek (FL Development)](../LICENSE) i [stan prawny oraz warunki wydania](licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md). Licencje bibliotek i zasobów zewnętrznych obowiązują odrębnie.
+
+## Poradniki
+
+| Etap | Zakres | Dokumenty |
+|---|---|---|
+| 0 | Założenia i karta decyzji | [Ustalenia](poradniki/ETAP_0_USTALENIA.md), [karta](poradniki/KARTA_ETAP_0.md) |
+| 1 | Próba komponentów i odkrywanie podstawowe | [Komponenty](poradniki/ETAP_1_PROBA_KOMPONENTOW.md), [odkrywanie bez SNMP/SSH](poradniki/ETAP_1_ODKRYWANIE_PODSTAWOWE.md) |
+| 2 | Model danych i kolektory | [Plan](poradniki/ETAP_2_MODEL_DANYCH_I_KOLEKTORY.md), [uruchomienie i odbiór](poradniki/ETAP_2_URUCHOMIENIE_I_ODBIOR.md) |
+| 3 | Topologia, confidence i historia | [Plan](poradniki/ETAP_3_TOPOLOGIA_I_HISTORIA.md), [uruchomienie i odbiór](poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) |
+
+## Raporty i dowody odbioru
+
+- [Etap 1 — raport](etap-1/RAPORT_ETAP_1.md).
+- [Etap 2 — raport](etap-2/RAPORT_ETAP_2.md) i [odbiór 23 października 2026](etap-2/ODBIOR_2026-10-23.md).
+- [Etap 3 — raport](etap-3/RAPORT_ETAP_3.md) i [podgląd przykładu](etap-3/PODGLAD_ETAP_3.jpg).
+
+Raporty rozróżniają testy syntetyczne, odczyty rzeczywiste i obszary niezweryfikowane. W repozytorium są wyłącznie przykłady; prywatne adresacje, poświadczenia, bazy i eksporty odbioru pozostają poza nim. Nie dodawaj rzeczywistych danych sieci przy porządkowaniu dokumentów.
+
+## Prototypy komponentów
+
+Katalog `prototypes/` zawiera wcześniejsze próby Etapu 1, zachowane oddzielnie od właściwej aplikacji w `src/mapper/`:
+
+- [Panel offline](../prototypes/tools/probe_panel.py) i [syntetyczny snapshot](../prototypes/examples/snapshots/lab-001.json).
+- [Próba SQLite i NetworkX](../prototypes/tools/probe_storage.py).
+- [Pomocniczy launcher](../prototypes/tools/run_probe.py); pliki `probe_snmp.py` i `probe_ssh.py` pozostają pustymi szablonami, więc launcher nie potwierdza działania tych protokołów.
+
+Aktualne kolektory i CLI są w `src/mapper/`. Katalog prototypów przemianowano z wcześniejszego `probie` 24 października 2026 r.; zawartość skryptów i snapshotu zachowano.
+
+## Archiwum
+
+Te dokumenty dotyczą odrębnych wcześniejszych prac i nie zastępują planu mappera Python:
+
+- Flutter/Dart: [plan MVP](archiwum/flutter-dart/PLAN_APLIKACJI_TOPOLOGII_MVP.md), [poradnik Etapów 0–1](archiwum/flutter-dart/PORADNIK_ETAP_0_1.md).
+- Laboratorium: [przewodnik](archiwum/laboratorium/PRZEWODNIK_WDROZENIA.md), [plan sprzętowy](archiwum/laboratorium/PLAN_SPRZETOWY_150-400_ZL.md), [prompt](archiwum/laboratorium/PROMPT_WDROZENIOWY.md), [analiza promptu](archiwum/laboratorium/ANALIZA_PROMPTU.md).
+
+- [Rejestr elementów odłożonych do old](OLD.md).
+
+## Układ i zasady ścieżek
+
+```text
+docs/
+  README.md
+  WYMAGANIA_PROJEKTU.md
+  PLAN_STARTOWY.md
+  THIRD_PARTY_NOTICES.md
+  poradniki/
+  decisions/
+  licencje/
+  etap-1/
+  etap-2/
+  etap-3/
+  archiwum/
+    flutter-dart/
+    laboratorium/
+```
+
+Odnośniki Markdown są względne wobec danego dokumentu. Polecenia i ścieżki kodu w przykładach odnoszą się do katalogu głównego repozytorium, chyba że podano inaczej. `README.md` i `AGENTS.md` w głównym katalogu są punktami wejścia, a pliki upstream w `third_party_licenses/` zachowują oryginalne lokalizacje i treść. `.gitattributes` wyłącza normalizację oraz kontrolę białych znaków tylko dla `third_party_licenses/`, aby zachować oryginalne teksty upstream.
+
+Główny katalog roboczy od 22 października 2026 r.: `/Users/paweljuroszek/all_projects/other/Maper sieci`. Wcześniejszy: `/Users/paweljuroszek/Documents/ChatGPT/Home Lan`; poprzednich kopii nie modyfikujemy. Układ dokumentacji uporządkowano 24 października 2026 r. przed pierwszym commitem; zmiana nie zatwierdza nowego etapu ani nie zmienia wymagań produktu.

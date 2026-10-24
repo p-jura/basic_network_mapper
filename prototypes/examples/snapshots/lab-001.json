@@ -1,0 +1,16 @@
+{
+  "schema_version": "stage1-demo-1",
+  "project_id": "lab-001",
+  "synthetic": true,
+  "elements": [
+    {"data": {"id": "sw1", "label": "SW1", "kind": "switch", "ip": "192.0.2.10"}},
+    {"data": {"id": "sw2", "label": "SW2", "kind": "switch", "ip": "192.0.2.11"}},
+    {"data": {"id": "h1", "label": "Host A", "kind": "host", "ip": "192.0.2.101", "mac": "02:00:00:00:00:01", "vlan": 10, "switch": "sw1", "port": "Gi1/0/1"}},
+    {"data": {"id": "h2", "label": "Host B", "kind": "host", "ip": "198.51.100.102", "mac": "02:00:00:00:00:02", "vlan": 20, "switch": "sw2", "port": "Gi1/0/2"}},
+    {"data": {"id": "h3", "label": "Host C", "kind": "host", "ip": "192.0.2.103", "mac": "02:00:00:00:00:03", "vlan": 10, "switch": "sw2", "port": "Gi1/0/3"}},
+    {"data": {"id": "uplink", "source": "sw1", "target": "sw2", "label": "Gi1/0/24 ↔ Gi1/0/24", "kind": "uplink", "vlans": [10, 20]}},
+    {"data": {"id": "l1", "source": "sw1", "target": "h1", "label": "Gi1/0/1", "vlan": 10}},
+    {"data": {"id": "l2", "source": "sw2", "target": "h2", "label": "Gi1/0/2", "vlan": 20}},
+    {"data": {"id": "l3", "source": "sw2", "target": "h3", "label": "Gi1/0/3", "vlan": 10}}
+  ]
+}

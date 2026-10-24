@@ -1,0 +1,6 @@
+pySerial 3.5
+(C) 2001-2020 Chris Liechti <cliechti@gmx.net>
+SPDX-License-Identifier: BSD-3-Clause
+Source: https://github.com/pyserial/pyserial/tree/v3.5
+License: https://github.com/pyserial/pyserial/blob/v3.5/LICENSE.txt
+The installed wheel does not include a separate full license text. This reference and the source SPDX are recorded; obtain the upstream full license when bundling this dependency.
