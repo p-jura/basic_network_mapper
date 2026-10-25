@@ -88,6 +88,13 @@ def load_config(path, project_id):
         c = json.loads(Path(path).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         raise MapperError("INVALID_CONFIG") from None
+    return validate_config(c, project_id)
+
+
+def validate_config(c, project_id):
+    # Work on an independent tree; a running job owns its validated plan.
+    import copy
+    c = copy.deepcopy(c)
     allowed = {"schema_version", "project_id", "name", "basic", "seeds", "profiles", "allowed_ranges", "limits", "recursive", "recursive_profile_id"}
     if not isinstance(c, dict) or not c.keys() <= allowed or c.get("schema_version") != 1 or c.get("project_id") != project_id:
         raise MapperError("CONFIG_PROJECT_MISMATCH")

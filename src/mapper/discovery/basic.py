@@ -31,14 +31,20 @@ async def preview(basic, limits, adapter=None):
     adapter = adapter or SystemAdapter(limits)
     local, targets = target_plan(basic, adapter.interfaces(), limits)
     routes = await adapter.routes()
-    return {"interface": local["interface"], "source_ip": local["ip"], "netmask": local["netmask"], "cidr": basic["cidr"], "targets": len(targets), "route_compatible": sum(route_matches(ip, local["interface"], routes) for ip in targets), "rate": limits.rate, "parallel": limits.ping_parallel, "timeout": limits.basic_timeout, "sends_probes": False}
+    defaults = [r for r in routes if r['prefix'] == '0.0.0.0/0' and r['interface'] == local['interface'] and r.get('next_hop')]
+    best_metric = min((r['metric'] for r in defaults), default=None)
+    gateways = {r['next_hop'] for r in defaults if r['metric'] == best_metric}
+    gateway = next(iter(gateways)) if len(gateways) == 1 else None
+    return {"gateway": gateway, "interface": local["interface"], "source_ip": local["ip"], "netmask": local["netmask"], "cidr": basic["cidr"], "targets": len(targets), "route_compatible": sum(route_matches(ip, local["interface"], routes) for ip in targets), "rate": limits.rate, "parallel": limits.ping_parallel, "timeout": limits.basic_timeout, "sends_probes": False}
 
 
-async def collect_basic(basic, limits, cancel, adapter=None):
+async def collect_basic(basic, limits, cancel, adapter=None, *, progress=None, expected_source=None):
     adapter = adapter or SystemAdapter(limits)
     started = now()
     initial = adapter.interfaces()
     local, targets = target_plan(basic, initial, limits)
+    if expected_source is not None and local["ip"] != expected_source:
+        raise MapperError("NETWORK_CHANGED_PREVIEW_REQUIRED")
     iface = local["interface"]
     scope = iface + ":" + basic["cidr"]
     yield TableResult("os_interfaces", "interfaces", [Observation("local_interface", str(i["interface"]) + ":" + i["ip"], i, freshness="fresh") for i in initial], started_at=started, scope_id=scope)
@@ -69,6 +75,11 @@ async def collect_basic(basic, limits, cancel, adapter=None):
         if phase == "after":
             break
         results = []
+        counts = {k: 0 for k in ("reply", "no_reply", "error", "skipped")}
+        def report():
+            if progress:
+                progress({"basic": {**counts, "total": len(targets), "pending": len(targets) - sum(counts.values())}})
+        report()
         index = 0
         next_start = time.monotonic()
         gate = asyncio.Lock()
@@ -94,6 +105,8 @@ async def collect_basic(basic, limits, cancel, adapter=None):
                             result, reason = await adapter.probe(ip, iface, local["ip"])
                     except (TimeoutError, MapperError) as exc:
                         result, reason = "error", exc.code if isinstance(exc, MapperError) else "BASIC_DEADLINE"
+                counts[result] += 1
+                report()
                 at = now()
                 results.append(Observation("probe_result", ip, {"ip": ip, "interface": iface, "result": result, "reason": reason}, observed_at=at, freshness="fresh" if result == "reply" else "unknown", evidence_at=at if result == "reply" else None))
         await asyncio.gather(*(worker() for _ in range(limits.ping_parallel)))
@@ -101,5 +114,7 @@ async def collect_basic(basic, limits, cancel, adapter=None):
         for ip in targets:
             if ip not in done:
                 results.append(Observation("probe_result", ip, {"ip": ip, "interface": iface, "result": "skipped", "reason": "CANCELLED_OR_DEADLINE"}))
+        counts["skipped"] += len(targets) - len(done)
+        report()
         status = "cancelled" if cancel.is_set() else "partial" if any(o.payload["result"] in {"error", "skipped"} for o in results) else "ok"
         yield TableResult("icmp", "host_discovery", results, status=status, scope_id=scope, started_at=started, finished_at=now(), reason="INCOMPLETE_TARGETS" if status != "ok" else None)

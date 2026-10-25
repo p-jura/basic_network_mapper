@@ -32,11 +32,13 @@ async def preview(config, adapter=None):
     return result
 
 
-async def run_cycle(repo, config, cancel=None, *, adapter=None, snmp_collector=collect_snmp, ssh_collector=collect_ssh):
+async def run_cycle(repo, config, cancel=None, *, adapter=None, snmp_collector=collect_snmp, ssh_collector=collect_ssh, progress=None, expected_plan=None):
     limits = Limits(**config.get("limits", {}))
     cancel = cancel or asyncio.Event()
     with cycle_lock(repo.directory.parent):
         plan = await preview(config, adapter)
+        if expected_plan is not None and plan != expected_plan:
+            raise MapperError("NETWORK_CHANGED_PREVIEW_REQUIRED")
         repo.recover_interrupted()
         repo.prune()
         cycle_id = repo.begin_cycle(plan)
@@ -46,6 +48,8 @@ async def run_cycle(repo, config, cancel=None, *, adapter=None, snmp_collector=c
         ssh_gate = asyncio.Semaphore(limits.ssh_parallel)
         seen = set()
         depths = {}
+        tables_done = 0
+        devices_done = 0
         incomplete = False
         execution = "finished"
         reason = None
@@ -71,6 +75,15 @@ async def run_cycle(repo, config, cancel=None, *, adapter=None, snmp_collector=c
                     pass
 
         async def managed_producer(seed, profile):
+            nonlocal devices_done
+            try:
+                await managed_session(seed, profile)
+            finally:
+                devices_done += 1
+                if progress:
+                    progress({"devices_done": devices_done, "devices_scheduled": len(seen)})
+
+        async def managed_session(seed, profile):
             async with managed:
                 if cancel.is_set():
                     await queue.put(TableResult("ssh" if profile["type"] == "ssh" else "snmp", "session", status="cancelled", reason="CANCELLED", target_id=seed["target_id"]))
@@ -90,11 +103,13 @@ async def run_cycle(repo, config, cancel=None, *, adapter=None, snmp_collector=c
             repo.register_target(ident, seed, origin)
             seed = {**seed, "target_id": ident}
             spawn(managed_producer(seed, config["profiles"][seed["profile_id"]]))
+            if progress:
+                progress({"devices_scheduled": len(seen)})
             return True
 
         try:
             if config.get("basic"):
-                spawn(produce(collect_basic(config["basic"], limits, cancel, adapter), "os_interfaces"))
+                spawn(produce(collect_basic(config["basic"], limits, cancel, adapter, progress=progress, expected_source=plan["basic"]["source_ip"]), "os_interfaces"))
             for seed in config.get("seeds", []):
                 schedule(seed, 0, "seed")
             async with asyncio.timeout(limits.cycle_timeout):
@@ -108,6 +123,9 @@ async def run_cycle(repo, config, cancel=None, *, adapter=None, snmp_collector=c
                     if result is None:
                         continue
                     repo.write_result(cycle_id, result)
+                    tables_done += 1
+                    if progress:
+                        progress({"tables_done": tables_done})
                     if config.get("recursive") and result.target_id and not cancel.is_set():
                         for obs in result.observations:
                             ip = obs.payload.get("management_ip") if obs.kind == "lldp_neighbor" else None

@@ -1,6 +1,6 @@
 # Plan wdrożenia — własny mapper z darmowych komponentów
 
-Data aktualizacji: 23 października 2026 r. Etap 0 zatwierdzony; Etap 1 zgłoszony przez użytkownika jako zakończony. Przedstawiony wynik Etapu 2 został zatwierdzony przez użytkownika; Etap 2 zamknięty. Plan Etapu 3 zatwierdzono słowami „zatwierdzam koduj”. Implementacja 0.3.0 i odbiór techniczny offline są gotowe; wynik czeka na zatwierdzenie. Podstawowy LAN na macOS odebrano poprawnie; SNMP/SSH i Windows pozostają niezweryfikowane. Wyniki prób i sprawdzony kod przekazujemy w zadaniu 2.0. Dokument nie zastępuje raportów z rzeczywistych odczytów i zgodności OS.
+Data aktualizacji: 25 października 2026 r. Etapy 0–2 mają zapisane wcześniejsze zatwierdzenia. Na bazie implementacji 0.3.1 użytkownik zatwierdził plan Etapu 4 słowami „masz zgode na dzialanie. Wdrazaj”. Wdrożono 0.4.0 i wykonano odbiór techniczny offline; wynik czeka na zatwierdzenie. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane. Dokument nie zastępuje raportów sprzętowych i nie autoryzuje nowych sond.
 
 ## 1. Cel i granica wykorzystania istniejących rozwiązań
 
@@ -118,7 +118,7 @@ Offline: lokalny snapshot, panel i eksport bez Internetu, CDN i uruchamiania kol
 
 ## 8. Etapy i punkty odbioru
 
-**Aktualny krok:** [Etap 3 — topologia i historia](poradniki/ETAP_3_TOPOLOGIA_I_HISTORIA.md), implementacja i odbiór techniczny gotowe; oczekiwanie na zatwierdzenie wyniku przed Etapem 4. Użytkownik zatwierdził wynik Etapu 2; [raport odbioru](etap-2/ODBIOR_2026-10-23.md) zachowuje granice potwierdzonych prób.
+**Aktualny krok:** [Etap 4 — panel](poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md) wdrożony w wersji 0.4.0, 49 testów krytycznych i odbiór syntetyczny. [Uruchomienie](poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md) i [raport techniczny](etap-4/RAPORT_ETAP_4.md) zawierają dokładne wyniki oraz granice prób. Wynik czeka na odbiór użytkownika przed Etapem 5. Nie potwierdzono jeszcze Windows/NTFS, realnego SNMP/SSH ani łącznego RAM aplikacja+karta.
 
 | Etap | Zakres | Wynik |
 |---|---|---|

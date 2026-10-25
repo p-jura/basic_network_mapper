@@ -99,7 +99,7 @@ class Repository:
         return safe_json(data, self.forbidden)
 
     def _budget(self, extra_bytes=0):
-        size = sum(p.stat().st_size for p in self.directory.iterdir() if p.is_file() and not p.is_symlink())
+        size = sum(p.stat().st_size for p in self.directory.rglob("*") if p.is_file() and not p.is_symlink())
         if size + extra_bytes >= self.max_bytes:
             raise MapperError("DATA_BUDGET_EXCEEDED")
 

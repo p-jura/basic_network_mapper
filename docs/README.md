@@ -1,8 +1,6 @@
 # Dokumentacja mappera sieci
 
-Aktualny produkt to lokalny mapper Python. Poniższe dokumenty prowadzą od wymagań do uruchomienia i potwierdzonych wyników. Etap 3 zaimplementowano w wersji 0.3.0; jego wynik oczekuje na zatwierdzenie przed Etapem 4.
-
-Wdrożono także poprawki 3.1 w wersji **0.3.1**: 38 testów i odbiór offline; odbiór Windows/switcha pozostaje niewykonany.
+Aktualny produkt to lokalny mapper Python **0.4.0**. Etap 4 jest wdrożony i zweryfikowany offline; wynik techniczny czeka na odbiór użytkownika. Panel nie uruchamia kolektorów przy starcie. Windows/NTFS i rzeczywiste SNMP/SSH pozostają niewykonanymi odbiorami. Raporty zachowują rozróżnienie prób i deklarowanego zakresu.
 
 ## Wymagania i decyzje
 
@@ -12,6 +10,7 @@ Wdrożono także poprawki 3.1 w wersji **0.3.1**: 38 testów i odbiór offline; 
 - [ADR-002 — model danych i kolektory](decisions/ADR-002-model-i-kolektory.md).
 - [ADR-003 — topologia i historia](decisions/ADR-003-topologia-i-historia.md).
 - [ADR-005 — sondy źródłowe, stan sieci i blokady projektów](decisions/ADR-005-bezpieczne-sondy-i-blokady.md).
+- [ADR-006 — panel i kontroler zadań](decisions/ADR-006-panel-i-kontroler.md).
 - [ADR-004 — wybór MIT i warunki dystrybucji](decisions/ADR-004-licencja-i-dystrybucja.md).
 - [Komponenty, licencje i noty](THIRD_PARTY_NOTICES.md); oryginalne teksty pozostają w [third_party_licenses](../third_party_licenses/).
 - [MIT własnych elementów projektu — Pawel Juroszek (FL Development)](../LICENSE) i [stan prawny oraz warunki wydania](licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md). Licencje bibliotek i zasobów zewnętrznych obowiązują odrębnie.
@@ -25,11 +24,13 @@ Wdrożono także poprawki 3.1 w wersji **0.3.1**: 38 testów i odbiór offline; 
 | 2 | Model danych i kolektory | [Plan](poradniki/ETAP_2_MODEL_DANYCH_I_KOLEKTORY.md), [uruchomienie i odbiór](poradniki/ETAP_2_URUCHOMIENIE_I_ODBIOR.md) |
 | 3 | Topologia, confidence i historia | [Plan](poradniki/ETAP_3_TOPOLOGIA_I_HISTORIA.md), [uruchomienie i odbiór](poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) |
 | 3.1 | Poprawki po review | [Plan i uruchomienie](poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md), [raport](etap-3-1/RAPORT_ETAP_3_1.md) |
+| 4 | Panel i pełny przepływ operatora | [Plan](poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md), [uruchomienie i odbiór](poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md), [raport](etap-4/RAPORT_ETAP_4.md) |
 
 ## Raporty i dowody odbioru
 
 - [Etap 1 — raport](etap-1/RAPORT_ETAP_1.md).
 - [Etap 2 — raport](etap-2/RAPORT_ETAP_2.md) i [odbiór 23 października 2026](etap-2/ODBIOR_2026-10-23.md).
+- [Etap 4 — raport](etap-4/RAPORT_ETAP_4.md), [dowody zbiorcze](etap-4/ODBIOR_2026-10-25.json) i [syntetyczny panel](etap-4/PANEL_ETAP_4.png).
 - [Etap 3 — raport](etap-3/RAPORT_ETAP_3.md) i [podgląd przykładu](etap-3/PODGLAD_ETAP_3.jpg).
 
 Raporty rozróżniają testy syntetyczne, odczyty rzeczywiste i obszary niezweryfikowane. W repozytorium są wyłącznie przykłady; prywatne adresacje, poświadczenia, bazy i eksporty odbioru pozostają poza nim. Nie dodawaj rzeczywistych danych sieci przy porządkowaniu dokumentów.
@@ -72,6 +73,7 @@ docs/
   etap-2/
   etap-3/
   etap-3-1/
+  etap-4/
   reviews/
   licencje/
   archiwum/

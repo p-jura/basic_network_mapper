@@ -9,3 +9,4 @@ Poniższe elementy zastąpiono i zachowano do końcowych porządków.
 | Data | Poprzednia ścieżka | Ścieżka w old | Powód / zamiennik |
 |---|---|---|---|
 | 2026-10-24 | `docs/licencje/LICENSE.MIT.template.txt` | [old/2026-10-24/docs/licencje/LICENSE.MIT.template.txt](../old/2026-10-24/docs/licencje/LICENSE.MIT.template.txt) | Szablon z nieuzupełnionym polem uprawnionego zastąpiono podpisaną [licencją MIT](../LICENSE). Oryginalną zawartość zachowano bez zmian; aktywne odwołania prowadzą do `LICENSE`. |
+| 2026-10-25 | `build/` | `old/2026-10-25/build/` (lokalny artefakt ignorowany przez Git) | Kopia robocza utworzona podczas odbioru wheel 0.4.0. Źródłem aplikacji pozostaje `src/mapper/`; wheel testowy zachowano poza repozytorium. Przeniesiono bez kasowania, po potwierdzeniu obecności aktualnych modułów i CSS w wheel. Aplikacja nie korzysta z archiwalnego build. |

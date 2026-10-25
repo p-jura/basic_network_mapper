@@ -8,7 +8,7 @@ Mapa odróżnia przynależność logiczną od przypisania do portu. Brak dostęp
 
 ## Stan
 
-Wersja **0.3.1**. Etap 2 zatwierdzony; implementacja i odbiór techniczny Etapu 3 są gotowe i oczekują na zatwierdzenie wyniku. Działają kolektory, snapshoty, topologia offline, confidence, historia i prosty podgląd. Przeszło 38 testów krytycznych oraz odbiór zapisanych danych LAN na macOS ARM. Rzeczywiste SNMP/SSH, Windows i duża skala wymagają osobnych prób. Pełny panel pozostaje Etapem 4.
+Wersja **0.4.0**. Wdrożono panel operatora: projekty, konfiguracja/preview, start/postęp/anulowanie, opcjonalne odświeżanie, mapa z filtrami i szczegółami, historia oraz eksporty JSON/CSV/PNG/SVG. Przeszło 49 testów krytycznych i odbiór syntetyczny na macOS ARM. Wynik techniczny Etapu 4 czeka na zatwierdzenie użytkownika. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane; łączny RAM aplikacja+karta wymaga pomiaru.
 
 Jedna aplikacja: Python 3.13, SQLite, NetworkX, psutil, PySNMP, Netmiko/ntc-templates i Dash/dash-cytoscape. Darmowe komponenty open source, bez chmury, triali i licencyjnych limitów urządzeń. Odczyty urządzeń są wyłącznie do odczytu; projekty i poświadczenia pozostają odseparowane. Bez rozbudowanego CI/CD.
 
@@ -20,27 +20,25 @@ Wersja 0.3.1 współdzieli krótkotrwały stan tras, rozdziela blokady kolekcji 
 
 ## Uruchomienie
 
-Z katalogu repozytorium, w przygotowanym środowisku:
+Z katalogu repozytorium, w przygotowanym środowisku z lokalnymi zależnościami `preview`:
 
 ```sh
 ./.venv/bin/mapper doctor
-./.venv/bin/mapper demo
+./.venv/bin/mapper panel --offline
 ```
 
-Oba polecenia działają bez sondowania. `demo` tworzy projekt syntetyczny i zwraca jego `project_id`. Zastąp nim `UUID_PROJEKTU`:
+Panel otwiera przeglądarkę po gotowości serwera. Wybierz projekt albo „Demo offline”, następnie „Wczytaj mapę”. Tryb offline blokuje kolektory. Interfejs i eksporty korzystają z lokalnych zasobów.
 
-```sh
-./.venv/bin/mapper topology build --project UUID_PROJEKTU
-./.venv/bin/mapper topology view --project UUID_PROJEKTU --port 8051
-```
+Do samodzielnego odkrywania autoryzowanej sieci uruchom `./.venv/bin/mapper panel`, wybierz projekt/interfejs/zakres i sprawdź podgląd przed przyciskiem startu. Samo uruchomienie nie wysyła sond. Zmienisz port przez `--port 8051`; `--no-browser` pomija otwarcie przeglądarki. Dotychczasowe CLI i `topology view` nadal działają.
 
-Podgląd wymaga Dash/dash-cytoscape (zestaw `preview`) i używa wyłącznie zapisanych danych. Szczegóły instalacji oraz odbioru są w poradnikach.
+[Instrukcja uruchomienia i odbioru panelu](docs/poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md) · [raport Etapu 4](docs/etap-4/RAPORT_ETAP_4.md).
 
 ## Dokumentacja
 
 - [Spis dokumentacji](docs/README.md).
 - [Wymagania](docs/WYMAGANIA_PROJEKTU.md) i [plan wdrożenia](docs/PLAN_STARTOWY.md).
 - [Uruchomienie i odbiór Etapu 3](docs/poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) oraz [raport](docs/etap-3/RAPORT_ETAP_3.md).
+- [Etap 4 — zatwierdzony plan panelu](docs/poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md).
 - [Licencje i informacje o komponentach](docs/THIRD_PARTY_NOTICES.md).
 - [Licencja MIT własnych elementów projektu](LICENSE) oraz [objaśnienie stanu prawnego i warunków dystrybucji](docs/licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md). Licencje bibliotek i zasobów zewnętrznych obowiązują odrębnie.
 

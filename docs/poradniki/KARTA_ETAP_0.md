@@ -271,3 +271,15 @@ Zaimplementowano 0.3.0: topologia offline, korelacja portów/VLAN/LLDP, jakości
 Użytkownik polecił „przygotuj szczegolowy plan poprawek, i zacznij wdrazac”. Przyjęto do implementacji plan `docs/poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md` i ADR-005: krótkotrwały współdzielony stan tras, źródłowe sondy Windows, oddzielne blokady projektów i prywatne tworzenie plików. Zgoda obejmuje kodowanie i odbiór offline; nie stanowi zgody na nowe skany ani potwierdzenia Windows/sprzętu.
 
 Wynik techniczny 3.1: wersja 0.3.1 zainstalowana offline, 38 testów krytycznych OK. Odczyty tras współdzielone, jedna kolekcja nadal globalnie, operacje offline innych projektów niezależne; nowe pliki prywatne od utworzenia. Adaptery Windows IPv4/DACL zweryfikowane na atrapach, nie na Windows/NTFS. Szczegóły w `docs/etap-3-1/RAPORT_ETAP_3_1.md`. Nie zatwierdza to pełnego odbioru Windows ani Etapu 4.
+
+## 16. Przygotowanie planu Etapu 4 — 25 października 2026 r.
+
+Po informacji użytkownika o dodaniu zmian na main zaproponowano sporządzenie planu panelu przed kodowaniem. Użytkownik odpowiedział „dzialaj”. Polecenie zrealizowano jako przygotowanie [planu Etapu 4](ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md) i [propozycji ADR-006](../decisions/ADR-006-panel-i-kontroler.md), bez implementacji panelu i bez nowych sond.
+
+Status: plan do zatwierdzenia, nie zatwierdzony kod ani odbiór wcześniejszych niewykonanych prób. Wnioskowane kolejne zatwierdzenie obejmuje 4.0–4.4, kontroler zadań, odświeżanie opt-in D12, ENV, jawne zakresy seedów, eksporty i lokalną ochronę operacji. Formalnego odbioru Etapu 3/Windows/SNMP/SSH nie dopisano wstecz na podstawie commita. Szczegółowe kryteria znajdują się w poradniku.
+
+## 17. Zatwierdzenie planu Etapu 4 — 25 października 2026 r.
+
+Użytkownik polecił „masz zgode na dzialanie. Wdrazaj”. Przyjęto zakres 4.0–4.4 poradnika Etapu 4 i ADR-006: lokalny panel, kontroler w tle, postęp/anulowanie, opt-in seria D12, profile ENV, jawne zakresy seedów, mapa/historia/eksporty i ochrona lokalnych operacji. Autoryzacja obejmuje implementację oraz odbiór offline i oznacza zgodę na rozpoczęcie Etapu 4 na bazie 0.3.1. Nie jest potwierdzeniem niewykonanych prób Windows/NTFS/SNMP/SSH ani poleceniem nowych skanów.
+
+Wynik techniczny Etapu 4: wdrożono 0.4.0 i panel operatora; 49 testów krytycznych oraz syntetyczny odbiór przeszły na macOS ARM. Wyniki i ograniczenia: [raport](../etap-4/RAPORT_ETAP_4.md). Wynik do zatwierdzenia; nie rozpoczęto Etapu 5. Nie wykonano nowych sond LAN ani odbioru Windows/NTFS/SNMP/SSH.

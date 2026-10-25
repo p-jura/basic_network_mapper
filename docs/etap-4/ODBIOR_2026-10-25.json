@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-25",
+  "version": "0.4.0",
+  "status": "technical_offline_acceptance_user_review_pending",
+  "tests": {
+    "critical_total": 49,
+    "passed": 49,
+    "network": "blocked in critical tests; system subprocess fixture tests do not send network probes",
+    "last_primary_run_seconds": 1.83
+  },
+  "dash_http_flow": {
+    "preview_start_poll": "passed",
+    "adapter": "FakeAdapter only",
+    "observed_graph_nodes": 4
+  },
+  "browser": {
+    "surface": "Codex In-app Browser",
+    "url": "http://127.0.0.1:8054",
+    "synthetic_managed": {
+      "nodes": 3,
+      "edges_all": 3,
+      "edges_vlan10_filter": 2
+    },
+    "host_details": "IP/MAC/Gi101/VLAN10 and uplink candidate verified",
+    "png": "downloaded and visually inspected",
+    "svg": "downloaded; XML and expected labels verified",
+    "assets": "script and stylesheet URLs inspected; all loopback",
+    "physical_internet_disconnect": false,
+    "cache_disabled_test": false,
+    "final_installed_url": "http://127.0.0.1:8051",
+    "layouts_checked": [
+      "default narrow viewport",
+      "1440x1000 desktop; reset afterwards"
+    ],
+    "graph_layout_fix": "layout callback follows map.elements, explicit radius and per-view revision; verified after repeated reload/filter"
+  },
+  "launcher": {
+    "actual_changed_port": 8051,
+    "readiness_open_url": "unit test, bound server contract",
+    "occupied_real_port": 8054,
+    "occupied_result": "PANEL_PORT_UNAVAILABLE; no browser.open",
+    "ctrl_c": "owned server stopped",
+    "temporary_server_stopped": true
+  },
+  "scale": {
+    "synthetic": true,
+    "observations": 50000,
+    "switches": 50,
+    "hosts": 1000,
+    "vlans": 20,
+    "import_and_build_seconds": 6.119,
+    "projection_seconds": 0.0016,
+    "projection": {
+      "nodes": 50,
+      "all_nodes": 1050,
+      "edges": 49,
+      "all_edges": 1049
+    },
+    "python_peak_rss_bytes": 629653504,
+    "combined_browser_rss": "not_measured",
+    "browser_first_infrastructure_ms": 2165,
+    "browser_measurement": "click to visible counter; previous equivalent 50/1050-node, 49-link fixture; includes automation latency",
+    "physical_internet_disconnection": "not_performed",
+    "network_attempts": 0
+  },
+  "remaining": [
+    "Windows/NTFS effective DACL and native adapter",
+    "Real SNMPv2c/v3/SSH",
+    "Combined application+browser RAM measurement",
+    "Physical Internet disconnected/cache-disabled receipt"
+  ],
+  "data": "synthetic projects outside repository; existing operator projects not modified",
+  "ci_cd_added": false,
+  "dependencies_added": false,
+  "commit_created": false,
+  "package_check": {
+    "pip_check": "No broken requirements found",
+    "wheel": "built offline; current app/controller/panel/CSS bytes match archive",
+    "local_markdown_links_checked": 293,
+    "python_ast": "passed"
+  }
+}

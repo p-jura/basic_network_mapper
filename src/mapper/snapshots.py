@@ -13,6 +13,7 @@ MAX_RECORDS = 200000
 
 def export_snapshot(repo, output, cycle_id=None, *, csv_format=False):
     data = repo.snapshot_data(cycle_id)
+    safe_json(data, repo.forbidden)  # Both JSON and CSV must reject known secret values.
     # Exclusive creation: do not overwrite a file or follow an existing symlink.
     with private_file(output, newline="") as f:
         if csv_format:

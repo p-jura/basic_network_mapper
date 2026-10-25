@@ -34,6 +34,10 @@ def parser():
     shared(sub.add_parser("doctor", help="Wersje lokalnych komponentów, bez sieci"))
     shared(sub.add_parser("interfaces", help="Lokalna lista interfejsów IPv4, bez sond"))
     shared(sub.add_parser("demo", help="Syntetyczny projekt do odbioru offline"))
+    panel = shared(sub.add_parser("panel", help="Lokalny panel operatora; bez sond przy starcie"))
+    panel.add_argument("--port", type=int, default=8050)
+    panel.add_argument("--no-browser", action="store_true")
+    panel.add_argument("--offline", action="store_true")
     projects = sub.add_parser("project").add_subparsers(dest="action", required=True)
     create = shared(projects.add_parser("create"))
     create.add_argument("--name", required=True)
@@ -112,6 +116,10 @@ def execute(args):
         from .discovery.system import interfaces
         return {"interfaces": interfaces(), "sends_probes": False}
     root = data_root(getattr(args, "data_dir", None))
+    if args.area == "panel":
+        from .app import run
+        run(root, port=args.port, open_browser=not args.no_browser, offline=args.offline)
+        return {"status": "panel_closed", "sends_probes": False}
     if args.area == "project":
         return project_create(root, args.name)
     if args.area == "demo":
