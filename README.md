@@ -8,7 +8,7 @@ Mapa odróżnia przynależność logiczną od przypisania do portu. Brak dostęp
 
 ## Stan
 
-Wersja **0.4.0**. Wdrożono panel operatora: projekty, konfiguracja/preview, start/postęp/anulowanie, opcjonalne odświeżanie, mapa z filtrami i szczegółami, historia oraz eksporty JSON/CSV/PNG/SVG. Przeszło 49 testów krytycznych i odbiór syntetyczny na macOS ARM. Wynik techniczny Etapu 4 czeka na zatwierdzenie użytkownika. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane; łączny RAM aplikacja+karta wymaga pomiaru.
+Wersja **0.4.0**. Wdrożono panel operatora: projekty, konfiguracja/preview, start/postęp/anulowanie, opcjonalne odświeżanie, mapa z filtrami i szczegółami, historia oraz eksporty JSON/CSV/PNG/SVG. Przeszło 49 testów krytycznych i odbiór syntetyczny na macOS ARM. Etap 4 zatwierdzono 25 października 2026 r.; przygotowano plan Etapu 5 do zatwierdzenia. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane; łączny RAM aplikacja+karta wymaga pomiaru. Dodatkowy [odbiór rzeczywistego LAN](docs/etap-4/ODBIOR_LAN_2026-10-25.md) potwierdził działanie kolekcji, ale ujawnił dwa błędy mapy do poprawienia przed pakowaniem.
 
 Jedna aplikacja: Python 3.13, SQLite, NetworkX, psutil, PySNMP, Netmiko/ntc-templates i Dash/dash-cytoscape. Darmowe komponenty open source, bez chmury, triali i licencyjnych limitów urządzeń. Odczyty urządzeń są wyłącznie do odczytu; projekty i poświadczenia pozostają odseparowane. Bez rozbudowanego CI/CD.
 
@@ -36,6 +36,7 @@ Do samodzielnego odkrywania autoryzowanej sieci uruchom `./.venv/bin/mapper pane
 ## Dokumentacja
 
 - [Spis dokumentacji](docs/README.md).
+- [Etap 5 — plan odbioru i pakowania MVP do zatwierdzenia](docs/poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md).
 - [Wymagania](docs/WYMAGANIA_PROJEKTU.md) i [plan wdrożenia](docs/PLAN_STARTOWY.md).
 - [Uruchomienie i odbiór Etapu 3](docs/poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) oraz [raport](docs/etap-3/RAPORT_ETAP_3.md).
 - [Etap 4 — zatwierdzony plan panelu](docs/poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md).

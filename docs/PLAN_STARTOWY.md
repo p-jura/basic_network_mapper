@@ -1,6 +1,6 @@
 # Plan wdrożenia — własny mapper z darmowych komponentów
 
-Data aktualizacji: 25 października 2026 r. Etapy 0–2 mają zapisane wcześniejsze zatwierdzenia. Na bazie implementacji 0.3.1 użytkownik zatwierdził plan Etapu 4 słowami „masz zgode na dzialanie. Wdrazaj”. Wdrożono 0.4.0 i wykonano odbiór techniczny offline; wynik czeka na zatwierdzenie. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane. Dokument nie zastępuje raportów sprzętowych i nie autoryzuje nowych sond.
+Data aktualizacji: 25 października 2026 r. Etapy 0–2 mają zapisane wcześniejsze zatwierdzenia. Na bazie implementacji 0.3.1 użytkownik zatwierdził plan Etapu 4 słowami „masz zgode na dzialanie. Wdrazaj”. Wdrożono 0.4.0 i wykonano odbiór techniczny offline; użytkownik zatwierdził wynik 25 października 2026 r. Przygotowano plan Etapu 5 do zatwierdzenia przed wdrożeniem. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane. Dokument nie zastępuje raportów sprzętowych i nie autoryzuje nowych sond.
 
 ## 1. Cel i granica wykorzystania istniejących rozwiązań
 
@@ -118,7 +118,7 @@ Offline: lokalny snapshot, panel i eksport bez Internetu, CDN i uruchamiania kol
 
 ## 8. Etapy i punkty odbioru
 
-**Aktualny krok:** [Etap 4 — panel](poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md) wdrożony w wersji 0.4.0, 49 testów krytycznych i odbiór syntetyczny. [Uruchomienie](poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md) i [raport techniczny](etap-4/RAPORT_ETAP_4.md) zawierają dokładne wyniki oraz granice prób. Wynik czeka na odbiór użytkownika przed Etapem 5. Nie potwierdzono jeszcze Windows/NTFS, realnego SNMP/SSH ani łącznego RAM aplikacja+karta.
+**Aktualny krok:** Etap 4 zatwierdzony w przedstawionym zakresie 25 października 2026 r. Przygotowano [plan Etapu 5 — odbiór i pakowanie MVP](poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [propozycję ADR-007](decisions/ADR-007-pakowanie-i-odbior-wydania.md) oraz [kartę prób](etap-5/KARTA_ODBIORU_ETAP_5.md). Plan czeka na zatwierdzenie przed implementacją. Nie potwierdzono jeszcze Windows/NTFS, realnego SNMP/SSH, pełnego testu bez Internetu/cache ani łącznego RAM aplikacja+karta; odbiór Etapu 4 nie zamyka tych zadań. Wersja aplikacji pozostaje 0.4.0. Późniejszy [rzeczywisty odbiór LAN](etap-4/ODBIOR_LAN_2026-10-25.md) wykazał poprawną kolekcję, ale błędny endpoint rozgłoszeniowy i duplikat własnego IPv4. Ich poprawa i regresja offline mają pierwszeństwo przed pakowaniem; pełny odbiór mapy nie jest zaliczony.
 
 | Etap | Zakres | Wynik |
 |---|---|---|

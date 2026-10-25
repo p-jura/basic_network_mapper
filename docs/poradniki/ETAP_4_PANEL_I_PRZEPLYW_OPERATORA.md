@@ -1,6 +1,6 @@
 # Etap 4 — panel i pełny przepływ operatora
 
-Data: **25 października 2026 r.** Status: **plan zatwierdzony, kod 0.4.0 wdrożony; wynik techniczny do odbioru użytkownika**. Użytkownik polecił przygotować kolejny krok słowami „dzialaj”, w odpowiedzi na propozycję sporządzenia szczegółowego planu. Następnie użytkownik zatwierdził wdrożenie słowami „masz zgode na dzialanie. Wdrazaj”. Nie jest to zapis odbioru Windows, switcha ani nowej zgody na aktywne sondowanie.
+Data: **25 października 2026 r.** Status: **plan i wynik wdrożenia 0.4.0 zatwierdzone przez użytkownika; Etap 4 zamknięty w przedstawionym zakresie**. Użytkownik polecił przygotować kolejny krok słowami „dzialaj”, w odpowiedzi na propozycję sporządzenia szczegółowego planu. Następnie użytkownik zatwierdził wdrożenie słowami „masz zgode na dzialanie. Wdrazaj”. Nie jest to zapis odbioru Windows, switcha ani nowej zgody na aktywne sondowanie.
 
 Podstawa: [plan główny §7–9](../PLAN_STARTOWY.md), [karta D02/D06/D09/D11/D12/D14](KARTA_ETAP_0.md), [raport 3.1](../etap-3-1/RAPORT_ETAP_3_1.md), [propozycja ADR-006](../decisions/ADR-006-panel-i-kontroler.md). Dokument zachowuje zakres planu; polecenie `mapper panel` i moduły `ui` są już wdrożone. Faktycznie wykonane próby i ograniczenia opisuje [raport Etapu 4](../etap-4/RAPORT_ETAP_4.md), a użycie panelu [poradnik uruchomienia](ETAP_4_URUCHOMIENIE_I_ODBIOR.md).
 

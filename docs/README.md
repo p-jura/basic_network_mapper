@@ -1,6 +1,6 @@
 # Dokumentacja mappera sieci
 
-Aktualny produkt to lokalny mapper Python **0.4.0**. Etap 4 jest wdrożony i zweryfikowany offline; wynik techniczny czeka na odbiór użytkownika. Panel nie uruchamia kolektorów przy starcie. Windows/NTFS i rzeczywiste SNMP/SSH pozostają niewykonanymi odbiorami. Raporty zachowują rozróżnienie prób i deklarowanego zakresu.
+Aktualny produkt to lokalny mapper Python **0.4.0**. Etap 4 jest wdrożony, zweryfikowany offline i zatwierdzony przez użytkownika 25 października 2026 r. Plan Etapu 5 jest gotowy do zatwierdzenia przed wdrożeniem. Panel nie uruchamia kolektorów przy starcie. Windows/NTFS i rzeczywiste SNMP/SSH pozostają niewykonanymi odbiorami. Raporty zachowują rozróżnienie prób i deklarowanego zakresu.
 
 ## Wymagania i decyzje
 
@@ -11,6 +11,7 @@ Aktualny produkt to lokalny mapper Python **0.4.0**. Etap 4 jest wdrożony i zwe
 - [ADR-003 — topologia i historia](decisions/ADR-003-topologia-i-historia.md).
 - [ADR-005 — sondy źródłowe, stan sieci i blokady projektów](decisions/ADR-005-bezpieczne-sondy-i-blokady.md).
 - [ADR-006 — panel i kontroler zadań](decisions/ADR-006-panel-i-kontroler.md).
+- [ADR-007 — pakowanie i odbiór wydania, propozycja](decisions/ADR-007-pakowanie-i-odbior-wydania.md).
 - [ADR-004 — wybór MIT i warunki dystrybucji](decisions/ADR-004-licencja-i-dystrybucja.md).
 - [Komponenty, licencje i noty](THIRD_PARTY_NOTICES.md); oryginalne teksty pozostają w [third_party_licenses](../third_party_licenses/).
 - [MIT własnych elementów projektu — Pawel Juroszek (FL Development)](../LICENSE) i [stan prawny oraz warunki wydania](licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md). Licencje bibliotek i zasobów zewnętrznych obowiązują odrębnie.
@@ -24,12 +25,14 @@ Aktualny produkt to lokalny mapper Python **0.4.0**. Etap 4 jest wdrożony i zwe
 | 2 | Model danych i kolektory | [Plan](poradniki/ETAP_2_MODEL_DANYCH_I_KOLEKTORY.md), [uruchomienie i odbiór](poradniki/ETAP_2_URUCHOMIENIE_I_ODBIOR.md) |
 | 3 | Topologia, confidence i historia | [Plan](poradniki/ETAP_3_TOPOLOGIA_I_HISTORIA.md), [uruchomienie i odbiór](poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) |
 | 3.1 | Poprawki po review | [Plan i uruchomienie](poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md), [raport](etap-3-1/RAPORT_ETAP_3_1.md) |
-| 4 | Panel i pełny przepływ operatora | [Plan](poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md), [uruchomienie i odbiór](poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md), [raport](etap-4/RAPORT_ETAP_4.md) |
+| 4 | Panel i pełny przepływ operatora — zatwierdzony | [Plan](poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md), [uruchomienie i odbiór](poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md), [raport](etap-4/RAPORT_ETAP_4.md) |
+| 5 | Odbiór i pakowanie MVP — propozycja | [Plan do zatwierdzenia](poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [karta prób — niewykonane](etap-5/KARTA_ODBIORU_ETAP_5.md) |
 
 ## Raporty i dowody odbioru
 
 - [Etap 1 — raport](etap-1/RAPORT_ETAP_1.md).
 - [Etap 2 — raport](etap-2/RAPORT_ETAP_2.md) i [odbiór 23 października 2026](etap-2/ODBIOR_2026-10-23.md).
+- [Etap 4 — rzeczywisty odbiór LAN: kolekcja OK, dwa błędy mapy](etap-4/ODBIOR_LAN_2026-10-25.md).
 - [Etap 4 — raport](etap-4/RAPORT_ETAP_4.md), [dowody zbiorcze](etap-4/ODBIOR_2026-10-25.json) i [syntetyczny panel](etap-4/PANEL_ETAP_4.png).
 - [Etap 3 — raport](etap-3/RAPORT_ETAP_3.md) i [podgląd przykładu](etap-3/PODGLAD_ETAP_3.jpg).
 
@@ -74,6 +77,7 @@ docs/
   etap-3/
   etap-3-1/
   etap-4/
+  etap-5/
   reviews/
   licencje/
   archiwum/

@@ -283,3 +283,15 @@ Status: plan do zatwierdzenia, nie zatwierdzony kod ani odbiór wcześniejszych 
 Użytkownik polecił „masz zgode na dzialanie. Wdrazaj”. Przyjęto zakres 4.0–4.4 poradnika Etapu 4 i ADR-006: lokalny panel, kontroler w tle, postęp/anulowanie, opt-in seria D12, profile ENV, jawne zakresy seedów, mapa/historia/eksporty i ochrona lokalnych operacji. Autoryzacja obejmuje implementację oraz odbiór offline i oznacza zgodę na rozpoczęcie Etapu 4 na bazie 0.3.1. Nie jest potwierdzeniem niewykonanych prób Windows/NTFS/SNMP/SSH ani poleceniem nowych skanów.
 
 Wynik techniczny Etapu 4: wdrożono 0.4.0 i panel operatora; 49 testów krytycznych oraz syntetyczny odbiór przeszły na macOS ARM. Wyniki i ograniczenia: [raport](../etap-4/RAPORT_ETAP_4.md). Wynik do zatwierdzenia; nie rozpoczęto Etapu 5. Nie wykonano nowych sond LAN ani odbioru Windows/NTFS/SNMP/SSH.
+
+## 18. Zatwierdzenie wyniku Etapu 4 i planowanie Etapu 5 — 25 października 2026 r.
+
+Użytkownik polecił „zatwierdzam wdrozenie dzialaj przy nastepnym planie”. Zatwierdzono wynik 0.4.0 wraz z przedstawionymi granicami prób. Etap 4 zamknięty w tym zakresie; niewykonane odbiory Windows/NTFS, SNMP/SSH, bez Internetu/cache i łącznego RAM pozostają otwarte.
+
+Przygotowano [szczegółowy plan Etapu 5](ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [propozycję ADR-007](../decisions/ADR-007-pakowanie-i-odbior-wydania.md) i [kartę prób](../etap-5/KARTA_ODBIORU_ETAP_5.md). Proponowany pierwszy artefakt: dwa ZIP jednej aplikacji z własnym wheel, lokalnymi kołami i skryptami, Python 3.13 jako wymaganie stanowiska. Plan wymaga zatwierdzenia przed wdrożeniem. Nie wykonano instalacji, nowych prób protokołów ani sond, nie zmieniono wersji aplikacji i nie opublikowano wydania.
+
+## 19. Rzeczywisty odbiór LAN z panelu — 25 października 2026 r.
+
+Przed zatwierdzeniem Etapu 5 użytkownik poprosił o skan obecnej sieci. Po odczycie lokalnych informacji zatwierdził konkretny interfejs, źródło i zakres słowami „Tak, skanuj ten zakres — mam prawo badać tę sieć”. Jednorazowy odbiór obejmował 253 cele, 5/s, 4 równolegle, 240 s, bez SNMP/SSH i powtarzania. Dokładny zakres zgody pozostał prywatny.
+
+Cykl zakończył się po 128,997 s, z 2 odpowiedziami i bez błędów sond. Wykryto dwa błędy mapy: endpoint z rozgłoszeniowego ARP i powielenie własnego IPv4. [Raport](../etap-4/ODBIOR_LAN_2026-10-25.md). Zachowany snapshot umożliwia dalszą regresję offline bez nowego skanu. Nie zmieniono kodu ani reguł topologii podczas odbioru; poprawki wymagają konkretnego planu przed wdrożeniem.

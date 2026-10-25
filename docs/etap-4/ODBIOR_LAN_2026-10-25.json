@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-25",
+  "mapper_version": "0.4.0",
+  "operator_authorized_single_cycle": true,
+  "cycle_count": 1,
+  "execution_status": "finished",
+  "coverage_status": "complete",
+  "seconds": 128.997,
+  "observations": 533,
+  "probe_results": {
+    "reply": 2,
+    "no_reply": 251
+  },
+  "nodes": {
+    "endpoint": 6,
+    "segment": 1,
+    "local_interface": 1
+  },
+  "edges": {
+    "logical_membership": 7
+  },
+  "warning_codes": {},
+  "history_events": 8,
+  "endpoint_with_port": 0,
+  "endpoint_with_vlan": 0,
+  "nonempty_cached_ip_mac_pairs": 6,
+  "integrity_check": "ok",
+  "foreign_key_errors": 0,
+  "idempotent_graph_and_unchanged_source": true,
+  "repeat_enabled": false,
+  "snmp_ssh_used": false,
+  "post_scan_network_attempts": 0,
+  "probe_targets_match_authorized_scope": true,
+  "broadcast_probed": false,
+  "self_probed": false,
+  "ui_exports": {
+    "topology_json_nodes": 8,
+    "nodes_csv_records": 8,
+    "edges_csv_records": 7
+  },
+  "svg_expected_full_view_labels": true,
+  "png_exported_from_filtered_view": true,
+  "operator_panel_details_verified": true,
+  "findings": [
+    {
+      "id": "LAN-01",
+      "kind": "broadcast_arp_rendered_as_endpoint",
+      "count": 1,
+      "blocking_map_acceptance": true
+    },
+    {
+      "id": "LAN-02",
+      "kind": "local_ipv4_duplicated_in_endpoint_and_local_interface",
+      "count": 1,
+      "blocking_map_acceptance": true
+    },
+    {
+      "id": "LAN-03",
+      "kind": "initial_form_prefill_required_explicit_interface_reselection",
+      "reproducibility": "needs_offline_investigation",
+      "blocking_scan": false
+    }
+  ],
+  "remote_unicast_ipv4_observed": 4,
+  "remote_ipv4_with_fresh_icmp_response": 2,
+  "map_acceptance": "failed_pending_corrections",
+  "collection_acceptance": "passed",
+  "exports_acceptance": "passed_serialization_and_view_scope_only_map_defects_preserved",
+  "no_additional_scan_required_for_initial_regression": true,
+  "temporary_server_stopped": true,
+  "network_data_in_repository": false
+}

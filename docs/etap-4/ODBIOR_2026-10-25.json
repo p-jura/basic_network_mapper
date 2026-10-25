@@ -1,7 +1,7 @@
 {
   "date": "2026-10-25",
   "version": "0.4.0",
-  "status": "technical_offline_acceptance_user_review_pending",
+  "status": "stage4_accepted_with_documented_limitations",
   "tests": {
     "critical_total": 49,
     "passed": 49,
@@ -78,5 +78,10 @@
     "wheel": "built offline; current app/controller/panel/CSS bytes match archive",
     "local_markdown_links_checked": 293,
     "python_ast": "passed"
+  },
+  "user_acceptance": {
+    "date": "2026-10-25",
+    "message": "zatwierdzam wdrozenie dzialaj przy nastepnym planie",
+    "scope": "presented Stage 4 implementation and offline technical result; unperformed Windows/hardware/resource receipts unchanged"
   }
 }

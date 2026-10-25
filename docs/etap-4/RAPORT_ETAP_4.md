@@ -1,6 +1,6 @@
 # Raport Etapu 4 — panel operatora 0.4.0
 
-Data: **25 października 2026 r.** Status: **kod wdrożony, odbiór techniczny offline wykonany; wynik do zatwierdzenia użytkownika**. Autoryzacja: „masz zgode na dzialanie. Wdrazaj”. Podstawa: [plan](../poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md) i [ADR-006](../decisions/ADR-006-panel-i-kontroler.md). Nie rozpoczęto Etapu 5, nie wykonano nowych sond do LAN ani commita/pushu.
+Data: **25 października 2026 r.** Status: **wynik wdrożenia i odbiór techniczny offline zatwierdzone przez użytkownika 25 października 2026 r.**. Autoryzacja: „masz zgode na dzialanie. Wdrazaj”. Podstawa: [plan](../poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md) i [ADR-006](../decisions/ADR-006-panel-i-kontroler.md). Nie rozpoczęto Etapu 5, nie wykonano nowych sond do LAN ani commita/pushu.
 
 ## Wdrożony zakres
 
@@ -61,3 +61,9 @@ Zmiany pozostawiono do przeglądu i commita użytkownika. Dokumenty planowania E
 Końcowy odbiór zainstalowanej aplikacji odbył się na 8051, w układzie wąskim i desktopowym 1440×1000. Zapisano syntetyczny screenshot ze szczegółami hosta, przywrócono rozmiar przeglądarki, zamknięto tymczasową kartę i własny serwer. Pole interwału pokazuje wartość i jednostkę, a przypisanie portu jest oddzielone od kandydata uplink.
 
 Końcowe sprawdzenie: 49/49 testów w 1,830 s w głównym projekcie; pip check bez problemów; git diff --check bez błędów; AST poprawne, 293 lokalne odnośniki Markdown bez brakujących celów. Wheel 0.4.0 zawiera aktualne app/controller/panel i CSS, porównane bajtowo z kodem. Roboczy build przeniesiono do old/2026-10-25/build/ bez usuwania, zgodnie z rejestrem docs/OLD.md; pozostaje lokalnym artefaktem ignorowanym przez Git.
+
+Zatwierdzenie użytkownika: „zatwierdzam wdrozenie dzialaj przy nastepnym planie”. Etap 4 zamknięto w przedstawionym zakresie i rozpoczęto planowanie Etapu 5. Akceptacja nie potwierdza niewykonanych prób systemów, sprzętu ani RAM; ich statusy w raporcie i dowodach pozostają bez zmian.
+
+## Późniejszy rzeczywisty odbiór LAN
+
+25 października, po osobnej zgodzie operatora, wykonano jeden cykl z panelu 0.4.0. Kolekcja zakończyła się poprawnie, lecz wykryto błędne mapowanie wpisu rozgłoszeniowego ARP i duplikat własnego IPv4. [Odbiór LAN i ustalenia](ODBIOR_LAN_2026-10-25.md) oraz [dane zbiorcze](ODBIOR_LAN_2026-10-25.json). Wyniki nie zmieniają historycznych 49 testów; wskazują brakujące przypadki regresji i blokują pełny odbiór mapy przed poprawkami.
