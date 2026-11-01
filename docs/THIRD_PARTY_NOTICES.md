@@ -75,3 +75,9 @@ Wpis `setuptools — MIT` w tabeli opisuje główny pakiet. Dołączony `autocom
 ## Kandydat Etapu 5 — 25 października 2026 r.
 
 Dla 0.5.0rc1 zebrano materiały z rzeczywistych kół i oficjalnych źródeł, w tym wcześniejsze braki pySerial/setuptools/MPL/LGPL oraz zidentyfikowany SheetJS 0.18.5. Nowe teksty i pochodzenie są w ZIP kandydata; historycznego katalogu third_party_licenses nie zmieniano. [Raport konkretnego artefaktu](etap-5/RAPORT_ETAP_5.md) rozdziela uzupełnione materiały, próbę wymiany bibliotek oraz nadal otwartą pełną weryfikację natywnych i JS atrybucji. Nie jest to zamknięcie pełnego odbioru ani publikacja.
+
+## Samodzielny kandydat 0.5.0rc2 — 1 listopada 2026
+
+PyInstaller 6.22.3 (GPL z wyjątkiem dla wynikowych programów) i hooks 2026.9 są narzędziami budowania; zachowano ich źródła i noty. Paczka macOS zawiera CPython **3.13.0** z istniejącego stanowiska, źródło Python-3.13.0.tar.xz i PSF LICENSE, a także OpenSSL **3.0.15** używany przez `_ssl`, odrębny od OpenSSL w kole cryptography. Inwentarz rzeczywistych plików natywnych jest w `native-components.json`, materiały/URL/hashe w `runtime-provenance.json` i katalogach paczki. Nie zmieniono runtime pins ani oryginalnych plików upstream repozytorium.
+
+Wymiana Paramiko/scp/vendored autocommand na zgodne zmodyfikowane pliki została sprawdzona w onedir. Start nie wymaga pierwotnych hashy tych modułów; jawne verify zgłasza różnicę. Pełny przegląd L01 oraz Windows pozostają otwarte. Kandydat wewnętrzny nie jest deklaracją pełnego odbioru dystrybucji. [Raport 5A](etap-5a/RAPORT_ETAP_5A.md).

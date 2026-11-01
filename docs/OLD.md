@@ -10,3 +10,8 @@ Poniższe elementy zastąpiono i zachowano do końcowych porządków.
 |---|---|---|---|
 | 2026-10-24 | `docs/licencje/LICENSE.MIT.template.txt` | [old/2026-10-24/docs/licencje/LICENSE.MIT.template.txt](../old/2026-10-24/docs/licencje/LICENSE.MIT.template.txt) | Szablon z nieuzupełnionym polem uprawnionego zastąpiono podpisaną [licencją MIT](../LICENSE). Oryginalną zawartość zachowano bez zmian; aktywne odwołania prowadzą do `LICENSE`. |
 | 2026-10-25 | `build/` | `old/2026-10-25/build/` (lokalny artefakt ignorowany przez Git) | Kopia robocza utworzona podczas odbioru wheel 0.4.0. Źródłem aplikacji pozostaje `src/mapper/`; wheel testowy zachowano poza repozytorium. Przeniesiono bez kasowania, po potwierdzeniu obecności aktualnych modułów i CSS w wheel. Aplikacja nie korzysta z archiwalnego build. |
+
+## 1 listopada 2026 — wspólne maintenance
+
+- Poprzednia implementacja `packaging/maintenance.py` zachowana w `old/2026-11-01/packaging/maintenance.py` przed zastąpieniem cienkim wrapperem.
+- Wspólna implementacja: `src/mapper/maintenance.py`, używana przez venv i executable. Wrapper nie korzysta z old. Stare ZIP-y rc1 zawierają poprzedni plik i nie zostały przebudowane. Nie usunięto materiałów historycznych.

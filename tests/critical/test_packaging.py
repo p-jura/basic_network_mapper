@@ -44,9 +44,12 @@ class PackagingTests(ProtectedTest):
 
     def test_symlink_checksum_and_install_never_overwrites_existing_venv(self):
         root, manifest = self.fixture()
-        (root/'LICENSE').unlink(); (root/'LICENSE').symlink_to(root/'bundle.py')
-        with self.assertRaisesRegex(bundle.BundleError,'LINK_IN_BUNDLE'):bundle.verify(root)
-        (root/'LICENSE').unlink(); (root/'LICENSE').write_text('synthetic')
+        # POSIX link fixture; creating symlinks on Windows may need privileges.
+        # Windows reparse protection still needs native NTFS acceptance.
+        if sys.platform != 'win32':
+            (root/'LICENSE').unlink(); (root/'LICENSE').symlink_to(root/'bundle.py')
+            with self.assertRaisesRegex(bundle.BundleError,'LINK_IN_BUNDLE'):bundle.verify(root)
+            (root/'LICENSE').unlink(); (root/'LICENSE').write_text('synthetic')
         (root/'SHA256SUMS').write_text('wrong')
         with self.assertRaisesRegex(bundle.BundleError,'CHECKSUM_LIST_MISMATCH'):bundle.verify(root)
         self.publish(root,manifest); (root/'.venv').mkdir(); marker=root/'.venv/preserve'; marker.write_text('existing')

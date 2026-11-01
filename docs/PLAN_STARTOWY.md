@@ -2,7 +2,7 @@
 
 Data aktualizacji: 1 listopada 2026 r. Etapy 0–2 mają zapisane wcześniejsze zatwierdzenia. Na bazie implementacji 0.3.1 użytkownik zatwierdził plan Etapu 4 słowami „masz zgode na dzialanie. Wdrazaj”. Wdrożono 0.4.0 i wykonano odbiór techniczny offline; użytkownik zatwierdził wynik 25 października 2026 r. Użytkownik osobno zatwierdził wdrożenie Etapu 5; przygotowano kandydata 0.5.0rc1, a odbiór całości pozostaje otwarty. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane. Dokument nie zastępuje raportów sprzętowych i nie autoryzuje nowych sond.
 
-**Nowe planowanie:** na polecenie „ok utworz plan dzialania” przygotowano [Etap 5A — paczki bez systemowego Pythona](poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [propozycję ADR-009](decisions/ADR-009-samodzielne-paczki-z-interpreterem.md) i [kartę prób](etap-5a/KARTA_ODBIORU_ETAP_5A.md). Status: do zatwierdzenia przed kodem. Bieżące 0.5.0rc1 i wynik jego odbioru pozostają bez zmian.
+**Nowe planowanie:** na polecenie „ok utworz plan dzialania” przygotowano [Etap 5A — paczki bez systemowego Pythona](poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [propozycję ADR-009](decisions/ADR-009-samodzielne-paczki-z-interpreterem.md) i [kartę prób](etap-5a/KARTA_ODBIORU_ETAP_5A.md). Zatwierdzone do wdrożenia słowami „ok implementuj plan”. Wersja 0.5.0rc2: samodzielny macOS i zestaw natywnego budowania jednej paczki Windows x64 dla Windows 10 22H2/11; .exe i odbiór Windows jeszcze niewykonane. [Raport 5A](etap-5a/RAPORT_ETAP_5A.md) opisuje wyniki i otwarte warunki; historyczne rc1 zachowano.
 
 ## 1. Cel i granica wykorzystania istniejących rozwiązań
 

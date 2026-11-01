@@ -1,6 +1,6 @@
 # Dokumentacja mappera sieci
 
-Aktualny kandydat lokalnego mappera Python to **0.5.0rc1**: pakowanie wdrożone, pełny odbiór Etapu 5 otwarty. Paczki wymagają wcześniej zainstalowanego Python 3.13. [Plan 5A](poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md) z 1 listopada 2026 r. proponuje dołączenie interpretera i czeka na zatwierdzenie; nie jest gotową implementacją. Windows/NTFS, sprzęt SNMP/SSH i pozostałe otwarte próby zachowują status w kartach.
+Aktualny kandydat to **0.5.0rc2**: samodzielny macOS ARM64 z interpreterem oraz zestaw budowania Windows x64. Plan 5A jest zatwierdzony i wdrożony w dostępnym zakresie; **samodzielnego Windows .exe nie zbudowano**. [Raport](etap-5a/RAPORT_ETAP_5A.md) i [karta prób](etap-5a/KARTA_ODBIORU_ETAP_5A.md) zachowują otwarte odbiory. Historyczny rc1 wymaga zainstalowanego Python 3.13.
 
 ## Wymagania i decyzje
 
@@ -12,7 +12,7 @@ Aktualny kandydat lokalnego mappera Python to **0.5.0rc1**: pakowanie wdrożone,
 - [ADR-005 — sondy źródłowe, stan sieci i blokady projektów](decisions/ADR-005-bezpieczne-sondy-i-blokady.md).
 - [ADR-006 — panel i kontroler zadań](decisions/ADR-006-panel-i-kontroler.md).
 - [ADR-007 — zatwierdzone pakowanie i odbiór wydania](decisions/ADR-007-pakowanie-i-odbior-wydania.md).
-- [ADR-009 — propozycja samodzielnych paczek z interpreterem](decisions/ADR-009-samodzielne-paczki-z-interpreterem.md).
+- [ADR-009 — zatwierdzone samodzielne paczki z interpreterem](decisions/ADR-009-samodzielne-paczki-z-interpreterem.md).
 - [ADR-004 — wybór MIT i warunki dystrybucji](decisions/ADR-004-licencja-i-dystrybucja.md).
 - [Komponenty, licencje i noty](THIRD_PARTY_NOTICES.md); oryginalne teksty pozostają w [third_party_licenses](../third_party_licenses/).
 - [MIT własnych elementów projektu — Pawel Juroszek (FL Development)](../LICENSE) i [stan prawny oraz warunki wydania](licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md). Licencje bibliotek i zasobów zewnętrznych obowiązują odrębnie.
@@ -29,7 +29,7 @@ Aktualny kandydat lokalnego mappera Python to **0.5.0rc1**: pakowanie wdrożone,
 | 4 | Panel i pełny przepływ operatora — zatwierdzony | [Plan](poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md), [uruchomienie i odbiór](poradniki/ETAP_4_URUCHOMIENIE_I_ODBIOR.md), [raport](etap-4/RAPORT_ETAP_4.md) |
 | 4.1 | Poprawki po rzeczywistym odbiorze LAN | [Raport i uruchomienie](etap-4-1/RAPORT_ETAP_4_1.md), [ADR-008](decisions/ADR-008-poprawki-po-odbiorze-lan.md) |
 | 5 | Pakowanie wdrożone, odbiór całości otwarty | [Plan](poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [raport](etap-5/RAPORT_ETAP_5.md), [karta prób](etap-5/KARTA_ODBIORU_ETAP_5.md), [instalacja i Windows](etap-5/URUCHOMIENIE_I_ODBIOR_WINDOWS.md) |
-| 5A | Samodzielne paczki z interpreterem — plan do zatwierdzenia | [Plan działania](poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [karta nowych prób](etap-5a/KARTA_ODBIORU_ETAP_5A.md) |
+| 5A | Samodzielny macOS wdrożony; build i odbiór Windows otwarte | [Plan działania](poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [karta prób](etap-5a/KARTA_ODBIORU_ETAP_5A.md), [raport](etap-5a/RAPORT_ETAP_5A.md), [Windows](etap-5a/BUDOWANIE_I_ODBIOR_WINDOWS.md) |
 
 ## Raporty i dowody odbioru
 

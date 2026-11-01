@@ -8,11 +8,11 @@ Mapa odróżnia przynależność logiczną od przypisania do portu. Brak dostęp
 
 ## Stan
 
-Wersja kandydująca **0.5.0rc1**. Wdrożono pakowanie ZIP z lokalnymi zależnościami, instalacją offline, manifestem/hashami, skryptami startu i spójnym backupem. Czysta instalacja macOS ARM, 58 krytycznych testów, panel/eksporty i próby aktualizacji przeszły odbiór techniczny. [Raport Etapu 5](docs/etap-5/RAPORT_ETAP_5.md) rozdziela wykonane próby i otwarte warunki. Windows x64 ZIP przygotowano do odbioru operatora; samo zbudowanie go nie potwierdza Windows/NTFS.
+Wersja kandydująca **0.5.0rc2**. Wdrożono samodzielną paczkę **macOS ARM64 z dołączonym Pythonem**: rozpakowanie całego ZIP i start przez `Uruchom Mapper.command`. Instrukcja README/START_TUTAJ jest w paczce. Dane pozostają poza katalogiem programu.
 
-Panel obsługuje projekty, konfigurację i podgląd zakresu, postęp/anulowanie, opcjonalne odświeżanie, mapę, szczegóły, historię i eksporty. Reguły 2 zawierają [poprawki LAN 0.4.1](docs/etap-4-1/RAPORT_ETAP_4_1.md). Pełny Etap 5 pozostaje otwarty: Windows/NTFS, sprzęt SNMP/SSH, fizyczny odbiór bez Internetu/cache, łączny RAM oraz pełna weryfikacja materiałów komponentów. Kandydat służy lokalnemu odbiorowi; nie opublikowano wydania.
+Dla **Windows 10 22H2 i Windows 11 x64** przygotowano wspólny kod/spec i [zestaw natywnego budowania](docs/etap-5a/BUDOWANIE_I_ODBIOR_WINDOWS.md). **Nie ma jeszcze samodzielnego Windows .exe**: jego build i odbiór wymagają stanowiska Windows. Starsze ZIP-y 0.5.0rc1 nadal wymagają zainstalowanego Python 3.13; zachowano je bez zmian.
 
-**Planowane rozszerzenie:** [Etap 5A — samodzielne paczki bez instalowania Pythona](docs/poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md) czeka na zatwierdzenie. Dzisiejszy 0.5.0rc1 nadal wymaga Python 3.13 u odbiorcy.
+[Raport Etapu 5A](docs/etap-5a/RAPORT_ETAP_5A.md): 63 testy, dołączony runtime, wymiana LGPL, SQLite/backup, przeniesienie paczki, panel i lokalne zasoby. [Karta 5A](docs/etap-5a/KARTA_ODBIORU_ETAP_5A.md) rozdziela wykonane próby i otwarte odbiory: czyste OS bez Pythona, Windows/NTFS, PNG/SVG do oględzin, fizyczny brak Internetu/cache i łączny RAM. Sprzęt SNMP/SSH i pełny przegląd materiałów L01 pozostają otwarte w Etapie 5. To kandydat wewnętrzny; brak publikacji wydania.
 
 Jedna aplikacja: Python 3.13, SQLite, NetworkX, psutil, PySNMP, Netmiko/ntc-templates i Dash/dash-cytoscape. Darmowe komponenty open source, bez chmury, triali i licencyjnych limitów urządzeń. Odczyty urządzeń są wyłącznie do odczytu; projekty i poświadczenia pozostają odseparowane. Bez rozbudowanego CI/CD.
 
@@ -23,6 +23,9 @@ Wersja 0.3.1 współdzieli krótkotrwały stan tras, rozdziela blokady kolekcji 
 [Szczegółowy plan i instrukcja](docs/poradniki/ETAP_3_1_POPRAWKI_PO_REVIEW.md) · [raport 3.1](docs/etap-3-1/RAPORT_ETAP_3_1.md).
 
 ## Uruchomienie
+
+Z samodzielnego ZIP macOS: dwuklik `Uruchom Mapper.command`; do pierwszego odbioru bez sond w terminalu `./Mapper panel --offline`. Python/pip/venv u odbiorcy nie są potrzebne. [Instrukcja paczki](packaging/standalone/START_TUTAJ.md).
+
 
 Z katalogu repozytorium, w przygotowanym środowisku z lokalnymi zależnościami `preview`:
 

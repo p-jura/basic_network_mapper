@@ -2,6 +2,8 @@
 import json
 import threading
 import webbrowser
+from ..frozen_runtime import open_browser as frozen_browser
+import sys
 from ..errors import MapperError
 
 
@@ -67,7 +69,7 @@ def view(graph, *, port=8050, open_browser=True):
     if open_browser:
         def launch():
             if ready.wait(5):
-                webbrowser.open(f'http://127.0.0.1:{server.server_port}')
+                (frozen_browser if getattr(sys, 'frozen', False) else webbrowser.open)(f'http://127.0.0.1:{server.server_port}')
         threading.Thread(target=launch, daemon=True).start()
     try:
         server.serve_forever(poll_interval=0.1)

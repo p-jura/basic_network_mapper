@@ -25,3 +25,5 @@ Zatwierdzono implementację ADR i planu. Przyszłe próby i końcowy odbiór wym
 ## Propozycja późniejszej zmiany — 1 listopada 2026 r.
 
 Przygotowano [ADR-009](ADR-009-samodzielne-paczki-z-interpreterem.md) i [plan 5A](../poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md) dotyczące dołączenia interpretera. Oczekują na zatwierdzenie; nie zastępują jeszcze powyższych decyzji ani nie zmieniają kontraktu istniejącego 0.5.0rc1.
+
+Aktualizacja 1 listopada 2026 r.: użytkownik zatwierdził ADR-009 i plan 5A. Samodzielny 0.5.0rc2 macOS zawiera interpreter; powyższy kontrakt Python/venv pozostaje opisem zachowanego rc1. Build i odbiór Windows w 5A są otwarte. [Raport](../etap-5a/RAPORT_ETAP_5A.md).

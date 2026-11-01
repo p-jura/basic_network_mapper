@@ -1,8 +1,8 @@
 # Etap 5A — samodzielne paczki bez instalowania Pythona
 
-Data: **1 listopada 2026 r.** Status: **plan do zatwierdzenia przed implementacją**. Polecenie użytkownika: „ok utworz plan dzialania”. Obejmuje przygotowanie dokumentów; nie jest zgodą na instalowanie narzędzia pakującego, zmianę działających paczek ani nowe skany.
+Data: **1 listopada 2026 r.** Status: **zatwierdzony do wdrożenia 1 listopada 2026 r.**. Polecenie użytkownika: „ok utworz plan dzialania”. Następnie użytkownik polecił „ok implementuj plan”; autoryzuje to wdrożenie A0–A7, bez nowych skanów i publikacji. Historyczne rc1 zostaje zachowane.
 
-Podstawa: [ADR-007 — dotychczasowe pakowanie](../decisions/ADR-007-pakowanie-i-odbior-wydania.md), [propozycja ADR-009](../decisions/ADR-009-samodzielne-paczki-z-interpreterem.md), [raport 0.5.0rc1](../etap-5/RAPORT_ETAP_5.md), [otwarte odbiory Etapu 5](../etap-5/KARTA_ODBIORU_ETAP_5.md). Nowe wyniki zapisujemy w [karcie 5A](../etap-5a/KARTA_ODBIORU_ETAP_5A.md); wszystkie są obecnie niewykonane.
+Podstawa: [ADR-007 — dotychczasowe pakowanie](../decisions/ADR-007-pakowanie-i-odbior-wydania.md), [propozycja ADR-009](../decisions/ADR-009-samodzielne-paczki-z-interpreterem.md), [raport 0.5.0rc1](../etap-5/RAPORT_ETAP_5.md), [otwarte odbiory Etapu 5](../etap-5/KARTA_ODBIORU_ETAP_5.md). Wyniki zapisujemy w [karcie 5A](../etap-5a/KARTA_ODBIORU_ETAP_5A.md) i [raporcie wdrożenia](../etap-5a/RAPORT_ETAP_5A.md). Pakowanie macOS wdrożono; Windows i pełny odbiór pozostają otwarte.
 
 ## 1. Rezultat dla użytkownika
 
@@ -150,12 +150,12 @@ Dotychczasowe paczki rc1 i ich raporty zachowujemy. Pliki rzeczywiście zastąpi
 
 | ID | Propozycja / brak | Status |
 |---|---|---|
-| D01 | PyInstaller onedir, Python 3.13 dołączony do paczki, wersja narzędzia przypięta po krótkiej próbie | Do zatwierdzenia z planem i ADR-009 |
-| D02 | Windows executable z konsolą, macOS executable + .command; zwykły użytkownik, lokalny panel | Do zatwierdzenia z planem |
+| D01 | PyInstaller onedir, Python 3.13 dołączony do paczki, wersja narzędzia przypięta po krótkiej próbie | Zatwierdzone 1 listopada 2026 r. |
+| D02 | Windows executable z konsolą, macOS executable + .command; zwykły użytkownik, lokalny panel | Zatwierdzone 1 listopada 2026 r. |
 | D03 | Wymienialność wymaganych bibliotek potwierdzona przed pełnym pakowaniem | Warunek przejścia A2; nie domysł o onedir |
-| D04 | Pierwszy kandydat wewnętrzny; podpisy publikacyjne i zakupy oddzielnie | Do zatwierdzenia z planem |
+| D04 | Pierwszy kandydat wewnętrzny; podpisy publikacyjne i zakupy oddzielnie | Zatwierdzone 1 listopada 2026 r. |
 | F01 | Windows 10 czy 11 i dostęp do natywnego builda/testu | Operator ma jeden z tych systemów; dokładny wariant/dostęp niepotwierdzony |
 | F02 | Czysty macOS ARM i Windows bez Python 3.13 | Dostępność stanowisk/VM do ustalenia; maskowanie PATH nie wystarcza |
 | F03 | Certyfikaty i docelowy sposób przekazywania ZIP | Brak potwierdzenia; nie zakładamy zakupu ani gładkiej dystrybucji publicznej |
 
-Do zatwierdzenia jest **cały zakres A0–A7 oraz propozycja ADR-009**, z punktem oceny wykonalności A2. Zatwierdzenie planu nie będzie potwierdzeniem odbioru ani zgodą na skan/publikację. Dziś zapisano wyłącznie plan; wersja 0.5.0rc1, kod, narzędzia i istniejące ZIP-y pozostają bez zmian.
+Użytkownik zatwierdził **cały zakres A0–A7 oraz ADR-009** słowami „ok implementuj plan”. A2 przeszedł na macOS. Wdrożono 0.5.0rc2 i samodzielny ZIP macOS; przygotowano zestaw natywnego budowania Windows, bez deklarowania istnienia gotowego .exe. Historyczne rc1 pozostaje. Szczegóły i niewykonane próby zawiera raport. Zgoda nie obejmuje nowych sond ani publikacji.

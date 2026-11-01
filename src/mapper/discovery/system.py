@@ -9,6 +9,7 @@ import sys
 import time
 
 from ..errors import MapperError
+from ..frozen_runtime import child_environment
 from ..models import mac_text
 
 
@@ -22,7 +23,7 @@ async def run_command(args, timeout=5, max_output=2 * 1024**2):
     """No shell, no inherited diagnostic stderr, bounded stdout and lifetime."""
     process = None
     try:
-        process = await asyncio.create_subprocess_exec(*args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL, env={**os.environ, "LC_ALL": "C", "LANG": "C"})
+        process = await asyncio.create_subprocess_exec(*args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL, env={**child_environment(), "LC_ALL": "C", "LANG": "C"})
         async def read():
             chunks = []
             count = 0

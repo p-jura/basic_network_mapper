@@ -73,7 +73,8 @@ Dokumentacja projektu znajduje się w `docs/`; spis treści: `docs/README.md`.
 
 ## 3. Granice rozwiązania
 
-- Główny wariant: jedna lokalna aplikacja Python 3.13 w środowisku venv;
+- Główny wariant: jedna lokalna aplikacja Python 3.13; venv do rozwoju i historycznej
+  paczki rc1, zatwierdzony ADR-009 dopuszcza samodzielny runtime onedir;
   zatwierdzony kierunek używa SQLite, NetworkX, Dash/dash-cytoscape oraz
   opcjonalnych adapterów psutil, PySNMP i Netmiko/parserów. Sprawdź aktualny
   plan i wersje przed dodaniem zależności.

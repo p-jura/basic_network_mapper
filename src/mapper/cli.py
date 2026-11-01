@@ -111,7 +111,7 @@ def execute(args):
                 versions[name] = importlib.metadata.version(name)
             except importlib.metadata.PackageNotFoundError:
                 versions[name] = "not_installed"
-        return {"mapper": __version__, "python": platform.python_version(), "platform": platform.system(), "architecture": platform.machine(), "sqlite": sqlite3.sqlite_version, "dependencies": versions, "sends_probes": False}
+        return {"mapper": __version__, "runtime": "bundled" if getattr(sys, "frozen", False) else "python", "python": platform.python_version(), "platform": platform.system(), "architecture": platform.machine(), "sqlite": sqlite3.sqlite_version, "dependencies": versions, "sends_probes": False}
     if args.area == "interfaces":
         from .discovery.system import interfaces
         return {"interfaces": interfaces(), "sends_probes": False}

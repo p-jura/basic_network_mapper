@@ -1,43 +1,40 @@
-# Karta odbioru 5A — paczki bez instalowania Pythona
+# Karta odbioru 5A — samodzielne paczki
 
-Utworzono: **1 listopada 2026 r.** Status: **plan; wszystkie nowe próby niewykonane**. [Plan](../poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [propozycja ADR-009](../decisions/ADR-009-samodzielne-paczki-z-interpreterem.md). Nie kopiujemy wyników rc1 do odbioru nowego formatu. [Karta pełnego Etapu 5](../etap-5/KARTA_ODBIORU_ETAP_5.md) zachowuje dotychczasowe stany.
+Aktualizacja **1 listopada 2026 r.** Plan i ADR-009 zatwierdzone słowami „ok implementuj plan”. Kod 0.5.0rc2/macOS wdrożony; **pełny odbiór otwarty**. [Raport](RAPORT_ETAP_5A.md), [plan](../poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [Windows](BUDOWANIE_I_ODBIOR_WINDOWS.md). Nie przenosimy wyników rc1 jako dowodów nowego formatu.
 
 ## Artefakt i stanowisko
 
-| Pole | Wartość |
-|---|---|
-| Wersja / commit / dirty state | Do uzupełnienia przy budowie; brak nowego kandydata |
-| ZIP / SHA-256 / manifest | Nie utworzono |
-| PyInstaller / hooki / interpreter | Dokładne wersje i źródła do ustalenia w A0–A2 |
-| System / architektura / sposób rozpakowania | Oddzielnie Windows 10, Windows 11, macOS ARM |
-| Brak systemowego Python 3.13 | Dowód czystego stanowiska; nie samo PATH |
-| Przeglądarka / brak Internetu/cache | Do zapisania przy próbie |
-| Prywatny receipt | Lokalizacja dowodów bez sekretów i danych klienta w repo |
+- Baza: `20889851ed6a113ba8502f00c279bf954e91b6ba`, początek czysty; zmiany 5A bez commita agenta.
+- macOS: ARM64, system zgłasza macOS 26.6.2, Python dołączony 3.13.0, PyInstaller 6.22.3 / hooks 2026.9.
+- ZIP i dokładne sumy: `dist/etap-5a-2026-11-01/ARTEFAKTY.json`; macOS standalone oraz Windows **build kit**, bez .exe.
+- Testowe stanowisko macOS ma zainstalowany Python; ukrycie PATH/PYTHONHOME sprawdzono, lecz nie zastępuje czystego OS.
+- Przeglądarka IAB; brak fizycznego odłączenia Internetu/cache. Wyłącznie dane syntetyczne i loopback; brak sond LAN.
+- Docelowy Windows: **jeden ZIP x64, oddzielny odbiór Windows 10 22H2 i Windows 11**. Dostęp wykonawczy niepotwierdzony.
 
-## Rejestr nowych prób
+## Rejestr
 
-Każdy wiersz zapisuj osobno dla każdej odebranej platformy/wersji OS. Statusy: NIEWYKONANE, OK, BŁĄD, UZGODNIONE OGRANICZENIE. Ostatni wymaga decyzji użytkownika.
+Każdy status dotyczy wyłącznie wymienionego zakresu. Brak wiersza Windows OK oznacza brak natywnego dowodu, nie zgodność domyślną.
 
-| ID | Warunek | Status | Dowód / ograniczenie |
-|---|---|---|---|
-| S01 | Prototyp onedir uruchamia panel/doctor/receipt z dołączonego runtime | NIEWYKONANE | Warunek A2 |
-| S02 | Zgodna wymiana wymaganych bibliotek i faktyczne miejsce importu | NIEWYKONANE | Paramiko, scp, autocommand; nie sam plik obok programu |
-| S03 | Build natywny i komplet zasobów/metadanych/DLL | NIEWYKONANE | Spec, hooki, SQL, CSS/JS, parsery, dołączone moduły protokołów |
-| S04 | Bezpieczny manifest/ZIP macOS i symlinki; ochrona danych bez zmian | NIEWYKONANE | Wewnętrzne cele, brak pętli/wyjścia z katalogu, APFS |
-| S05 | Rzeczywisty start na czystym wspieranym OS bez Python 3.13 | NIEWYKONANE | OS/stanowisko/receipt; bez odinstalowywania narzędzi użytkownika |
-| S06 | Start offline bez pip/venv/download, także Explorer/Finder | NIEWYKONANE | Czytelny URL/start/błąd; brak skanu |
-| S07 | Import/demo, filtry, szczegóły, historia i pięć eksportów danych | NIEWYKONANE | Dane syntetyczne, nowy prywatny katalog |
-| S08 | PNG/SVG otwarte; wymagane zasoby lokalne bez cache/Internetu | NIEWYKONANE | XML/etykiety/oględziny; oddzielić problem narzędzia od produktu |
-| S09 | Przeniesiona paczka, Unicode/spacje, obcy CWD i brak obcych importów | NIEWYKONANE | Przed pierwszym i po wcześniejszym uruchomieniu |
-| S10 | Zajęty port, drugi proces, anulowanie/Ctrl+C i zamknięcie zasobów | NIEWYKONANE | Bez zatrzymywania cudzej instancji |
-| S11 | Receipt i spójny backup działają bez zewnętrznego python -m | NIEWYKONANE | Kopia istniejącego projektu, niezmieniony oryginał i rollback |
-| S12 | Procesy systemowe/przeglądarka i DLL nie używają błędnych bibliotek | NIEWYKONANE | Bez wyścigu z pulą kolektorów; próby kodowe na atrapach |
-| S13 | Prywatne pliki i efektywny dostęp NTFS z drugiego konta | NIEWYKONANE | Wspólny warunek Etapu 5; wymagany rzeczywisty Windows |
-| S14 | Manifest/noty/źródła interpretera, loadera i wszystkich dołączonych części | NIEWYKONANE | Nie zamykać L01 bez przeglądu |
-| S15 | D14: ≤30 s import / ≤5 s infrastruktura / ≤1,5 GB app+karta | NIEWYKONANE | Wynik nowego executable, nie tylko RSS Pythona |
-| S16 | Przekazany ZIP rozpakowany zwykłym narzędziem, komunikaty ochrony OS | NIEWYKONANE | Nie mylić ad hoc z podpisem dystrybucyjnym |
-| S17 | Raport, instrukcje, nowa tożsamość archiwów i akceptacja wyniku | NIEWYKONANE | Bez publikacji i operacji Git |
+| ID | Warunek | macOS | Windows 10 / 11 | Dowód / ograniczenie |
+|---|---|---|---|---|
+| S01 | Prototyp panel/doctor/receipt z dołączonego runtime | OK | NIEWYKONANE / NIEWYKONANE | Executable, SQLite i pięć eksportów |
+| S02 | Zgodna wymiana bibliotek i rzeczywisty import | OK | NIEWYKONANE / NIEWYKONANE | Paramiko/scp/autocommand, przywrócenie bajtów i verify |
+| S03 | Native build, zasoby, metadane, moduły protokołów | OK | NIEWYKONANE / NIEWYKONANE | Spec/hooks; runtime-check bez komunikacji; Windows build kit nie jest .exe |
+| S04 | Manifest/ZIP/linki i uprawnienia | OK | NIEWYKONANE / NIEWYKONANE | Ditto + verify; testy negatywne; NTFS rzeczywisty nadal wymagany |
+| S05 | Start na czystym OS bez systemowego Pythona | NIEWYKONANE | NIEWYKONANE / NIEWYKONANE | Obecny Mac ma Python.framework |
+| S06 | Start offline także Finder/Explorer | NIEWYKONANE | NIEWYKONANE / NIEWYKONANE | Terminal/executable OK; dwuklik i przekazanie na inne stanowisko otwarte |
+| S07 | Import/demo, szczegóły, historia, pięć eksportów danych | OK w sprawdzonym przekroju | NIEWYKONANE / NIEWYKONANE | Receipt/backup/import; host Gi101/VLAN10; pełny ręczny odbiór filtrów/historii do powtórzenia na czystym OS |
+| S08 | PNG/SVG otwarte, offline bez cache/Internetu | NIEWYKONANE | NIEWYKONANE / NIEWYKONANE | Przyciski kliknięto; pliki niedostępne w automatyzacji, brak oględzin; 11 JS/CSS lokalne HTTP200 |
+| S09 | Przeniesienie, Unicode/spacje, obcy CWD/importy | OK | NIEWYKONANE / NIEWYKONANE | Przed i po uruchomieniu; PATH bez Python, błędne PYTHONPATH/HOME bez obcego importu |
+| S10 | Zajęty port, drugi proces, Ctrl+C | OK w sprawdzonym przekroju | NIEWYKONANE / NIEWYKONANE | Kod2 PANEL_PORT_UNAVAILABLE, pierwsza działa; Ctrl+C zamyka. Anulowanie kolekcji chronią testy offline |
+| S11 | Receipt/backup/odczyt kopii bez python -m | OK | NIEWYKONANE / NIEWYKONANE | Oryginał bazy byte-exact, nowa kopia odczytana; stary model SQLite bez zmian |
+| S12 | Procesy systemowe/przeglądarka i DLL | NIEWYKONANE w pełnym zakresie | NIEWYKONANE / NIEWYKONANE | Testy środowiska i Windows DLL na atrapach OK; prawdziwych sond/Windows nie wykonano |
+| S13 | Prywatne pliki/efektywny NTFS drugiego konta | NIEWYKONANE | NIEWYKONANE / NIEWYKONANE | Nie zastępujemy NTFS testem POSIX |
+| S14 | Kompletny przegląd materiałów interpretera i wszystkich części | NIEWYKONANE | NIEWYKONANE / NIEWYKONANE | Inwentarz/noty/źródła dołączone; L01 nadal otwarty |
+| S15 | D14 i łączny RAM z kartą przeglądarki | NIEWYKONANE w całości | NIEWYKONANE / NIEWYKONANE | Native import+build 11,196s; projekcja źródłowa0,055s; RSS916357120B; łącznego RAM i opóźnienia UI nie zmierzono |
+| S16 | Transfer ZIP między komputerami i zwykłe rozpakowanie/ochrona OS | NIEWYKONANE | NIEWYKONANE / NIEWYKONANE | Lokalny ditto OK; ad hoc nie oznacza publicznego podpisu |
+| S17 | Raport, instrukcje, nowa tożsamość i akceptacja wyniku | NIEWYKONANE w całości | NIEWYKONANE / NIEWYKONANE | Dokumenty i kandydat gotowe; akceptacja wyniku nie została udzielona |
 
 ## Decyzja
 
-Wdrożenie 5A: **oczekuje na zatwierdzenie planu/ADR-009**. Odbiór: **niewykonany**. Nie utworzono paczek bez Pythona. Otwarte odbiory sprzętowe SNMP/SSH, źródła Windows, RAM, NTFS i materiałów z Etapu 5 nie stają się zaliczone przez przygotowanie tej karty. Każdy nowy aktywny odczyt wymaga osobnego wskazanego zakresu.
+A0–A3 wykonane w dostępnym zakresie macOS; A4 wymaga natywnego Windows; A5 ma macOS i zestaw budowania; A6/A7 pozostają otwarte. Nie opublikowano wydania. Sprzęt SNMP/SSH, źródło Windows, NTFS, RAM i L01 z Etapu 5 zachowują status. Nowy aktywny odczyt wymaga osobno określonego zakresu.

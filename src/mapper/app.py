@@ -2,6 +2,8 @@
 import secrets
 import threading
 import webbrowser
+from .frozen_runtime import open_browser as frozen_browser
+import sys
 from urllib.parse import urlsplit
 from pathlib import Path
 
@@ -87,7 +89,7 @@ def run(root=None, *, port=8050, open_browser=True, offline=False):
         def launch():
             if ready.wait(5) and not stop.is_set():
                 try:
-                    webbrowser.open(url)
+                    frozen_browser(url) if getattr(sys, 'frozen', False) else webbrowser.open(url)
                 except (webbrowser.Error, OSError):
                     pass  # Clickable URL is already printed.
         if open_browser:

@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-01",
+  "version": "0.5.0rc2",
+  "base_commit": "20889851ed6a113ba8502f00c279bf954e91b6ba",
+  "tests": {
+    "count": 63,
+    "seconds": 1.958,
+    "result": "OK",
+    "pip_check": "OK"
+  },
+  "macos": {
+    "native_build": "OK",
+    "zip_roundtrip": "ditto + manifest v2 OK",
+    "doctor": "OK",
+    "receipt": {
+      "nodes": 3,
+      "edges": 2,
+      "exports": 5,
+      "sqlite_integrity": "ok"
+    },
+    "backup": "OK, source bytes unchanged",
+    "lgpl_replacement": "OK, Paramiko/scp/autocommand actually executed and restored",
+    "foreign_cwd_unicode": "OK",
+    "port_conflict": "exit2 PANEL_PORT_UNAVAILABLE; first instance preserved",
+    "local_assets": [
+      {
+        "path": "/assets/panel.css",
+        "status": 200,
+        "bytes": 5497
+      },
+      {
+        "path": "/_dash-component-suites/dash/deps/polyfill@7.v4_4_1m1793525186.12.1.min.js",
+        "status": 200,
+        "bytes": 99276
+      },
+      {
+        "path": "/_dash-component-suites/dash/deps/react@18.v4_4_1m1793525186.3.1.min.js",
+        "status": 200,
+        "bytes": 10751
+      },
+      {
+        "path": "/_dash-component-suites/dash/deps/react-dom@18.v4_4_1m1793525186.3.1.min.js",
+        "status": 200,
+        "bytes": 131835
+      },
+      {
+        "path": "/_dash-component-suites/dash/deps/prop-types@15.v4_4_1m1793525186.8.1.min.js",
+        "status": 200,
+        "bytes": 1722
+      },
+      {
+        "path": "/_dash-component-suites/dash_cytoscape/dash_cytoscape_extra.v1_0_2m1793525186.min.js",
+        "status": 200,
+        "bytes": 1388321
+      },
+      {
+        "path": "/_dash-component-suites/dash/dash-renderer/build/dash_renderer.v4_4_1m1793525186.min.js",
+        "status": 200,
+        "bytes": 258170
+      },
+      {
+        "path": "/_dash-component-suites/dash/dcc/dash_core_components.v4_4_1m1793525186.js",
+        "status": 200,
+        "bytes": 354924
+      },
+      {
+        "path": "/_dash-component-suites/dash/dcc/dash_core_components-shared.v4_4_1m1793525186.js",
+        "status": 200,
+        "bytes": 113697
+      },
+      {
+        "path": "/_dash-component-suites/dash/html/dash_html_components.v4_4_1m1793525186.min.js",
+        "status": 200,
+        "bytes": 208187
+      },
+      {
+        "path": "/_dash-component-suites/dash/dash_table/bundle.v7_4_1m1793525186.js",
+        "status": 200,
+        "bytes": 33530
+      }
+    ],
+    "panel": "synthetic 2 switches/1 host, 3 relations; details Gi101/VLAN10/high",
+    "png_svg": "clicked; downloaded files not retrieved for inspection, not accepted"
+  },
+  "d14": {
+    "input": {
+      "switches": 50,
+      "hosts": 1000,
+      "vlans": 20,
+      "observations": 50000
+    },
+    "native_executable": true,
+    "import_seconds": 4.40380745800212,
+    "build_export_seconds": 6.792475458001718,
+    "import_build_total_seconds": 11.196282916003838,
+    "sampled_peak_application_rss": 916357120,
+    "combined_browser_ram_measured": false,
+    "sends_probes": false,
+    "projection_seconds": 0.05523104197345674,
+    "projection_counts": {
+      "nodes": 50,
+      "all_nodes": 1050,
+      "edges": 0,
+      "all_edges": 45900
+    },
+    "projection_test": "source function matching packaged source; not browser latency"
+  },
+  "open": [
+    "native Windows build",
+    "separate Windows10 and Windows11 acceptance",
+    "clean OS without installed Python",
+    "Finder/Explorer double click and cross-computer transfer",
+    "physical Internet/cache",
+    "PNG/SVG visual acceptance",
+    "combined app/browser RAM and UI latency",
+    "effective NTFS second account",
+    "L01 full component review",
+    "physical SNMP/SSH and Windows source IPv4"
+  ],
+  "sends_probes": false,
+  "published": false,
+  "committed_by_agent": false,
+  "artifacts": [
+    {
+      "file": "mapper-sieci-0.5.0rc2-macos-arm64-standalone.zip",
+      "bytes": 128039614,
+      "sha256": "a0415e38a76f6200a9972cf80953ffb35d392aff05bc7cded9630f291387e959",
+      "type": "standalone macOS"
+    },
+    {
+      "file": "mapper-sieci-0.5.0rc2-windows-x64-build-kit.zip",
+      "bytes": 116632131,
+      "sha256": "f7d0c3b7d0e7e67c2452f2e09c55d5c216238dee03966ce8872e8f3cd7f4a4f9",
+      "type": "Windows native build kit; not exe"
+    }
+  ]
+}
