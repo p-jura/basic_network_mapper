@@ -295,3 +295,19 @@ Przygotowano [szczegółowy plan Etapu 5](ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [pr
 Przed zatwierdzeniem Etapu 5 użytkownik poprosił o skan obecnej sieci. Po odczycie lokalnych informacji zatwierdził konkretny interfejs, źródło i zakres słowami „Tak, skanuj ten zakres — mam prawo badać tę sieć”. Jednorazowy odbiór obejmował 253 cele, 5/s, 4 równolegle, 240 s, bez SNMP/SSH i powtarzania. Dokładny zakres zgody pozostał prywatny.
 
 Cykl zakończył się po 128,997 s, z 2 odpowiedziami i bez błędów sond. Wykryto dwa błędy mapy: endpoint z rozgłoszeniowego ARP i powielenie własnego IPv4. [Raport](../etap-4/ODBIOR_LAN_2026-10-25.md). Zachowany snapshot umożliwia dalszą regresję offline bez nowego skanu. Nie zmieniono kodu ani reguł topologii podczas odbioru; poprawki wymagają konkretnego planu przed wdrożeniem.
+
+## 20. Poprawki po odbiorze LAN — 25 października 2026 r.
+
+Polecenie „ok dzialaj wedlug planu” zrealizowano jako poprawki LAN-01/LAN-02/LAN-03. [ADR-008](../decisions/ADR-008-poprawki-po-odbiorze-lan.md) zapisano przed kodem. Wersja 0.4.1 i reguły 2, 54 testy krytyczne oraz replay prywatnej kopii rzeczywistych źródeł OK; [raport](../etap-4-1/RAPORT_ETAP_4_1.md). Bez nowych sond, zmian protokołów ani danych źródłowych. Wynik do zatwierdzenia. Plan Etapu 5 i ADR-007 nie zostały zapisane jako zaakceptowane; automatyczny przegląd odrzucił takie rozszerzenie bieżącej zgody.
+
+## 21. Osobne zatwierdzenie wdrożenia Etapu 5 — 25 października 2026 r.
+
+Użytkownik odpowiedział „Tak, zatwierdzam wdrożenie Etapu 5” na pytanie o istniejący plan ZIP z lokalnymi zależnościami i odbiór instalacji, bez publikacji i nowych skanów. To osobna, jednoznaczna autoryzacja po wcześniejszej odmowie automatycznego przeglądu zakresu. ADR-007 zaktualizowano przed kodem. Operator potwierdził dostęp do Windows 10 lub 11; dokładny OS i próby nadal wymagają receipt z tego stanowiska.
+
+Wdrożono kandydata 0.5.0rc1. [Raport Etapu 5](../etap-5/RAPORT_ETAP_5.md): dwa ZIP, 51 kół na platformę, instalacja offline na macOS, 58 testów, eksporty, aktualizacja/rollback na kopiach oraz D14. Pełnego MVP nie zatwierdzono: otwarte warunki sprzętowe, Windows/NTFS, RAM, test fizycznie bez Internetu oraz pełna weryfikacja materiałów komponentów. Bez nowych sond, publikacji i operacji Git.
+
+## 22. Plan paczek bez instalowania Pythona — 1 listopada 2026 r.
+
+Po wyjaśnieniu, że 0.5.0rc1 wymaga Python 3.13, użytkownik polecił „ok utworz plan dzialania”. Przygotowano [plan 5A](ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [propozycję ADR-009](../decisions/ADR-009-samodzielne-paczki-z-interpreterem.md) i [kartę nowych prób](../etap-5a/KARTA_ODBIORU_ETAP_5A.md). Rekomendacja: PyInstaller onedir, natywny build każdej platformy, najpierw krótki prototyp zasobów i wymienialności bibliotek. Odbiorca nie instaluje Pythona; proponowany runtime i cały zakres A0–A7 wymagają zatwierdzenia przed implementacją.
+
+Zmiana dotyczy tylko dokumentów. Nie instalowano narzędzi, nie zmieniono kodu ani wersji i nie przebudowano istniejących ZIP. Pełny Etap 5 pozostaje otwarty; zgoda na sporządzenie planu nie oznacza jego wdrożenia, nowego skanu lub publikacji.

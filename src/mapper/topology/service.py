@@ -55,8 +55,8 @@ def history(repo, *, limit=100, rules_version=None):
         raise MapperError('INVALID_HISTORY_LIMIT')
     query = 'SELECT event_json FROM history_events'
     params = []
-    if rules_version:
-        query += ' WHERE rules_version=?'; params.append(rules_version)
+    version = rules_version or RULES_VERSION + ':skew=300'
+    query += ' WHERE rules_version=?'; params.append(version)
     params.append(limit)
     return [json.loads(r[0]) for r in repo.db.execute(query + ' ORDER BY event_at DESC,event_id LIMIT ?', params)]
 

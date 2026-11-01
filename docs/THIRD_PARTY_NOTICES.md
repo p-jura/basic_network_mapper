@@ -71,3 +71,7 @@ Wpis `setuptools — MIT` w tabeli opisuje główny pakiet. Dołączony `autocom
 | urllib3 | 2.8.0 | MIT | [1-LICENSE.txt](../third_party_licenses/urllib3/1-LICENSE.txt) |
 | werkzeug | 3.1.9 | BSD-3-Clause | [1-LICENSE.txt](../third_party_licenses/werkzeug/1-LICENSE.txt) |
 | zipp | 4.1.1 | MIT | [1-LICENSE](../third_party_licenses/zipp/1-LICENSE) |
+
+## Kandydat Etapu 5 — 25 października 2026 r.
+
+Dla 0.5.0rc1 zebrano materiały z rzeczywistych kół i oficjalnych źródeł, w tym wcześniejsze braki pySerial/setuptools/MPL/LGPL oraz zidentyfikowany SheetJS 0.18.5. Nowe teksty i pochodzenie są w ZIP kandydata; historycznego katalogu third_party_licenses nie zmieniano. [Raport konkretnego artefaktu](etap-5/RAPORT_ETAP_5.md) rozdziela uzupełnione materiały, próbę wymiany bibliotek oraz nadal otwartą pełną weryfikację natywnych i JS atrybucji. Nie jest to zamknięcie pełnego odbioru ani publikacja.

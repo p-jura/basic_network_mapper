@@ -1,14 +1,14 @@
 # Etap 5 — odbiór, pakowanie i przygotowanie wydania MVP
 
-Data: **25 października 2026 r.** Status: **plan do zatwierdzenia przed wdrożeniem**. Użytkownik zatwierdził wynik Etapu 4 słowami „zatwierdzam wdrozenie dzialaj przy nastepnym planie”. Zgoda obejmuje zapis odbioru i przygotowanie tego planu. Nie oznacza rozpoczęcia pakowania, publikacji ani nowej zgody na sondowanie sieci.
+Data: **25 października 2026 r.** Status: **zatwierdzony do wdrożenia 25 października 2026 r.**. Użytkownik zatwierdził wynik Etapu 4 słowami „zatwierdzam wdrozenie dzialaj przy nastepnym planie”. Po poprawkach LAN 0.4.1 użytkownik osobno odpowiedział „Tak, zatwierdzam wdrożenie Etapu 5” na pytanie o ZIP z lokalnymi zależnościami i odbiór instalacji. Ta zgoda obejmuje implementację i pakowanie; bez publikacji ani nowych skanów.
 
-Podstawa: [plan główny §8–9](../PLAN_STARTOWY.md), [karta decyzji D01–D14](KARTA_ETAP_0.md), [zaakceptowany wynik Etapu 4](../etap-4/RAPORT_ETAP_4.md), [stan licencji i otwarte luki](../licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md), [propozycja ADR-007](../decisions/ADR-007-pakowanie-i-odbior-wydania.md). Do wyników służy [karta odbioru Etapu 5](../etap-5/KARTA_ODBIORU_ETAP_5.md); jej wiersze są obecnie niewykonane.
+Podstawa: [plan główny §8–9](../PLAN_STARTOWY.md), [karta decyzji D01–D14](KARTA_ETAP_0.md), [zaakceptowany wynik Etapu 4](../etap-4/RAPORT_ETAP_4.md), [stan licencji i otwarte luki](../licencje/STAN_PRAWNY_I_DYSTRYBUCJA.md), [propozycja ADR-007](../decisions/ADR-007-pakowanie-i-odbior-wydania.md). Do wyników służy [karta odbioru Etapu 5](../etap-5/KARTA_ODBIORU_ETAP_5.md); jej aktualne wiersze rozróżniają wykonane i otwarte próby.
 
 ## 1. Cel i stan wejściowy
 
 Dostarczyć jedną lokalną aplikację, którą można zainstalować na czystym stanowisku, uruchomić bez dostępu do Internetu i używać w jawnie odebranym zakresie. Do wydania dołączyć instrukcje, dokładne wersje i materiały komponentów, a deklaracje zgodności oprzeć na zapisanych próbach.
 
-Bazą jest **0.4.0**: Etap 4 zatwierdzony, 49 testów krytycznych, działający panel i syntetyczne eksporty. Import/korelacja zestawu 50 tys. obserwacji trwały 6,119 s na macOS ARM. Pierwszy licznik widoku infrastruktury pojawił się po 2,165 s od kliknięcia w równoważnym zestawie; pomiar zawiera opóźnienie automatyzacji. Odbiór podstawowego LAN z Etapu 2 jest historycznym dowodem dla ówczesnej wersji i zakresu.
+Historyczną bazą planu jest **0.4.0**; wdrożenie uwzględnia poprawki **0.4.1**: Etap 4 zatwierdzony, 49 testów krytycznych, działający panel i syntetyczne eksporty. Import/korelacja zestawu 50 tys. obserwacji trwały 6,119 s na macOS ARM. Pierwszy licznik widoku infrastruktury pojawił się po 2,165 s od kliknięcia w równoważnym zestawie; pomiar zawiera opóźnienie automatyzacji. Odbiór podstawowego LAN z Etapu 2 jest historycznym dowodem dla ówczesnej wersji i zakresu.
 
 Nieodebrane pozostają: rzeczywisty Windows/NTFS, natywne sondy IPv4 na Windows, SNMPv2c/v3/SSH na sprzęcie, fizyczny test bez Internetu/cache, łączny RAM aplikacja+karta oraz kompletność materiałów konkretnego wydania. Akceptacja Etapu 4 zachowuje te ograniczenia; nie zamieniamy ich w zaliczone próby.
 
@@ -16,13 +16,13 @@ Nieodebrane pozostają: rzeczywisty Windows/NTFS, natywne sondy IPv4 na Windows,
 
 Po przygotowaniu tego planu operator zatwierdził jeden aktualny skan. [Raport LAN](../etap-4/ODBIOR_LAN_2026-10-25.md): kolekcja 253 celów poprawna, ale błędny endpoint rozgłoszeniowy i duplikat lokalnego IPv4 blokują odbiór mapy. Przed 5.1 należy zaplanować i wdrożyć wąskie poprawki tych reguł z właściwym wersjonowaniem wyników oraz sprawdzić je offline na zachowanym snapshotcie. Wymagana jest też diagnoza odtwarzania wyboru interfejsu w formularzu. Nie wymaga to ponownego skanu na potrzeby pierwszej regresji i nie oznacza wdrożenia całego planu Etapu 5.
 
-## 2. Proponowany format pierwszego wydania — do zatwierdzenia
+## 2. Zatwierdzony format kandydata
 
 **Rekomendacja: ZIP dla macOS ARM i ZIP dla Windows x64, zawierające własny wheel, lokalny wheelhouse zależności oraz skrypty instalacji/uruchomienia.** To artefakty platformowe jednej aplikacji i jednego kodu. Python 3.13 jest wcześniej zainstalowanym wymaganiem stanowiska. Nie kopiujemy developerskiego .venv do paczki: środowisko tworzy się na miejscu. [Python 3.13 — środowiska venv nie są przeznaczone do przenoszenia](https://docs.python.org/3.13/library/venv.html).
 
 Dlaczego ten wariant: korzysta z istniejącego sposobu uruchamiania i bibliotek, pozwala sprawdzić zależności offline oraz ich wymianę, nie dodaje narzędzia do zamrażania aplikacji ani dystrybucji interpretera. Instalator EXE/DMG z interpreterem może być osobnym późniejszym zadaniem, po pomiarze rozmiaru, zgodności i materiałów licencyjnych. Nie dokładamy go do szybkiego MVP bez osobnej decyzji.
 
-Proponowany układ ZIP, nazwy jeszcze nie są gotowymi plikami:
+Wdrożony układ ZIP; dodatkowo bundle.py, maintenance.py, provenance.json i license-review.json:
 
 ```text
 mapper-sieci-<wersja>-<platforma>/
@@ -55,7 +55,7 @@ Skrypty wymagają zwykłego konta, obsługują spacje i polskie znaki w ścieżk
 
 ### 3.2. Instaluj z lokalnych plików
 
-Docelowy skrypt tworzy nowe venv i instaluje cały zestaw z wheelhouse, bez indeksu, z pinami i hashami. Przykład **kontraktu przyszłego instalatora**, nie gotowe polecenie dla obecnego repozytorium:
+Docelowy skrypt tworzy nowe venv i instaluje cały zestaw z wheelhouse, bez indeksu, z pinami i hashami. Kontrakt wdrożonego instalatora; skrypt sam wybiera interpreter i lokalne ścieżki:
 
 ```text
 <python-nowego-venv> -m pip install --no-index --find-links <wheelhouse>   --only-binary=:all: --require-hashes -r <requirements.lock>
@@ -154,13 +154,13 @@ Retencja i budżet 2 GB/projekt: potwierdź zachowanie chronionych wyników i od
 
 Przy braku Windows/switcha kontynuujemy bezpieczne kroki 5.1–5.2 i dokumentację. Nie blokujemy pracy nad lokalną paczką, lecz nie zamykamy pełnego Etapu 5 jako odebranego MVP. Nie przygotowujemy osobnej uproszczonej aplikacji jako zamiennika.
 
-Planowane pliki: mały katalog packaging/ ze skryptami; platformowe requirements.lock w jego podkatalogach; manifest/sumy w wynikowym archiwum; docs/etap-5/ z raportem, wynikami, macierzą wsparcia oraz instrukcją aktualizacji. Duże wheelhouse, źródła zależności i gotowe archiwa pozostają poza repozytorium. Jeśli skrypt okaże się zbędny po zastąpieniu, trafia do old/ z wpisem w rejestrze; bez kasowania starych materiałów na etapie planu.
+Wdrożone pliki: mały katalog packaging/ ze skryptami; platformowe requirements.lock w jego podkatalogach; manifest/sumy w wynikowym archiwum; docs/etap-5/ z raportem, wynikami, macierzą wsparcia oraz instrukcją aktualizacji. Duże wheelhouse, źródła zależności i gotowe archiwa pozostają poza repozytorium. Jeśli skrypt okaże się zbędny po zastąpieniu, trafia do old/ z wpisem w rejestrze; bez kasowania starych materiałów na etapie planu.
 
-Wersja 0.4.0 pozostaje teraz bez zmian. Po implementacji i poprawkach można przygotować lokalnego kandydata 0.5.0rc1; numer finalny ustalimy przed wydaniem. Zmiana wersji nie zastępuje zatwierdzenia, tagu ani publikacji. Żadnego pushu, tagu i GitHub Release bez polecenia użytkownika.
+Wdrożono lokalnego kandydata 0.5.0rc1 na bazie 0.4.1; numer finalny ustalimy przed wydaniem. Zmiana wersji nie zastępuje zatwierdzenia, tagu ani publikacji. Żadnego pushu, tagu i GitHub Release bez polecenia użytkownika.
 
 ## 8. Minimalna weryfikacja i warunek ukończenia
 
-Pozostaje 49 istniejących testów. Dodajemy wyłącznie krytyczne sprawdzenia nowego pakowania: zgodność manifestu/hashów i obecność zasobów, instalacja bez pobierania/checkoutu, bezpieczne ścieżki oraz zachowanie danych podczas aktualizacji. Jedna mała próba ręczna na danym OS i rzeczywistych protokołach ma większą wartość niż rozbudowany mock hardware. Bez CI/CD, rozbudowanej macierzy każdej przeglądarki i testów kryptografii bibliotek.
+Bazą po poprawkach LAN są 54 testy; pakowanie dodaje 4 krytyczne grupy (58 łącznie). Dodajemy wyłącznie krytyczne sprawdzenia nowego pakowania: zgodność manifestu/hashów i obecność zasobów, instalacja bez pobierania/checkoutu, bezpieczne ścieżki oraz zachowanie danych podczas aktualizacji. Jedna mała próba ręczna na danym OS i rzeczywistych protokołach ma większą wartość niż rozbudowany mock hardware. Bez CI/CD, rozbudowanej macierzy każdej przeglądarki i testów kryptografii bibliotek.
 
 Pełne zakończenie Etapu 5 wymaga:
 
@@ -177,12 +177,26 @@ Pełne zakończenie Etapu 5 wymaga:
 
 | ID | Propozycja / brak | Status i wpływ |
 |---|---|---|
-| E5-D01 | ZIP + lokalne koła + skrypty, Python 3.13 jako wymaganie; bez EXE/DMG na pierwsze wydanie | Do zatwierdzenia wraz z planem; ADR-007 |
-| E5-D02 | Dokładne platformowe locki i hashe; bez automatycznej aktualizacji zależności | Do zatwierdzenia wraz z planem |
+| E5-D01 | ZIP + lokalne koła + skrypty, Python 3.13 jako wymaganie; bez EXE/DMG na pierwsze wydanie | Zatwierdzone; ADR-007 |
+| E5-D02 | Dokładne platformowe locki i hashe; bez automatycznej aktualizacji zależności | Zatwierdzone |
 | E5-D03 | Pełny zakres odbioru D01 i protokołów pozostaje warunkiem pełnego MVP | Zgodne z dotychczasowym planem; nie ograniczamy wydania automatycznie |
 | E5-F01 | Dostęp do Windows 11 i Windows 10 x64, drugiego zwykłego konta i NTFS | Fakt niepotwierdzony; wymagany przed odpowiednią próbą |
 | E5-F02 | Dostęp do agenta v2c/v3 oraz Cisco SSH; dwa switche/dwa VLAN-y/znane porty do odbioru korelacji | Fakt niepotwierdzony; brak nie blokuje przygotowania paczki offline |
 | E5-F03 | Jawny zakres LAN/seedy oraz poświadczenia ENV | Operator przekazuje prywatnie przed konkretnymi odczytami, nie do repozytorium |
 | E5-F04 | Stanowisko bez Internetu/cache i metoda izolacji RAM karty | Do uzgodnienia przy odbiorze; bez samodzielnej zmiany konfiguracji sieci przez agenta |
 
-Szacunek po sprawdzeniu kodu i otwartych pozycji licencji: **3–5 dni pracy przy dostępnych stanowiskach i danych**, z korektą po 5.1. To urealnienie wcześniejszych 2–3 dni, nie obietnica czasu kalendarzowego ani powód dodawania nowych usług. Oczekiwanie na sprzęt i wyjaśnienie materiałów komponentów rozliczamy oddzielnie. Najbliższa autoryzacja powinna dotyczyć tego konkretnego zakresu; nie ma potrzeby ponownie zatwierdzać rutynowych kroków 5.1–5.2 po akceptacji całego planu.
+Szacunek po sprawdzeniu kodu i otwartych pozycji licencji: **3–5 dni pracy przy dostępnych stanowiskach i danych**, z korektą po 5.1. To urealnienie wcześniejszych 2–3 dni, nie obietnica czasu kalendarzowego ani powód dodawania nowych usług. Oczekiwanie na sprzęt i wyjaśnienie materiałów komponentów rozliczamy oddzielnie. Zakres zatwierdzono do wdrożenia; rutynowe kroki 5.1–5.2 nie wymagają ponownego zatwierdzania.
+
+## Stan po poprawkach wejściowych 0.4.1
+
+[Regresja LAN](../etap-4-1/RAPORT_ETAP_4_1.md) zakończona offline: 54 testy, 4 zdalne hosty zamiast 6 błędnie sklasyfikowanych, poprawione odtwarzanie formularza. To wynik do zatwierdzenia przed pakowaniem, nie akceptacja całego planu Etapu 5. Nie utworzono jego artefaktu. Wstępny download z PyPI wykazał brak zgodnego koła dash-cytoscape 1.0.2 w indeksie; przy przyszłym pakowaniu sprawdzić pochodzenie istniejącego lokalnego koła tej wersji, bez automatycznej zmiany wersji.
+
+## Wynik implementacji
+
+[Raport 0.5.0rc1](../etap-5/RAPORT_ETAP_5.md), [karta prób](../etap-5/KARTA_ODBIORU_ETAP_5.md), [instrukcja instalacji i odbioru Windows](../etap-5/URUCHOMIENIE_I_ODBIOR_WINDOWS.md). Osobna zgoda na wdrożenie jest zapisana w nagłówku i karcie §21. Historyczny akapit o braku zgody po poprawkach 0.4.1 opisuje stan sprzed tej osobnej odpowiedzi.
+
+Pakowanie 5.1–5.2 wykonano w dostępnym zakresie; 5.3–5.6 pozostają otwarte zgodnie z kartą. Brak gotowego koła dash-cytoscape rozwiązano lokalnym buildem z oficjalnego sdist 1.0.2 ze sprawdzonym hashem, bez zmiany wersji biblioteki.
+
+## Propozycja rozszerzenia 5A — 1 listopada 2026 r.
+
+Użytkownik zlecił plan uruchomienia bez instalowania Pythona: [szczegółowy plan 5A](ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [ADR-009 do zatwierdzenia](../decisions/ADR-009-samodzielne-paczki-z-interpreterem.md). To propozycja nowego sposobu pakowania; niniejszy poradnik i rc1 opisują nadal działający wariant z wymaganym Python 3.13. Wyniki kart Etapu 5 pozostają historyczne, a nowe próby 5A zaczynają się jako niewykonane. Nie rozpoczęto implementacji.

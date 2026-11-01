@@ -76,6 +76,9 @@ def details(graph, ident):
                             'Uzasadnienie': e.get('reasons', [])} for e in assignments]
             return {'IP': node.get('ips', []), 'MAC': node.get('macs', []), 'Nazwa': node.get('names', []),
                     'Rola według dowodów': node['kind'], 'Producent': 'nieustalony',
+                    **({'MAC zgłaszane w cache dla własnego IP (niezweryfikowane)': node['neighbor_mac_claims'],
+                        'Ograniczenie': 'Cache nie potwierdza MAC lokalnej karty; możliwy konflikt IP.'}
+                       if node.get('neighbor_mac_claims') else {}),
                     'Ostatnia obserwacja': node.get('last_seen'), 'Świeża obecność': node.get('fresh_presence'),
                     'Przypisania switch / port / VLAN': assignments or 'nieustalone',
                     'Dowody i ograniczenia': node}

@@ -1,0 +1,40 @@
+{
+  "status": "passed_offline_replay",
+  "rules_version": "2:skew=300",
+  "nodes": {
+    "endpoint": 4,
+    "segment": 1,
+    "local_interface": 1
+  },
+  "edges": {
+    "logical_membership": 5
+  },
+  "fresh_remote_responses": 2,
+  "history_events_current_rules": 6,
+  "warnings": {
+    "LOCAL_IP_NEIGHBOR_CLAIM": 1
+  },
+  "source_unchanged": true,
+  "legacy_results_unchanged": true,
+  "rebuild_idempotent": true,
+  "probes_sent": 0,
+  "integrity": "ok",
+  "foreign_key_errors": 0,
+  "application": "0.4.1",
+  "date": "2026-10-25",
+  "tests": {
+    "command": "./.venv/bin/python -m unittest discover -s tests/critical -v",
+    "critical_cases": 54,
+    "status": "passed"
+  },
+  "browser": {
+    "baseline": "NO_SOURCES_CONFIGURED reproduced with saved interface and empty options",
+    "corrected": "saved interface retained; preview succeeds without reselection; synthetic adapter only",
+    "new_collection_started": false
+  },
+  "limits": [
+    "No new LAN scan",
+    "Windows/NTFS and hardware SNMP/SSH not tested",
+    "Offline replay on private copy, original project not modified"
+  ]
+}

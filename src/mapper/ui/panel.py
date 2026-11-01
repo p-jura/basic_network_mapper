@@ -56,7 +56,7 @@ def create_panel(control, assets):
     def button(label, ident, **kwargs):
         return html.Button(label, id=ident, n_clicks=0, **kwargs)
     app.layout = html.Div([
-        dcc.Store(id='interface-facts'), dcc.Store(id='view-ref'), dcc.Store(id='job-ref'), dcc.Store(id='approval'),
+        dcc.Store(id='interface-facts'), dcc.Store(id='form-project'), dcc.Store(id='view-ref'), dcc.Store(id='job-ref'), dcc.Store(id='approval'),
         dcc.Interval(id='poll', interval=1000), dcc.Download(id='download'),
         html.Header([html.Div([html.Span('FL / MAPPER', className='brand'), html.H1('Mapa Twojej sieci'),
                     html.P('Lokalne odkrywanie IPv4 · topologia oparta na dowodach')]),
@@ -125,6 +125,8 @@ def create_panel(control, assets):
 
     def form_config(pid, interface, cidr, seeds, profiles, ranges, limits, recursive, recursive_profile):
         cfg = config_read(control.root, pid)
+        if bool(interface) != bool(cidr and cidr.strip()):
+            raise MapperError('BASIC_INTERFACE_AND_CIDR_REQUIRED')
         try:
             cfg.update(basic={'interface': interface, 'cidr': cidr} if interface and cidr else None,
                        seeds=json.loads(seeds or '[]'), profiles=json.loads(profiles or '{}'),
@@ -138,33 +140,43 @@ def create_panel(control, assets):
             cfg.pop('recursive_profile_id', None)
         return validate_config(cfg, pid)
 
-    @app.callback(Output('interface', 'options'), Output('interface-info', 'children'), Output('interface-facts', 'data'),
-                  Input('interfaces', 'n_clicks'), prevent_initial_call=True)
-    def interfaces(_):
-        if control.offline:
-            return [], 'Tryb offline', []
-        from ..discovery.system import interfaces as local_interfaces
-        try:
-            rows = [i for i in local_interfaces() if i['is_up']]
-            options = [{'label': f"{i['interface']} · {i['ip']} / {i['netmask']}", 'value': i['interface']} for i in rows]
-            return options, 'Wybierz zgodny LAN; zakres sprawdzisz w podglądzie.', rows
-        except Exception:
-            return [], 'Nie udało się odczytać interfejsów.', []
-
     @app.callback(Output('interface', 'value'), Output('cidr', 'value'), Output('seeds', 'value'),
                   Output('profiles', 'value'), Output('ranges', 'value'), Output('limits', 'value'),
                   Output('recursive', 'value'), Output('recursive-profile', 'value'),
-                  Input('project', 'value'))
-    def config_form(pid):
+                  Output('interface', 'options'), Output('interface-facts', 'data'),
+                  Output('interface-info', 'children'), Output('form-project', 'data'),
+                  Input('project', 'value'), Input('interfaces', 'n_clicks'), State('interface', 'value'))
+    def config_form(pid, _, selected):
+        if ctx.triggered_id == 'interfaces':
+            if control.offline:
+                return [no_update] * 12
+            from ..discovery.system import interfaces as local_interfaces
+            try:
+                rows = [i for i in local_interfaces() if i['is_up']]
+                options = [{'label': f"{i['interface']} · {i['ip']} / {i['netmask']}", 'value': i['interface']} for i in rows]
+                if selected and selected not in {i['value'] for i in options}:
+                    options.append({'label': selected + ' · zapisany, obecnie niedostępny', 'value': selected})
+                return [no_update] * 8 + [options, rows, 'Zakres i aktualność interfejsu sprawdzisz w podglądzie.', no_update]
+            except Exception:
+                return [no_update] * 10 + ['Nie udało się odczytać interfejsów.', no_update]
+        empty = [None, '', '[]', '{}', '[]', '{}', [], '', [], [], '', None]
         if not pid:
-            return None, '', '[]', '{}', '[]', '{}', [], ''
+            return empty
         try:
             cfg = config_read(control.root, pid)
             basic = cfg.get('basic') or {}
+            selected = basic.get('interface')
+            options = [{'label': selected + ' · zapisany; sprawdź podgląd', 'value': selected}] if selected else []
             dumps = lambda value: json.dumps(value, ensure_ascii=False, indent=2)
-            return basic.get('interface'), basic.get('cidr', ''), dumps(cfg.get('seeds', [])), dumps(cfg.get('profiles', {})), dumps(cfg.get('allowed_ranges', [])), dumps(cfg.get('limits', {})), ['yes'] if cfg.get('recursive') else [], cfg.get('recursive_profile_id', '')
+            return [selected, basic.get('cidr', ''), dumps(cfg.get('seeds', [])), dumps(cfg.get('profiles', {})), dumps(cfg.get('allowed_ranges', [])), dumps(cfg.get('limits', {})), ['yes'] if cfg.get('recursive') else [], cfg.get('recursive_profile_id', ''), options, [], 'Konfiguracja wczytana; bez odczytu sieci.', pid]
         except (MapperError, OSError):
-            return None, '', '[]', '{}', '[]', '{}', [], ''
+            return empty
+
+    @app.callback(Output('save', 'disabled'), Output('prepare', 'disabled'), Output('start', 'disabled'),
+                  Input('project', 'value'), Input('form-project', 'data'), Input('approval', 'data'))
+    def ready(pid, loaded, approval):
+        pending = not pid or loaded != pid
+        return pending, pending or control.offline, pending or control.offline or not approval
 
     @app.callback(Output('project', 'options'), Output('project', 'value'), Output('view-ref', 'data'),
                   Output('job-ref', 'data'), Output('approval', 'data'), Output('preview', 'children'),
@@ -176,15 +188,17 @@ def create_panel(control, assets):
                   Input('interface', 'value'), Input('cidr', 'value'), Input('seeds', 'value'),
                   Input('profiles', 'value'), Input('ranges', 'value'), Input('limits', 'value'),
                   Input('recursive', 'value'), Input('recursive-profile', 'value'),
-                  State('new-name', 'value'), State('snapshot', 'value'), State('view-ref', 'data'),
+                  State('form-project', 'data'), State('new-name', 'value'), State('snapshot', 'value'), State('view-ref', 'data'),
                   State('job-ref', 'data'), State('approval', 'data'), State('repeat', 'value'), State('minutes', 'value'),
                   prevent_initial_call=True)
     def actions(_create, _demo, _refresh, upload, pid, _load, _save, _prepare, _start, _cancel, _disarm, _poll,
                 interface, cidr, seeds, profiles, ranges, limits, recursive, recursive_profile,
-                name, cycle, ref, jobref, approval, repeat, minutes):
+                loaded_project, name, cycle, ref, jobref, approval, repeat, minutes):
         output = [no_update] * 10
         trigger = ctx.triggered_id
         try:
+            if trigger in {'save', 'prepare', 'start'} and (not pid or loaded_project != pid):
+                raise MapperError('PROJECT_FORM_NOT_READY')
             output[8] = status_text(control.status())
             if trigger == 'poll':
                 job = control.job((jobref or {}).get('id'))
@@ -281,7 +295,7 @@ def create_panel(control, assets):
             data = view(ref, pid); g = data['graph']
             elements, counts = project(g, query, vlan, 'yes' in (expand or []))
             stamp = next((s['started_at'] for s in data['snapshots'] if s['snapshot_id'] == g['snapshot_id']), '')
-            meta = f"{stamp} · {g['snapshot_id'][:8]} · {g['origin']}"
+            meta = f"{stamp} · {g['snapshot_id'][:8]} · {g['origin']} · reguły {g['rules_version']}"
             count = f"Widoczne urządzenia: {counts['nodes']}/{counts['all_nodes']} · relacje: {counts['edges']}/{counts['all_edges']}"
             if not counts['nodes']:
                 count += ' · Brak wyników — wyczyść wyszukiwanie lub wybierz wszystkie VLAN-y.'
@@ -344,10 +358,6 @@ def create_panel(control, assets):
         i = candidates[0]
         prefix = str(ipaddress.IPv4Network(i['ip'] + '/' + i['netmask'], strict=False))
         return prefix if not cidr else no_update, f"Źródło {i['ip']} · maska {i['netmask']} · lokalna podsieć {prefix}"
-
-    @app.callback(Output('start', 'disabled'), Input('approval', 'data'))
-    def can_start(approval):
-        return control.offline or not approval
 
     @app.callback(Output('search', 'value'), Output('vlan', 'value'), Output('expand', 'value'),
                   Input('clear-filters', 'n_clicks'), prevent_initial_call=True)

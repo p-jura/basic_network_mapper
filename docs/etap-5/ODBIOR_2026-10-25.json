@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-25",
+  "version": "0.5.0rc1",
+  "overall": "stage5_open_macOS_installation_accepted",
+  "release_status": "internal_candidate_not_for_distribution",
+  "artifacts": [
+    {
+      "platform": "macos-arm64",
+      "file": "mapper-sieci-0.5.0rc1-macos-arm64.zip",
+      "bytes": 86991645,
+      "sha256": "7319994037e96a2d8e512f0a23287ac400449152988df91800fb9279097de962",
+      "wheels": 51,
+      "manifest_files": 349,
+      "base_commit": "69a94c8df352a54eaa69049618e46cfaeeaea364",
+      "tree_state": "dirty"
+    },
+    {
+      "platform": "windows-x64",
+      "file": "mapper-sieci-0.5.0rc1-windows-x64.zip",
+      "bytes": 86395604,
+      "sha256": "ea7a6e647ec40d8b33dbf8ffa03c677e3972e7ac32126eb789f8ae4428d577c9",
+      "wheels": 51,
+      "manifest_files": 349,
+      "base_commit": "69a94c8df352a54eaa69049618e46cfaeeaea364",
+      "tree_state": "dirty"
+    }
+  ],
+  "tests": {
+    "critical_cases": 58,
+    "source_seconds": 2.062,
+    "installed_wheel_seconds": 2.029,
+    "status": "passed"
+  },
+  "clean_install": {
+    "platform": "macOS 26.6.2 ARM64",
+    "python": "3.13.0",
+    "outside_checkout": true,
+    "unicode_and_spaces": true,
+    "offline_pip_flags": true,
+    "pip_check": "ok",
+    "module_site_packages": true,
+    "second_final_install": "passed",
+    "no_new_scans": true
+  },
+  "browser": {
+    "panel": "passed",
+    "details": "Gi101 / VLAN10 with separate Gi900 uplink candidate",
+    "vlan_filter": "3/3 nodes,2/3 edges",
+    "png": "viewed",
+    "svg": "valid XML with node labels",
+    "local_asset_references": 12,
+    "external_asset_references": 0,
+    "physical_internet_disconnection": false,
+    "engine_version": "not available through browser tool",
+    "automation_download_timeouts": "tool blocked far beyond timeout twice; excluded from performance measurements"
+  },
+  "negative_install": {
+    "changed_wheel": "rejected_before_venv",
+    "missing_wheel": "rejected_before_venv",
+    "existing_venv": "preserved"
+  },
+  "lgpl_replacement": {
+    "libraries": [
+      "Paramiko 5.0.0",
+      "scp 0.16.2",
+      "autocommand 2.2.2"
+    ],
+    "platform": "macOS",
+    "compatible_modified_imports": true,
+    "originals_restored": true
+  },
+  "upgrade": {
+    "from": "0.4.0",
+    "to": "0.5.0rc1",
+    "old_rules": "1:skew=300",
+    "new_rules": "2:skew=300",
+    "old_nodes": 5,
+    "new_nodes": 3,
+    "original_source_unchanged": true,
+    "legacy_result_preserved": true,
+    "backup_used": true,
+    "idempotent_build": true,
+    "sends_probes": false
+  },
+  "budget": {
+    "new_cycle_refused_at_budget": true,
+    "source_preserved": true,
+    "retention_anchor_kept": true,
+    "exports_count_toward_budget": true,
+    "existing_exports_not_deleted": true,
+    "actual_disk_not_filled": true,
+    "fixture_bytes": 1048576,
+    "sends_probes": false,
+    "simulated_enospc_config_preserved": true,
+    "temporary_config_removed_after_failure": true
+  },
+  "d14": {
+    "import_and_build_seconds": 5.773,
+    "projection_seconds": 0.002,
+    "observations": 50000,
+    "all_nodes": 1050,
+    "all_edges": 1049,
+    "infrastructure": {
+      "nodes": 50,
+      "all_nodes": 1050,
+      "edges": 49,
+      "all_edges": 1049
+    },
+    "python_peak_rss_bytes": 539639808,
+    "combined_browser_ram_measured": false,
+    "installed_package": true,
+    "sends_probes": false,
+    "click_to_visible_infrastructure_ms": 1549,
+    "includes_automation_latency": true
+  },
+  "open": [
+    "Windows 10/11 runtime/NTFS/source binding acceptance",
+    "Physical offline/cache receipt",
+    "Real LAN and SNMP/SSH hardware acceptance",
+    "Combined application/browser RAM",
+    "Full native/JS material attribution review",
+    "User final acceptance"
+  ]
+}

@@ -97,3 +97,7 @@ Większy snapshot wygenerujesz bez sieci, w osobnym katalogu:
 Generator wypisze ścieżkę źródłowego JSON i UUID syntetycznego projektu. Na Windows wskaż własny tymczasowy katalog zamiast /private/tmp. Nie zapisuj 50 tys. obserwacji do repozytorium. Zestaw ma 50 switchy, 1000 hostów, 20 VLAN-ów i 49 LLDP; 50 tys. obserwacji obejmuje także rozbudowany inwentarz interfejsów. To próba obciążenia, nie reprezentacja każdego producenta.
 
 Odbiór na rzeczywistym Windows/NTFS, SNMPv2c/v3/SSH, fizyczne odłączenie Internetu/cache oraz łączny RAM procesu i karty pozostają jawnie niewykonane. Lokalność wymaganych skryptów/CSS sprawdzono; nie należy mylić tego z fizycznym testem odłączonego Internetu. [Wyniki i ograniczenia](../etap-4/RAPORT_ETAP_4.md).
+
+## Uzupełnienie — poprawki 0.4.1
+
+Ustalenia LAN-01/LAN-02/LAN-03 wdrożono zgodnie z [ADR-008](../decisions/ADR-008-poprawki-po-odbiorze-lan.md). [Raport i instrukcja](../etap-4-1/RAPORT_ETAP_4_1.md) opisują 54 testy, rzeczywisty snapshot przeliczony offline oraz odtworzenie błędu formularza w przeglądarce. Wcześniejsze wyniki tego dokumentu pozostają historyczne; nie wykonano nowego skanu ani pełnego odbioru Etapu 5.

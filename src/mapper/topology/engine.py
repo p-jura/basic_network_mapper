@@ -7,7 +7,7 @@ from ..errors import MapperError
 from .identity import identity, context
 from .confidence import assess
 
-RULES_VERSION = '1'
+RULES_VERSION = '2'
 
 
 def derive(data, *, max_skew=300):
@@ -61,21 +61,66 @@ def derive(data, *, max_skew=300):
         except (ValueError, KeyError):
             return False
 
+    def individual_mac(value):
+        try:
+            raw = bytes.fromhex(value.replace(':', ''))
+            return len(raw) == 6 and any(raw) and not raw[0] & 1
+        except (ValueError, AttributeError):
+            return False
+
+    # The scan CIDR can be narrower than the actual interface subnet. Only
+    # observed interface masks establish directed broadcast/network addresses.
+    local_networks = defaultdict(set)
+    for o in facts:
+        r, p = runs[o['collector_run_id']], o['payload']
+        if o['kind'] == 'local_interface' and r['target_id'] is None and local_scope_matches(r, p):
+            local_networks[context(r)].add(ipaddress.IPv4Network(p['ip'] + '/' + p['netmask'], strict=False))
+
+    def local_host_address(run, payload):
+        if not local_scope_matches(run, payload):
+            return False
+        ip = ipaddress.IPv4Address(payload['ip'])
+        networks = [net for net in local_networks[context(run)] if ip in net]
+        # Without a proven mask, retain a unicast claim rather than guessing.
+        return not networks or any(net.prefixlen >= 31 or ip not in {net.network_address, net.broadcast_address} for net in networks)
+
+    # The selected local address is known independently of the ARP cache.
+    # Its cache MAC is a claim, not proof of the adapter's hardware identity.
+    local_nodes = {}
+    for o in facts:
+        r, p = runs[o['collector_run_id']], o['payload']
+        if o['kind'] == 'local_interface' and r['target_id'] is None and local_scope_matches(r, p):
+            ctx = context(r)
+            n = node('local_interface', ctx, [p['interface'], p['ip']], ips=[p['ip']], interface=p['interface'])
+            evidence(n, [o], presence=True)
+            local_nodes[(ctx, p['ip'])] = n
+
     def valid_ipmac(o):
         p = o['payload']
         # RFC 4293 invalid(2), incomplete(7); RFC 1213 invalid(2).
-        return bool(p.get('mac')) and p.get('entry_type') not in {2, 'invalid'} and p.get('state') not in {2, 7, 'invalid', 'incomplete', 'failed'}
+        return individual_mac(p.get('mac')) and p.get('entry_type') not in {2, 'invalid'} and p.get('state') not in {2, 7, 'invalid', 'incomplete', 'failed'}
 
     # Per-context IP/MAC pairs prevent proxy ARP from collapsing many IPs.
     pairs = defaultdict(lambda: defaultdict(list))
     for o in facts:
         r = runs[o['collector_run_id']]
-        if o['kind'] in {'neighbor', 'ip_mac'} and valid_ipmac(o) and (o['kind'] != 'neighbor' or local_scope_matches(r, o['payload'])):
+        if o['kind'] in {'neighbor', 'ip_mac'} and valid_ipmac(o) and (o['kind'] != 'neighbor' or local_host_address(r, o['payload'])):
             pairs[context(r)][(o['payload']['ip'], o['payload']['mac'])].append(o)
     endpoints_by_mac = defaultdict(list)
     endpoints_by_ip = defaultdict(list)
     for ctx, entries in sorted(pairs.items()):
         for (ip, mac), obs in sorted(entries.items()):
+            local = local_nodes.get((ctx, ip))
+            if local is not None:
+                evidence(local, obs)
+                claims = local.setdefault('neighbor_mac_claims', [])
+                if mac not in claims:
+                    claims.append(mac)
+                    claims.sort()
+                warn('LOCAL_IP_NEIGHBOR_CLAIM', local['id'], [o['observation_id'] for o in obs])
+                if len(claims) > 1:
+                    warn('IP_MAC_CONFLICT', local['id'], local['evidence'])
+                continue
             n = node('endpoint', ctx, [ip, mac], ips=[ip], macs=[mac], provisional=False)
             evidence(n, obs, presence=any(o['freshness'] == 'fresh' for o in obs))
             endpoints_by_mac[(ctx, mac)].append(n)
@@ -112,13 +157,15 @@ def derive(data, *, max_skew=300):
             n = node('local_interface', ctx, [p['interface'], p['ip']], ips=[p['ip']], interface=p['interface'])
             evidence(n, [o], presence=True)
         elif o['kind'] == 'probe_result':
-            if not local_scope_matches(r, p):
+            if not local_host_address(r, p):
                 continue
             probes[ctx][p['ip']] = p['result']
             if p['result'] != 'reply':
                 continue
             matches = endpoints_by_ip[(ctx, p['ip'])]
-            if len(matches) == 1:
+            if (ctx, p['ip']) in local_nodes:
+                n = local_nodes[(ctx, p['ip'])]
+            elif len(matches) == 1:
                 n = matches[0]
             else:
                 n = node('endpoint', ctx, [p['ip'], None], ips=[p['ip']], provisional=True)
@@ -126,6 +173,8 @@ def derive(data, *, max_skew=300):
                     warn('IP_MAC_CONFLICT', n['id'], [o['observation_id']])
             evidence(n, [o], presence=True)
         elif o['kind'] == 'neighbor':
+            if not local_host_address(r, p):
+                continue
             for n in endpoints_by_ip[(ctx, p['ip'])]:
                 edge('logical_membership', n['id'], seg['id'], '', confidence='unknown', observation_ids=n['evidence'])
             continue
@@ -286,10 +335,10 @@ def derive(data, *, max_skew=300):
         if key not in source_nodes:
             continue
         for o in obs:
-            if o['kind'] != 'fdb_entry' or not o['payload'].get('mac'):
+            if o['kind'] != 'fdb_entry':
                 continue
             p = o['payload']
-            if p.get('status') in {1, 2, 4, 'invalid', 'self'} or p.get('bridge_port') == 0:
+            if not individual_mac(p.get('mac')) or p.get('status') in {1, 2, 4, 'invalid', 'self'} or p.get('bridge_port') == 0:
                 warn('INVALID_FDB', source_nodes[key]['id'], [o['observation_id']]); continue
             bridge_obs = bridges[key].get(p.get('bridge_port'), [])
             indices = {b['payload']['if_index'] for b in bridge_obs if b['payload'].get('if_index')}

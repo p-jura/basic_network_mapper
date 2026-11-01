@@ -67,3 +67,7 @@ Zatwierdzenie użytkownika: „zatwierdzam wdrozenie dzialaj przy nastepnym plan
 ## Późniejszy rzeczywisty odbiór LAN
 
 25 października, po osobnej zgodzie operatora, wykonano jeden cykl z panelu 0.4.0. Kolekcja zakończyła się poprawnie, lecz wykryto błędne mapowanie wpisu rozgłoszeniowego ARP i duplikat własnego IPv4. [Odbiór LAN i ustalenia](ODBIOR_LAN_2026-10-25.md) oraz [dane zbiorcze](ODBIOR_LAN_2026-10-25.json). Wyniki nie zmieniają historycznych 49 testów; wskazują brakujące przypadki regresji i blokują pełny odbiór mapy przed poprawkami.
+
+## Uzupełnienie — poprawki 0.4.1
+
+Ustalenia LAN-01/LAN-02/LAN-03 wdrożono zgodnie z [ADR-008](../decisions/ADR-008-poprawki-po-odbiorze-lan.md). [Raport i instrukcja](../etap-4-1/RAPORT_ETAP_4_1.md) opisują 54 testy, rzeczywisty snapshot przeliczony offline oraz odtworzenie błędu formularza w przeglądarce. Wcześniejsze wyniki tego dokumentu pozostają historyczne; nie wykonano nowego skanu ani pełnego odbioru Etapu 5.

@@ -73,7 +73,7 @@ def read_view(root, pid, cycle=None):
     with Repository(root, pid, forbidden=forbidden(config)) as repo:
         graph = build(repo, cycle)
         repo._json(graph)
-        return {'graph': graph, 'history': history(repo, limit=100), 'snapshots': repo.snapshots()}
+        return {'graph': graph, 'history': history(repo, limit=100, rules_version=graph['rules_version']), 'snapshots': repo.snapshots()}
 
 
 def credential_status(config):

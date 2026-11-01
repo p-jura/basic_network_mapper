@@ -8,7 +8,11 @@ Mapa odróżnia przynależność logiczną od przypisania do portu. Brak dostęp
 
 ## Stan
 
-Wersja **0.4.0**. Wdrożono panel operatora: projekty, konfiguracja/preview, start/postęp/anulowanie, opcjonalne odświeżanie, mapa z filtrami i szczegółami, historia oraz eksporty JSON/CSV/PNG/SVG. Przeszło 49 testów krytycznych i odbiór syntetyczny na macOS ARM. Etap 4 zatwierdzono 25 października 2026 r.; przygotowano plan Etapu 5 do zatwierdzenia. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane; łączny RAM aplikacja+karta wymaga pomiaru. Dodatkowy [odbiór rzeczywistego LAN](docs/etap-4/ODBIOR_LAN_2026-10-25.md) potwierdził działanie kolekcji, ale ujawnił dwa błędy mapy do poprawienia przed pakowaniem.
+Wersja kandydująca **0.5.0rc1**. Wdrożono pakowanie ZIP z lokalnymi zależnościami, instalacją offline, manifestem/hashami, skryptami startu i spójnym backupem. Czysta instalacja macOS ARM, 58 krytycznych testów, panel/eksporty i próby aktualizacji przeszły odbiór techniczny. [Raport Etapu 5](docs/etap-5/RAPORT_ETAP_5.md) rozdziela wykonane próby i otwarte warunki. Windows x64 ZIP przygotowano do odbioru operatora; samo zbudowanie go nie potwierdza Windows/NTFS.
+
+Panel obsługuje projekty, konfigurację i podgląd zakresu, postęp/anulowanie, opcjonalne odświeżanie, mapę, szczegóły, historię i eksporty. Reguły 2 zawierają [poprawki LAN 0.4.1](docs/etap-4-1/RAPORT_ETAP_4_1.md). Pełny Etap 5 pozostaje otwarty: Windows/NTFS, sprzęt SNMP/SSH, fizyczny odbiór bez Internetu/cache, łączny RAM oraz pełna weryfikacja materiałów komponentów. Kandydat służy lokalnemu odbiorowi; nie opublikowano wydania.
+
+**Planowane rozszerzenie:** [Etap 5A — samodzielne paczki bez instalowania Pythona](docs/poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md) czeka na zatwierdzenie. Dzisiejszy 0.5.0rc1 nadal wymaga Python 3.13 u odbiorcy.
 
 Jedna aplikacja: Python 3.13, SQLite, NetworkX, psutil, PySNMP, Netmiko/ntc-templates i Dash/dash-cytoscape. Darmowe komponenty open source, bez chmury, triali i licencyjnych limitów urządzeń. Odczyty urządzeń są wyłącznie do odczytu; projekty i poświadczenia pozostają odseparowane. Bez rozbudowanego CI/CD.
 
@@ -36,7 +40,7 @@ Do samodzielnego odkrywania autoryzowanej sieci uruchom `./.venv/bin/mapper pane
 ## Dokumentacja
 
 - [Spis dokumentacji](docs/README.md).
-- [Etap 5 — plan odbioru i pakowania MVP do zatwierdzenia](docs/poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md).
+- [Etap 5 — zatwierdzony plan odbioru i pakowania MVP](docs/poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md).
 - [Wymagania](docs/WYMAGANIA_PROJEKTU.md) i [plan wdrożenia](docs/PLAN_STARTOWY.md).
 - [Uruchomienie i odbiór Etapu 3](docs/poradniki/ETAP_3_URUCHOMIENIE_I_ODBIOR.md) oraz [raport](docs/etap-3/RAPORT_ETAP_3.md).
 - [Etap 4 — zatwierdzony plan panelu](docs/poradniki/ETAP_4_PANEL_I_PRZEPLYW_OPERATORA.md).

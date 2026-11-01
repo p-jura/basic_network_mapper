@@ -1,12 +1,12 @@
 # ADR-007 — pakowanie i odbiór pierwszego wydania
 
-Data: 2026-10-25. Status: **propozycja do zatwierdzenia z planem Etapu 5**. Użytkownik zaakceptował wynik Etapu 4 i zlecił następny plan; nie zatwierdził jeszcze implementacji tego ADR. Podstawa: D01–D03/D09–D14, [ADR-004](ADR-004-licencja-i-dystrybucja.md), [plan Etapu 5](../poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md).
+Data: 2026-10-25. Status: **zatwierdzony do wdrożenia 25 października 2026 r.** Użytkownik osobno potwierdził „Tak, zatwierdzam wdrożenie Etapu 5” na pytanie o ZIP z lokalnymi zależnościami i odbiór instalacji, bez publikacji i nowych skanów. Podstawą kodu są także poprawki LAN 0.4.1. Podstawa: D01–D03/D09–D14, [ADR-004](ADR-004-licencja-i-dystrybucja.md), [plan Etapu 5](../poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md).
 
 ## Problem
 
 Wheel własnego kodu i developerskie venv nie stanowią jeszcze odebranego wydania dla Windows/macOS. Brakuje czystej instalacji, prób sprzętowych, pełnego pomiaru zasobów i zamknięcia materiałów faktycznie przekazywanych bibliotek. MVP ma pozostać jedną aplikacją bez rozbudowanego CI/CD i nowych protokołów.
 
-## Proponowane decyzje
+## Przyjęte decyzje
 
 1. Pierwszy pakiet to dwa archiwa platformowe jednego produktu: macOS ARM i Windows x64. Własny wheel, dokładne koła zależności, lock z hashami, skrypty instalacji/startu, instrukcje i odpowiednie materiały komponentów. Python 3.13 jest wymaganiem przygotowanego stanowiska. Venv tworzy się na miejscu; nie przenosimy developerskiego środowiska i nie dołączamy teraz interpretera ani narzędzia EXE/DMG.
 2. Instalacja wyłącznie z lokalnego wheelhouse, --no-index/--only-binary/--require-hashes. Brak pliku lub niezgodność hash kończy instalację. Start nie pobiera bibliotek. Zmiana wersji zależności tylko z przyczyn zgodności i z zapisaną weryfikacją; macOS lock nie jest lockiem Windows.
@@ -20,4 +20,8 @@ Wheel własnego kodu i developerskie venv nie stanowią jeszcze odebranego wydan
 
 Mały zakres skryptów i standardowe mechanizmy Python/pip służą szybkiemu wydaniu; nie dodają usług. Odbiorca musi wcześniej mieć zgodnego Pythona, co trzeba ujawnić w START_TUTAJ. Koła i testy natywne są platformowe, mimo wspólnego kodu aplikacji. Zmiana na instalator z interpreterem wymaga ponownej decyzji o pakowaniu, dystrybucji i odbiorze.
 
-Przed wdrożeniem wymagane jest zatwierdzenie tego ADR i planu. Zatwierdzenie Etapu 4 nie oznacza wykonania przyszłych prób ani odbioru całego MVP.
+Zatwierdzono implementację ADR i planu. Przyszłe próby i końcowy odbiór wymagają rzeczywistych dowodów; zgoda na wykonanie nie oznacza ich zaliczenia.
+
+## Propozycja późniejszej zmiany — 1 listopada 2026 r.
+
+Przygotowano [ADR-009](ADR-009-samodzielne-paczki-z-interpreterem.md) i [plan 5A](../poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md) dotyczące dołączenia interpretera. Oczekują na zatwierdzenie; nie zastępują jeszcze powyższych decyzji ani nie zmieniają kontraktu istniejącego 0.5.0rc1.

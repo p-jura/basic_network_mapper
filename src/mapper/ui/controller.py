@@ -205,7 +205,7 @@ class Controller:
                 self.update(job, state='building')
                 graph = build(repo, result['cycle_id'])
                 repo._json(graph)
-                key = self.cache({'graph': graph, 'history': history(repo), 'snapshots': repo.snapshots()})
+                key = self.cache({'graph': graph, 'history': history(repo, rules_version=graph['rules_version']), 'snapshots': repo.snapshots()})
             if result['execution_status'] != 'finished' or result['coverage_status'] != 'complete':
                 self.disarm()
             return {**result, 'view': key}

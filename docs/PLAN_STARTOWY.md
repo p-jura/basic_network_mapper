@@ -1,6 +1,8 @@
 # Plan wdrożenia — własny mapper z darmowych komponentów
 
-Data aktualizacji: 25 października 2026 r. Etapy 0–2 mają zapisane wcześniejsze zatwierdzenia. Na bazie implementacji 0.3.1 użytkownik zatwierdził plan Etapu 4 słowami „masz zgode na dzialanie. Wdrazaj”. Wdrożono 0.4.0 i wykonano odbiór techniczny offline; użytkownik zatwierdził wynik 25 października 2026 r. Przygotowano plan Etapu 5 do zatwierdzenia przed wdrożeniem. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane. Dokument nie zastępuje raportów sprzętowych i nie autoryzuje nowych sond.
+Data aktualizacji: 1 listopada 2026 r. Etapy 0–2 mają zapisane wcześniejsze zatwierdzenia. Na bazie implementacji 0.3.1 użytkownik zatwierdził plan Etapu 4 słowami „masz zgode na dzialanie. Wdrazaj”. Wdrożono 0.4.0 i wykonano odbiór techniczny offline; użytkownik zatwierdził wynik 25 października 2026 r. Użytkownik osobno zatwierdził wdrożenie Etapu 5; przygotowano kandydata 0.5.0rc1, a odbiór całości pozostaje otwarty. Rzeczywiste SNMP/SSH i Windows/NTFS pozostają nieodebrane. Dokument nie zastępuje raportów sprzętowych i nie autoryzuje nowych sond.
+
+**Nowe planowanie:** na polecenie „ok utworz plan dzialania” przygotowano [Etap 5A — paczki bez systemowego Pythona](poradniki/ETAP_5A_SAMODZIELNE_PACZKI_BEZ_PYTHONA.md), [propozycję ADR-009](decisions/ADR-009-samodzielne-paczki-z-interpreterem.md) i [kartę prób](etap-5a/KARTA_ODBIORU_ETAP_5A.md). Status: do zatwierdzenia przed kodem. Bieżące 0.5.0rc1 i wynik jego odbioru pozostają bez zmian.
 
 ## 1. Cel i granica wykorzystania istniejących rozwiązań
 
@@ -118,7 +120,7 @@ Offline: lokalny snapshot, panel i eksport bez Internetu, CDN i uruchamiania kol
 
 ## 8. Etapy i punkty odbioru
 
-**Aktualny krok:** Etap 4 zatwierdzony w przedstawionym zakresie 25 października 2026 r. Przygotowano [plan Etapu 5 — odbiór i pakowanie MVP](poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [propozycję ADR-007](decisions/ADR-007-pakowanie-i-odbior-wydania.md) oraz [kartę prób](etap-5/KARTA_ODBIORU_ETAP_5.md). Plan czeka na zatwierdzenie przed implementacją. Nie potwierdzono jeszcze Windows/NTFS, realnego SNMP/SSH, pełnego testu bez Internetu/cache ani łącznego RAM aplikacja+karta; odbiór Etapu 4 nie zamyka tych zadań. Wersja aplikacji pozostaje 0.4.0. Późniejszy [rzeczywisty odbiór LAN](etap-4/ODBIOR_LAN_2026-10-25.md) wykazał poprawną kolekcję, ale błędny endpoint rozgłoszeniowy i duplikat własnego IPv4. Ich poprawa i regresja offline mają pierwszeństwo przed pakowaniem; pełny odbiór mapy nie jest zaliczony.
+**Aktualny krok:** Etap 4 zatwierdzony w przedstawionym zakresie 25 października 2026 r. Przygotowano [plan Etapu 5 — odbiór i pakowanie MVP](poradniki/ETAP_5_ODBIOR_I_PAKOWANIE_MVP.md), [propozycję ADR-007](decisions/ADR-007-pakowanie-i-odbior-wydania.md) oraz [kartę prób](etap-5/KARTA_ODBIORU_ETAP_5.md). Plan zatwierdzono do wdrożenia słowami „Tak, zatwierdzam wdrożenie Etapu 5”. [Raport kandydata](etap-5/RAPORT_ETAP_5.md) opisuje wykonany odbiór macOS i pozostałe warunki. Nie potwierdzono jeszcze Windows/NTFS, realnego SNMP/SSH, pełnego testu bez Internetu/cache ani łącznego RAM aplikacja+karta; odbiór Etapu 4 nie zamyka tych zadań. Baza poprawek LAN: 0.4.1; bieżący kandydat pakietu: 0.5.0rc1. Późniejszy [rzeczywisty odbiór LAN](etap-4/ODBIOR_LAN_2026-10-25.md) wykazał poprawną kolekcję, ale błędny endpoint rozgłoszeniowy i duplikat własnego IPv4. Poprawiono je w 0.4.1: [raport regresji offline](etap-4-1/RAPORT_ETAP_4_1.md). Formularz odtworzono i poprawiono w rzeczywistej przeglądarce na danych syntetycznych. Pełny odbiór przyszłej paczki pozostaje niewykonany; implementację Etapu 5 zatwierdzono osobno, a końcowy odbiór nadal wymaga wyników.
 
 | Etap | Zakres | Wynik |
 |---|---|---|
@@ -127,7 +129,8 @@ Offline: lokalny snapshot, panel i eksport bez Internetu, CDN i uruchamiania kol
 | 2. Model i kolektory | Obserwacje lokalne i zarządzające, SQLite, statusy/świeżość, limity, izolacja, IF/ARP/FDB/VLAN/LLDP | Snapshot z dowodami; brak SNMP nie blokuje kolektora podstawowego |
 | 3. Topologia i historia | Segment logiczny, korelacja rozszerzona, uplinki, konflikty, confidence, porównania zakresów | Poprawne mapy i historia na kontrolowanych danych |
 | 4. Panel | Scenariusz bez seedów, opcjonalne profile, postęp, mapa, filtry, szczegóły, eksporty | Kompletny przepływ operatora |
-| 5. Odbiór i pakowanie | Sieć domowa bez zarządzania i sieć z SNMP/SSH, Windows/macOS, instalacja | MVP z jawnymi granicami wsparcia |
+| 4.1. Poprawki LAN | Broadcast, własny IPv4, odtwarzanie formularza i wersja reguł | Wdrożono 0.4.1, 54 testy i replay offline OK; wynik do zatwierdzenia |
+| 5. Odbiór i pakowanie | Windows/macOS, instalacja, protokoły i materiały komponentów | 0.5.0rc1: paczki obu platform, odbiór macOS OK; pełny odbiór otwarty |
 
 Cel organizacyjny: tygodnie pracy, bez wielomiesięcznego budowania własnych protokołów. Wstępna rezerwa: Etap 1 2–4 dni; Etap 2 4–6; Etap 3 3–4; Etap 4 3–4; Etap 5 2–3. Łącznie 14–21 dni pracy i 3–5 dni bufora po przygotowaniu stanowisk; szacunek do korekty po Etapie 1. Oczekiwanie na urządzenia i drugi OS zwiększa czas kalendarzowy. Nie jest to obietnica pełnego wsparcia każdego producenta, VRF/MLAG ani każdego hosta.
 

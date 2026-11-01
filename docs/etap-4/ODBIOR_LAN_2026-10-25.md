@@ -57,3 +57,7 @@ Przygotować i zatwierdzić mały zakres poprawek LAN-01/LAN-02 oraz odtworzenie
 Reguły topologii mają wersjonowane, niezmienne wyniki w SQLite. Poprawka nie może pozostawić tej samej wersji reguł i ponownie odczytywać błędnego cache; należy zapisać decyzję o zmianie reguł/replay przed kodem. Surowy snapshot v1 pozostaje dowodem. Początkową regresję można wykonać **offline na tym samym przebiegu, bez kolejnego skanu**.
 
 To odbiór aktualnego kodu 0.4.0, nie nowej paczki Etapu 5. Nie zalicza Windows/NTFS, SNMP/SSH, instalacji offline ani pełnej macierzy wydania. Historyczne zatwierdzenie Etapu 4 pozostaje zapisane; nowy raport ujawnia luki, które trzeba usunąć przed uznaniem mapy i MVP za gotowe.
+
+## Uzupełnienie — poprawki 0.4.1
+
+Ustalenia LAN-01/LAN-02/LAN-03 wdrożono zgodnie z [ADR-008](../decisions/ADR-008-poprawki-po-odbiorze-lan.md). [Raport i instrukcja](../etap-4-1/RAPORT_ETAP_4_1.md) opisują 54 testy, rzeczywisty snapshot przeliczony offline oraz odtworzenie błędu formularza w przeglądarce. Wcześniejsze wyniki tego dokumentu pozostają historyczne; nie wykonano nowego skanu ani pełnego odbioru Etapu 5.
